@@ -4,3 +4,7 @@ class Tournoi:
         self.lieu = lieu
         self.date = date
         self.nbr_rounds = nbr_rounds
+
+    def CreatTournoi(self):
+        nom= input("saisie nom")
+
