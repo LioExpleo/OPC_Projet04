@@ -1,7 +1,7 @@
 import os
 import time
 
-class MainMenu():
+class ClassMainMenu():
     def __init__(self, id_tournoi, clavier,niv0,niv1,niv2):
         self.clavier = clavier
         self.niv0 = niv0
@@ -35,6 +35,9 @@ class MainMenu():
                 if (menu_niv0 == "1" and clavier=="w"):
                     menu_niv1 = clavier
                     print ("création de l'instance de classe pour création du tournoi")
+                    #Echange avec le contrôleur qui créé l'instance de tournoi à partir du modèle
+                    #L'échange
+
                     print("Nom, lieu, date mise en auto, date de fin mise en auto")
 
                 # affiche tous les tournois
@@ -124,6 +127,4 @@ class MainMenu():
             os._exit(0)
 
         print ("self.clavier")
-        #return self.clavier
-        return ("self.clavier")
-    #clavier = ""
+        return (id_tournoi,clavier,menu_niv0,menu_niv1,menu_niv2)

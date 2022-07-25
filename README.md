@@ -1,4 +1,4 @@
-# Projet_2
+# Projet_4
 #Gérer les tournois d'échecs et les joueurs au sein d'un club d'échec.
 #Projet effectué par Lionel R. dans le cadre de la formation « Openclassroom »  - développeur d’applications python-.
 

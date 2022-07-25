@@ -1,48 +1,9 @@
 import json
-
+import datetime
 # noinspection PyUnresolvedReferences
 from tinydb import TinyDB,Query,where
 
-db = TinyDB('db.json')
-db.insert({'type': 'apple', 'count': 7})
-db.insert({'type': 'peach', 'count': 3})
-
-#print(db.all())
-
-print()
-#print (db.all)
-
-#TinyDB - Représente ta base de donnée
-#Query - Permet d'interroger ta base de donnée
-#where - Permet d'affiner tes critères de recherche
-
-
-
-#db = TinyDB('db.json')
-#db_joueurs = db.table('joueurs')
-#db_joueurs.insert(joueur)
-'''
-from tinydb import TinyDB, Query
-from pprint import pprint
-
-db = TinyDB('db.json')
-fruits = db.table('fruits')
-
-fruits.insert({'type': 'fraise', 'quantite': 4})
-fruits.insert({'type': 'orange', 'quantite': 1})
-fruits.insert({'type': 'banane', 'quantite': 7})
-
-pprint(fruits.all())
-#[{'quantite': 4, 'type': 'fraise'},
-#{'quantite': 1, 'type': 'orange'},
-#{'quantite': 7, 'type': 'banane'}]
-
-fichier db.json:
-{"fruits": {"1": {"type": "fraise", "quantite": 4}, "2": {"type": "orange", "quantite": 1}, "3": {"type": "banane", "quantite": 7}}}
-'''
-
-
-class Joueurs:
+class ClassJoueurs:
     #def __init__(self, nom, prénom, date_naissance, sexe, classement, score_total, score_tournoi):
     def __init__(self, nom,prénom,date_naissance,sexe,classement,score_total,score_round):
         self.nom = nom
@@ -53,38 +14,57 @@ class Joueurs:
         self.score_total = score_total
         self.score_round = score_round
 
+#Permet la création de tous les joueurs un par un, ils seront mis dans la bd par le contrôleur ou directement ici
 
     def CreatJoueurs(self):
-        nom= input("saisie nom : ")
-        prénom = input("saisie prénom : ")
-        date_naissance = input("date : ")
-        sexe = input("saisie sexe h ou f : " )
-        classement = input("classement : ")
-        #score_total = input("score total : ")
-        #score_round = input("score round : ")
+        nom= input("saisie nom :\n")
+        prénom = input("saisie prénom : \n")
+        date_naissance = input ("date (format DD/MM/YYYY): \n")
+        #date_naissance=input(datetime.datetime(2020,6,19))
 
-        print()
-        print("nom: " + nom)
-        print("prénom : " + prénom)
-        print("date de naissance : " + date_naissance)
-        print("sexe : " + sexe)
-        print("classement : " + classement)
-        #print("score total : " + score_total)
-        #print("score round : " + score_round)
+        sexe = input("saisie sexe h ou f : \n" )
+        classement = input("classement : \n")
+        #score_total = input("score total : \n")
+        #score_round = input("score round : \n")
 
-        joueur ={"nom_1":nom , "prénom_1 ":prénom, "date de naissance_1 : " : date_naissance,
-                 "sexe_1  : " : sexe, "classement_1  : " : classement}
-
+        joueur ={"nom":nom , "prénom":prénom, "date de naissance" : date_naissance,
+                 "sexe" : sexe, "classement" : classement}
+        return (joueur)
+'''
         #Ecrire dans le fichier json fichier_joueur le contenu de joueur
         with open('data.json', 'w') as fichier_joueur:
             json.dump(joueur, fichier_joueur)
+        print ("fichier_joueur")
+        print(fichier_joueur)
 
+        #lire le fichier data.json
         with open('data.json') as fichier_joueur:
             data = json.load(fichier_joueur)
-
+            print("data")
             print(data)
-            #print(data.nom_1)
-            #print(data.nom_1)
-        return ()
+        # TinyDB - Représente ta base de donnée
+        # Query - Permet d'interroger ta base de donnée
+        # where - Permet d'affiner tes critères de recherche
+        from tinydb import TinyDB, Query, where
+        Todo = Query()
+
+        # Création de la table db_joueurs
+        db_joueurs = TinyDB('db.json')
+
+        # purge de la table
+        #db_joueurs.truncate()
+
+        # insertion des joueurs dans la table db_joueurs
+        Prenom="test-prenom"
+        db_joueurs.insert(
+            {'nom': 'DUPONT', 'prénom': Prenom, 'date_naissance': '01/01/2000', 'sexe': 'f', 'classement': '100',
+             'score_total': '2', 'score_round': '0.5'})
+        db_joueurs.insert(
+            {'nom': 'Duchnoc', 'prénom': 'Joe', 'date_naissance': '01/01/2010', 'sexe': 'h', 'classement': '02',
+             'score_total': '0', 'score_round': '0'})
 
 
+
+        print()
+        return (joueur)
+'''
