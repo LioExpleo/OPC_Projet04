@@ -115,12 +115,15 @@ from Vue.menu import ClassMainMenu
 #Import à partir de directory -Modele- et du prog -Match- de la classe -Match-
 #from Modele.Joueurs import Joueurs
 
+
+
 id_tournoi = ""
 saisie_clavier =""
 menu_niv_0 = ""
 menu_niv_1 = ""
 menu_niv_2 = ""
 derniere_saisie=""
+Joueurs=""
 
 while (saisie_clavier!="E"):
     #Lancer la méthode CommandeClavier de la classe MainMenu
@@ -152,7 +155,7 @@ while (saisie_clavier!="E"):
     if (menu_niv_0 == "2" and menu_niv_1 =="w"):
 
         #nom,prénom=Joueurs(nom="azert",prénom="").CreatJoueurs()
-        Joueurs(nom="azert",prénom="", date_naissance="01/01/2001",sexe="x",classement="0",score_total="0",score_round="0").CreatJoueurs()
+        #Joueurs(nom="azert",prénom="", date_naissance="01/01/2001",sexe="x",classement="0",score_total="0",score_round="0").CreatJoueurs()
 
         print ("appel de la méthode de la classe pour créer les joueurs")
         #joueurs = créer_joueurs()
@@ -165,8 +168,6 @@ while (saisie_clavier!="E"):
 
     avant_deniere_saisie = derniere_saisie
     derniere_saisie = saisie_clavier
-
-
 
 else:
     os._exit(0)

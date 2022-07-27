@@ -18,6 +18,9 @@ class ClassJoueurs:
 
     def CreatJoueurs(self):
         nom= input("saisie nom :\n")
+        if nom=="":
+            nom ="X"
+            print("en absence de nom, le nom par défaut est \"X\"")
         prénom = input("saisie prénom : \n")
         date_naissance = input ("date (format DD/MM/YYYY): \n")
         #date_naissance=input(datetime.datetime(2020,6,19))
@@ -27,8 +30,15 @@ class ClassJoueurs:
         #score_total = input("score total : \n")
         #score_round = input("score round : \n")
 
+        #Serialize l'instance joueurs
         joueur ={"nom":nom , "prénom":prénom, "date de naissance" : date_naissance,
                  "sexe" : sexe, "classement" : classement}
+
+        #reconversion de l'instance sérialisée
+        print("serialized nom")
+        name=(joueur['nom'])
+        print(name)
+
         return (joueur)
 '''
         #Ecrire dans le fichier json fichier_joueur le contenu de joueur

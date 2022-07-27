@@ -1,6 +1,8 @@
 """création du tournoi - appel du modele tournoi afin de creer le tounroi"""
-
+import os
 from Vue.menu import ClassMainMenu
+from Modele.Joueurs import ClassJoueurs
+import json
 from Modele.Joueurs import ClassJoueurs
 import json
 
@@ -19,33 +21,117 @@ def main_controleur():
                 print("return menu niv2 : " + menu_niv_2)
                 print("return id_tournoi : " + id_tournoi)
 
-                if (menu_niv_0 == "2" and menu_niv_1 =="w"):
-                        print ("Creation joueurs")
-                        poubelle = ""
-                        inst_creat_joueurs = ClassJoueurs.CreatJoueurs(poubelle)
+                from tinydb import TinyDB, Query, where
+                Todo = Query()
+                # Création de la base de donnée db_joueurs
+                db_joueurs = TinyDB('joueurs.json')
+
+                #Ajouter des joueurs
+                if (menu_niv_0 == "J" and menu_niv_1 =="w"):
+                        print ("Creation joueurs, retapez \"w\" une fois le 1er créé pour retaper le suivant")
+                        joueur = ""
+                        inst_creat_joueurs = ClassJoueurs.CreatJoueurs(joueur)
+
                         # Ecrire dans le fichier json fichier_joueur le contenu de joueur
-                        with open('joueurs.json', 'w') as fichier_joueur:
-                                json.dump(inst_creat_joueurs, fichier_joueur)
+                        #with open('joueurs.json', 'w') as fichier_joueur:
+                        #        json.dump(inst_creat_joueurs, fichier_joueur)
+
+                        #CREATION DE LA TABLE DB JOUEURS
+                        # TinyDB - Représente ta base de donnée
+                        # Query - Permet d'interroger ta base de donnée
+                        # where - Permet d'affiner tes critères de recherche
+                        ####################from tinydb import TinyDB, Query, where
+                        ####################Todo = Query()
+
+                        # Recherche répertoire courant
+                        wd = os.getcwd()
+
+                        # *************** verif si fichier existe
+                        working_directory = str(wd)
+                        working_directory_db = working_directory + "/joueurs.json"
+                        mode_ouv_fichier_json = "a+"
+                        try:
+                               with open('joueurs.json', mode_ouv_fichier_json) as fichier_joueur:
+                               #with open(working_directory_db):
+                                       print("fichier joueurs.json ouvert en mode \""+ str(mode_ouv_fichier_json) +"\"")
+                                       pass
+                        except IOError:
+                               print("Erreur! Le fichier n a pas pu être ouvert")
+                        # *********************************************************
+
+                        # Création de la base de donnée db_joueurs
+                        #db_joueurs = TinyDB('joueurs.json')
+
+                        # Insertion du joueur saisi dans la base de donnée
+                        db_joueurs.insert(inst_creat_joueurs)
+                        #db_joueurs.insert(inst_creat_joueurs)
 
                         print("fichier_joueur")
                         print(fichier_joueur)
+                        print("db_joueurs")
+                        print(db_joueurs.all())
 
+                # Afficher la liste des joueurs
+                if (menu_niv_0 == "J" and menu_niv_1 == "r"):
+                        #import json
+                        with open('joueurs.json') as mon_fichier:
+                                dico = json.load(mon_fichier)
+                        #print("data dico")
+                        index = 0
 
-                        #CreatJoueurs()
+                        #Reboucler à l'infini, quand "except KeyError", la liste est terminée
+                        while (index >= 0):
+                                index = index +1
+                                str_index = str(index)
+                                try :
+                                        nom_dico = (dico["_default"][str_index])  # [""]
+                                        print("dico, joueur : " + str_index)
+                                        print(nom_dico)
+                                except KeyError:
+                                        index=index-1
+                                        print()
+                                        print("fin de la liste des " + str(index) + " joueurs\n")
+                                        break
+                                '''
+                                De la même manière, vous pouvez également supprimer des documents:
+
+                                >>> db.remove(Fruit.count < 5)
+                                >>> db.all()
+                                [{'count': 10, 'type': 'apple'}]
+                                
+                                Vous pouvez également itérer sur les documents stockés :
+
+                                >>> for item in db:
+                                >>>     print(item)
+                                {'count': 7, 'type': 'apple'}
+                                {'count': 3, 'type': 'peach'}
+                                Bien sûr, vous voudrez également rechercher des documents spécifiques. Essayons:
+                                >>> Fruit = Query()
+                                >>> db.search(Fruit.type == 'peach')
+                                [{'count': 3, 'type': 'peach'}]
+                                >>> db.search(Fruit.count > 5)
+                                [{'count': 7, 'type': 'apple'}]
+                                
+                                Ensuite, nous allons mettre à jour le champ des pommes:count
+                                >>> db.update({'count': 10}, Fruit.type == 'apple')
+                                >>> db.all()
+                                [{'count': 10, 'type': 'apple'}, {'count': 3, 'type': 'peach'}]
+                                '''
+                #supprimer un joueur de la liste pour éventuellement le ressaisir
+                if (menu_niv_0 == "J" and menu_niv_1 == "sup" and menu_niv_2 !=""):
+                        #int_menu_niv_2 = int(menu_niv_2)
+                        #print("int_menu_niv_2")
+                        #print (int_menu_niv_2 )
+                        with open('joueurs.json') as mon_fichier:
+                                dico = json.load(mon_fichier)
+                        db_joueurs.remove(Todo.nom == menu_niv_2)
+
+                #purge de la base de donnée
+                if (menu_niv_0 == "J" and menu_niv_1 == "purge" and menu_niv_2 == "o"):
+                        # purge de la table
+                        db_joueurs.truncate()
 
         return(menu_niv_0,menu_niv_1,menu_niv_2,id_tournoi)
-
-
-
-#faire un programme qui prend en paramètre ou attribut (menu_niv_0,menu_niv_1,menu_niv_2,id_tournoi)
-#et lance une commande en sortie
-
-#si niv0 = 1 et w, creation de l'instance de classe pour écrire un tournoi - commande "write_tournoi"
-#si niv0 = 1 et l, creation de l'instance de classe pour afficher la liste des tournois - commande "requête_tournoi"
-#si niv0 = 1 et c, creation de l'instance de classe pour charger un tournoi - commande
-
-#si niv0 = 2 et w, creation de l'instance de classe pour écrire les 8 joueurs dans la base de donnée - commande "write_joueurs"
-#si niv0 = 3 et l, creation de l'instance de classe pour lire les joueurs du tournoi - commande "Requete_joueurs"
 
 '''
         print("TOURNOI : ")
