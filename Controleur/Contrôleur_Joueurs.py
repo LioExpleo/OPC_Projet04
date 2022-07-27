@@ -1,14 +1,13 @@
 """création du tournoi - appel du modele tournoi afin de creer le tounroi"""
-
-'''
 import os
+import re
 from Vue.menu import ClassMainMenu
 from Modele.Joueurs import ClassJoueurs
 import json
 from Modele.Joueurs import ClassJoueurs
 import json
 
-def main_controleur():
+def main_controleur_joueurs():
         saisie_clavier =""
         menu_niv_0 = ""
         menu_niv_1 = ""
@@ -80,6 +79,43 @@ def main_controleur():
                                 dico = json.load(mon_fichier)
                         #print("data dico")
                         index = 0
+                        #faire une fonction qui supprime les {, [, et qui remplace chaque { par un \n
+                        serialised_joueurs = db_joueurs.all()
+                        str_joueurs = str(serialised_joueurs)
+                        print (str_joueurs)
+                        char = "{"
+                        for x in range(len(char)):
+                                print_liste_joueurs = str_joueurs.replace(char,"\n")
+                                print_liste_joueurs = print_liste_joueurs.replace("}", "")
+                                print_liste_joueurs = print_liste_joueurs.replace(",", "")
+
+                        print_liste_joueurs = print_liste_joueurs.replace("[", "")
+                        print_liste_joueurs = print_liste_joueurs.replace("]", "")
+
+                        print("liste des joueurs de la base de données :")
+                        print(print_liste_joueurs + "\n")
+
+                        '''
+                        while (index >= 0):
+                                index = index + 1
+                                str_index = str(index)
+                                try:
+                                        nom_dico = (dico["_default"][str_index])  # [""]
+                                        print("dico, joueur : " + str_index)
+                                        print(nom_dico)
+                                except KeyError:
+                                        index = index - 1
+                                        print()
+                                        print("fin de la liste des " + str(index) + " joueurs\n")
+                                        break
+
+                        print(db_joueurs.search(Todo.nom != 'f'))
+                        #[{'count': 3, 'type': 'peach'}]
+                        #>> > db.search(Fruit.count > 5)
+                        #[{'count': 7, 'type': 'apple'}]
+
+
+
 
                         #Reboucler à l'infini, quand "except KeyError", la liste est terminée
                         while (index >= 0):
@@ -94,7 +130,7 @@ def main_controleur():
                                         print()
                                         print("fin de la liste des " + str(index) + " joueurs\n")
                                         break
-                                '''
+                        
                                 De la même manière, vous pouvez également supprimer des documents:
 
                                 >>> db.remove(Fruit.count < 5)
@@ -118,7 +154,10 @@ def main_controleur():
                                 >>> db.update({'count': 10}, Fruit.type == 'apple')
                                 >>> db.all()
                                 [{'count': 10, 'type': 'apple'}, {'count': 3, 'type': 'peach'}]
-                                '''
+                                           
+                        '''
+                        #print(db_joueurs.all())
+
                 #supprimer un joueur de la liste pour éventuellement le ressaisir
                 if (menu_niv_0 == "J" and menu_niv_1 == "sup" and menu_niv_2 !=""):
                         #int_menu_niv_2 = int(menu_niv_2)

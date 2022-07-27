@@ -1,9 +1,9 @@
 
 from Vue.menu import ClassMainMenu
-from Controleur.main import main_controleur
+from Controleur.Contrôleur_Joueurs import main_controleur_joueurs
 
 
-main_controleur()
+main_controleur_joueurs()
 '''
 saisie_clavier =""
 menu_niv_0 = ""

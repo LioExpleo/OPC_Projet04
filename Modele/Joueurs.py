@@ -21,6 +21,9 @@ class ClassJoueurs:
         if nom=="":
             nom ="X"
             print("en absence de nom, le nom par défaut est \"X\"")
+        if nom == "r":
+            nom = "_x"
+            print("r est un nom interdit, cela correspond à une commande clavier, le nom par défaut enregistré est \"_r\"")
         prénom = input("saisie prénom : \n")
         date_naissance = input ("date (format DD/MM/YYYY): \n")
         #date_naissance=input(datetime.datetime(2020,6,19))
