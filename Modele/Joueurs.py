@@ -4,7 +4,6 @@ import datetime
 from tinydb import TinyDB,Query,where
 
 class ClassJoueurs:
-    #def __init__(self, nom, prénom, date_naissance, sexe, classement, score_total, score_tournoi):
     def __init__(self, nom,prénom,date_naissance,sexe,classement,score_total,score_round):
         self.nom = nom
         self.prénom = prénom
@@ -15,7 +14,6 @@ class ClassJoueurs:
         self.score_round = score_round
 
 #Permet la création de tous les joueurs un par un, ils seront mis dans la bd par le contrôleur ou directement ici
-
     def CreatJoueurs(self):
         nom= input("saisie nom :\n")
         if nom=="":
@@ -38,9 +36,9 @@ class ClassJoueurs:
                  "sexe" : sexe, "classement" : classement}
 
         #reconversion de l'instance sérialisée
-        print("serialized nom")
-        name=(joueur['nom'])
-        print(name)
+        name = (joueur['nom'])
+        print("serialized nom pour exemple : " + name)
+        print( "fin appel instance modele joueur de contrôleur joueur \n")
 
         return (joueur)
 '''

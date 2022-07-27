@@ -1,9 +1,7 @@
-"""création du tournoi - appel du modele tournoi afin de creer le tounroi"""
+"""création des joueurs - appel du modele joueur lors de la création des joueurs"""
 import os
 import re
 from Vue.menu import ClassMainMenu
-from Modele.Joueurs import ClassJoueurs
-import json
 from Modele.Joueurs import ClassJoueurs
 import json
 
@@ -54,7 +52,7 @@ def main_controleur_joueurs():
                         try:
                                with open('joueurs.json', mode_ouv_fichier_json) as fichier_joueur:
                                #with open(working_directory_db):
-                                       print("fichier joueurs.json ouvert en mode \""+ str(mode_ouv_fichier_json) +"\"")
+                                       #print("fichier joueurs.json ouvert en mode \""+ str(mode_ouv_fichier_json) +"\"")
                                        pass
                         except IOError:
                                print("Erreur! Le fichier n a pas pu être ouvert")
@@ -67,9 +65,9 @@ def main_controleur_joueurs():
                         db_joueurs.insert(inst_creat_joueurs)
                         #db_joueurs.insert(inst_creat_joueurs)
 
-                        print("fichier_joueur")
-                        print(fichier_joueur)
-                        print("db_joueurs")
+                        #print("fichier_joueur")
+                        #print(fichier_joueur)
+                        print("affichage db_joueurs de contrôleur joueurs")
                         print(db_joueurs.all())
 
                 # Afficher la liste des joueurs
