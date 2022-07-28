@@ -3,6 +3,7 @@ import os
 import re
 from Vue.menu import ClassMainMenu
 from Modele.Joueurs import ClassJoueurs
+
 import json
 
 def main_controleur_joueurs():
@@ -12,7 +13,7 @@ def main_controleur_joueurs():
         menu_niv_2 = ""
         derniere_saisie=""
 
-        while (saisie_clavier!="E"):
+        while (saisie_clavier!="E"):w
                 #Lancer la méthode CommandeClavier de la classe MainMenu
                 id_tournoi,saisie_clavier, menu_niv_0, menu_niv_1, menu_niv_2 = ClassMainMenu(id_tournoi="", clavier="",niv0=menu_niv_0,niv1=menu_niv_1,niv2=menu_niv_2 ).CommandeClavier()
                 print ("return menu niv0 : "+ menu_niv_0)
