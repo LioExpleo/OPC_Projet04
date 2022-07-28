@@ -2,7 +2,7 @@ import os
 import time
 
 from Modele.Joueurs import ClassJoueurs
-from Controleur.Contrôleur_Tournoi import ClassControleurTournoi
+#from Controleur.Contrôleur_Tournoi import ClassControleurTournoi
 #from Controleur.Test_Contrôleur_Joueurs import creat_joueurs
 #from Controleur.Contrôleur_Joueurs import main_controleur_joueurs
 
@@ -78,7 +78,7 @@ class ClassMainMenu():
                 if (menu_niv0 == "T" and clavier=="c"):
                     menu_niv1 = clavier
                     print("chargment du tournoi avec son id")
-                    #main_controleur_tournoi()
+
                 # ***************************************************************************************************************************
                 # ***************************************************************************************************************************
                 # MENU JOUEURS

@@ -1,10 +1,13 @@
 import json
 import datetime
+import os
+
 # noinspection PyUnresolvedReferences
 from tinydb import TinyDB,Query,where
 
 class ClassJoueurs:
-    def __init__(self, nom,prénom,date_naissance,sexe,classement,score_total,score_round):
+    def __init__(self, id_joueur,nom,prénom,date_naissance,sexe,classement,score_total,score_round):
+        self.id_joueur=id_joueur
         self.nom = nom
         self.prénom = prénom
         self.date_naissance = date_naissance
@@ -15,6 +18,7 @@ class ClassJoueurs:
 
 #Permet la création de tous les joueurs un par un, ils seront mis dans la bd par le contrôleur ou directement ici
     def CreatJoueurs(self):
+
         nom= input("saisie nom :\n")
         if nom=="":
             nom ="X"
@@ -32,54 +36,69 @@ class ClassJoueurs:
 
         sexe = input("saisie sexe h ou f : \n" )
         classement = input("classement : \n")
-        #score_total = input("score total : \n")
-        #score_round = input("score round : \n")
 
-        #Serialize l'instance joueurs
-        joueur ={"nom":nom , "prénom":prénom, "date de naissance" : date_naissance,
-                 "sexe" : sexe, "classement" : classement}
-
-        #reconversion de l'instance sérialisée
-        name = (joueur['nom'])
-        print("serialized nom pour exemple : " + name)
-        print( "fin appel instance modele joueur de contrôleur joueur \n")
-
-        return (joueur)
-'''
-        #Ecrire dans le fichier json fichier_joueur le contenu de joueur
-        with open('data.json', 'w') as fichier_joueur:
-            json.dump(joueur, fichier_joueur)
-        print ("fichier_joueur")
-        print(fichier_joueur)
-
-        #lire le fichier data.json
-        with open('data.json') as fichier_joueur:
-            data = json.load(fichier_joueur)
-            print("data")
-            print(data)
-        # TinyDB - Représente ta base de donnée
-        # Query - Permet d'interroger ta base de donnée
-        # where - Permet d'affiner tes critères de recherche
+        # identifiant joueur
+        import json
         from tinydb import TinyDB, Query, where
         Todo = Query()
+        db_joueurs = TinyDB('joueurs.json')
+        mode_ouv_fichier_json = "r"
+        with open('joueurs.json', mode_ouv_fichier_json) as fichier_joueur:
+            print("")
 
-        # Création de la table db_joueurs
-        db_joueurs = TinyDB('db.json')
+        #import operator
+        db_joue = TinyDB('joueurs.json')
 
-        # purge de la table
-        #db_joueurs.truncate()
+        #Rechercher un id libre dans la base de donnée en incrémentant l'id de test jusqu'à trouver un ID libre
+        joueur_cherché = 1
+        joueur_trouvé = 0
+        id_libre=0
 
-        # insertion des joueurs dans la table db_joueurs
-        Prenom="test-prenom"
-        db_joueurs.insert(
-            {'nom': 'DUPONT', 'prénom': Prenom, 'date_naissance': '01/01/2000', 'sexe': 'f', 'classement': '100',
-             'score_total': '2', 'score_round': '0.5'})
-        db_joueurs.insert(
-            {'nom': 'Duchnoc', 'prénom': 'Joe', 'date_naissance': '01/01/2010', 'sexe': 'h', 'classement': '02',
-             'score_total': '0', 'score_round': '0'})
+        #Si l' id_joueur_cherché n'est pas trouvé, on le prend pour le mettre à l'id du nouveau joueur
+        #sinon, on reboucle jusqu'a trouver un id libre. On commence par regarder si l'id 1 existe
+        joueur_trouvé = db_joueurs.search(Todo.id_joueur == joueur_cherché)
+        joueur_trouv = str(joueur_trouvé)
+        #recherche de la position de id_joueur dans la chaine
+        char = 'id_joueur'
+        PositDebNbre = (joueur_trouv.find(char))
+        # recherche de la position de nom dans la chaine
+        char = "nom"
+        PositFinNbre = (joueur_trouv.find(char))
 
+        #Recherche de l'id à partir des positions précédentes et suivantes'
+        id_joueur = joueur_trouv[(PositDebNbre + 12): (PositFinNbre - 3)]
+        print("id_joueur")
+        print (id_joueur)
 
+        #tant que l'id cherché existe, on recherche jusqu'à en trouver un libre en l'incrémentant
+        while (id_joueur !=""):
+            joueur_cherché = joueur_cherché + 1
+            joueur_trouvé = db_joueurs.search(Todo.id_joueur == joueur_cherché)
+            joueur_trouv = str(joueur_trouvé)
+            char = 'id_joueur'
+            PositDebNbre = (joueur_trouv.find(char))
 
-        print()
+            print("PositDebNbre")
+            print(PositDebNbre)
+            char = "nom"
+            PositFinNbre = (joueur_trouv.find(char))
+            print("PositFinNbre")
+            print(PositFinNbre)
+
+            id_joueur = joueur_trouv[(PositDebNbre + 12): (PositFinNbre - 3)]
+            print("id_joueur")
+            print(id_joueur)
+
+        else:
+            id_libre = joueur_cherché
+
+        id_joueur=id_libre
+        #Serialize l'instance joueurs
+        joueur ={"id_joueur":id_joueur,"Nom":nom , "Prénom":prénom, "Date de naissance" : date_naissance,
+                 "Sexe" : sexe, "Classement" : classement}
+
+        #exemple de reconversion de l'instance sérialisée
+        name = (joueur['Nom'])
+        print("serialized nom pour exemple : " + name)
+        print( "fin appel instance modele joueur de contrôleur joueur \n")
         return (joueur)
-'''
