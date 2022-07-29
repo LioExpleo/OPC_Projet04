@@ -1,7 +1,6 @@
 import os
-import time
 
-from Modele.Joueurs import ClassJoueurs
+
 #from Controleur.Contrôleur_Tournoi import ClassControleurTournoi
 #from Controleur.Test_Contrôleur_Joueurs import creat_joueurs
 #from Controleur.Contrôleur_Joueurs import main_controleur_joueurs
@@ -70,11 +69,15 @@ class ClassMainMenu():
                     print(
                         "donc noter les caractéristiques de tous les tounrois portant ce nom pour éventuellement les ressaisir.")
 
+                #suppression d'un tournoi
                 if (menu_niv0 == "T" and menu_niv1 == "sup" and clavier != "sup"):
                     menu_niv2 = clavier
-                    #main_controleur_tournoi()
 
-                # charger un tournoi
+                #Sélection d'un tournoi
+                #if (menu_niv0 == "T" and menu_niv1 == "s"):
+                #    menu_niv2 = clavier
+
+                # sélectionner le tournoi et les joueurs dans le tournoi
                 if (menu_niv0 == "T" and clavier=="c"):
                     menu_niv1 = clavier
                     print("chargment du tournoi avec son id")

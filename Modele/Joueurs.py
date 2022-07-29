@@ -1,15 +1,11 @@
-import json
-import datetime
-import os
-
 # noinspection PyUnresolvedReferences
 from tinydb import TinyDB,Query,where
 
 class ClassJoueurs:
-    def __init__(self, id_joueur,nom,prénom,date_naissance,sexe,classement,score_total,score_round):
+    def __init__(self, id_joueur,nom,prenom,date_naissance,sexe,classement,score_total,score_round):
         self.id_joueur=id_joueur
         self.nom = nom
-        self.prénom = prénom
+        self.prenom = prénom
         self.date_naissance = date_naissance
         self.sexe = sexe
         self.classement = classement
@@ -30,16 +26,15 @@ class ClassJoueurs:
             nom = "_E"
             print("E est un nom interdit, cela correspond à une commande clavier, le nom par défaut enregistré est \"_E\"")
 
-        prénom = input("saisie prénom : \n")
+        prenom = input("saisie prénom : \n")
         date_naissance = input ("date (format DD/MM/YYYY): \n")
         #date_naissance=input(datetime.datetime(2020,6,19))
 
         sexe = input("saisie sexe h ou f : \n" )
         classement = input("classement : \n")
 
-        # identifiant joueur
-        import json
-        from tinydb import TinyDB, Query, where
+        #CREATION DE L'ID DU JOUEUR ************************************
+        from tinydb import TinyDB, Query
         Todo = Query()
         db_joueurs = TinyDB('joueurs.json')
         mode_ouv_fichier_json = "r"
@@ -47,17 +42,17 @@ class ClassJoueurs:
             print("")
 
         #import operator
-        db_joue = TinyDB('joueurs.json')
+        db_joue = TinyDB('joueurs.json') #A SUPPRIMER
 
         #Rechercher un id libre dans la base de donnée en incrémentant l'id de test jusqu'à trouver un ID libre
-        joueur_cherché = 1
-        joueur_trouvé = 0
+        joueur_cherche = 1
+        joueur_trouve = 0
         id_libre=0
 
         #Si l' id_joueur_cherché n'est pas trouvé, on le prend pour le mettre à l'id du nouveau joueur
         #sinon, on reboucle jusqu'a trouver un id libre. On commence par regarder si l'id 1 existe
-        joueur_trouvé = db_joueurs.search(Todo.id_joueur == joueur_cherché)
-        joueur_trouv = str(joueur_trouvé)
+        joueur_trouve = db_joueurs.search(Todo.id_joueur == joueur_cherche)
+        joueur_trouv = str(joueur_trouve)
         #recherche de la position de id_joueur dans la chaine
         char = 'id_joueur'
         PositDebNbre = (joueur_trouv.find(char))
@@ -72,9 +67,9 @@ class ClassJoueurs:
 
         #tant que l'id cherché existe, on recherche jusqu'à en trouver un libre en l'incrémentant
         while (id_joueur !=""):
-            joueur_cherché = joueur_cherché + 1
-            joueur_trouvé = db_joueurs.search(Todo.id_joueur == joueur_cherché)
-            joueur_trouv = str(joueur_trouvé)
+            joueur_cherche = joueur_cherche + 1
+            joueur_trouve = db_joueurs.search(Todo.id_joueur == joueur_cherche)
+            joueur_trouv = str(joueur_trouve)
             char = 'id_joueur'
             PositDebNbre = (joueur_trouv.find(char))
 
@@ -90,11 +85,11 @@ class ClassJoueurs:
             print(id_joueur)
 
         else:
-            id_libre = joueur_cherché
+            id_libre = joueur_cherche
 
         id_joueur=id_libre
         #Serialize l'instance joueurs
-        joueur ={"id_joueur":id_joueur,"Nom":nom , "Prénom":prénom, "Date de naissance" : date_naissance,
+        joueur ={"id_joueur":id_joueur,"Nom":nom , "Prenom":prenom, "Date de naissance" : date_naissance,
                  "Sexe" : sexe, "Classement" : classement}
 
         #exemple de reconversion de l'instance sérialisée

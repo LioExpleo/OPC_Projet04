@@ -1,7 +1,7 @@
 #from Controleur.main import main_control
+from Controleur.Ctrl_Joueurs import creat_joueurs, lect_joueurs, sup_joueurs, purge_joueurs
+from Controleur.Ctrl_Tournoi import creat_tournois, lect_tournois, sup_tournois, purge_tournois, charge_joueurs_tournoi
 from Vue.menu import ClassMainMenu
-from Controleur.Ctrl_Joueurs import creat_joueurs,lect_joueurs,sup_joueurs,purge_joueurs
-from Controleur.Ctrl_Tournoi import creat_tournois,lect_tournois,sup_tournois,purge_tournois,charge_joueurs_tournoi
 
 saisie_clavier = ""
 menu_niv_0 = ""
