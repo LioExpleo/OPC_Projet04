@@ -46,10 +46,12 @@ def lect_joueurs():# Afficher la liste des joueurs
         for x in range(len(char)):
                 print_liste_joueurs = str_joueurs.replace(char,"\n")
                 print_liste_joueurs = print_liste_joueurs.replace("}", "")
-                print_liste_joueurs = print_liste_joueurs.replace(",", "")
+                print_liste_joueurs = print_liste_joueurs.replace(",", "         ")
+                print_liste_joueurs = print_liste_joueurs.replace("'", " ")
+                #print_liste_joueurs = print_liste_joueurs.replace(":", " ")
 
         print_liste_joueurs = print_liste_joueurs.replace("[", "")
-        print_liste_joueurs = print_liste_joueurs.replace("]", "")
+        print_liste_joueurs = print_liste_joueurs.replace("]", "    ")
 
         print("liste des joueurs de la base de données :")
         print(print_liste_joueurs + "\n")

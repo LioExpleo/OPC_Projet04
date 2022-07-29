@@ -4,11 +4,20 @@ import datetime
 from tinydb import TinyDB,Query,where
 
 class ClassTournoi:
-    def __init__(self, nom, lieu, date, nbr_rounds=4):
+    def __init__(self, id_tournoi,nom, lieu, date, nbr_rounds=4,id_j1=0,id_j2=0,id_j3=0,id_j4=0,id_j5=0,id_j6=0,id_j7=0,id_j8=0):
+        self.id_tournoi = id_tournoi
         self.nom = nom
         self.lieu = lieu
         self.date = date
         self.nbr_rounds = nbr_rounds
+        self.id_j1 = id_j1
+        self.id_j2 = id_j2
+        self.id_j3 = id_j3
+        self.id_j4 = id_j4
+        self.id_j5 = id_j5
+        self.id_j6 = id_j6
+        self.id_j7 = id_j7
+        self.id_j8 = id_j8
 
     def CreatTournois(self):
         nom= input("saisie nom : \n")
@@ -29,8 +38,64 @@ class ClassTournoi:
         if nbr_rounds =="":
             nbr_rounds ="4"
 
+        # identifiant tournoi
+        import json
+        from tinydb import TinyDB, Query, where
+        Todo = Query()
+        db_tournoi = TinyDB('tournois.json')
+        mode_ouv_fichier_json = "r"
+        with open('tournois.json', mode_ouv_fichier_json) as fichier_joueur:
+            print("")
+
+        # Rechercher un id libre dans la base de donnée en incrémentant l'id de test jusqu'à trouver un ID libre
+        tournoi_cherche = 1
+        tournoi_trouve = 0
+        id_libre = 0
+
+        # Si l' id_tournoi_cherché n'est pas trouvé, on le prend pour le mettre à l'id du nouveau tournoi
+        # sinon, on reboucle jusqu'a trouver un id libre. On commence par regarder si l'id 1 existe
+        tournoi_trouve = db_tournoi.search(Todo.id_tournoi == tournoi_cherche)
+        tournoi_trouv = str(tournoi_trouve)
+        # recherche de la position de id_joueur dans la chaine
+        char = 'id_tournoi'
+        PositDebNbre = (tournoi_trouv.find(char))
+        # recherche de la position de nom dans la chaine
+        char = "nom"
+        PositFinNbre = (tournoi_trouv.find(char))
+
+        # Recherche de l'id à partir des positions précédentes et suivantes'
+        id_tournoi = tournoi_trouv[(PositDebNbre + 12): (PositFinNbre - 3)]
+        print("id_tournoi")
+        print(id_tournoi)
+
+        # tant que l'id cherché existe, on recherche jusqu'à en trouver un libre en l'incrémentant
+        while (id_tournoi != ""):
+            tournoi_cherche = tournoi_cherche + 1
+            tournoi_trouve = db_tournoi.search(Todo.id_tournoi == tournoi_cherche)
+            tournoi_trouv = str(tournoi_trouve)
+            char = 'id_tournoi'
+            PositDebNbre = (tournoi_trouv.find(char))
+
+            print("PositDebNbre")
+            print(PositDebNbre)
+            char = "nom"
+            PositFinNbre = (tournoi_trouv.find(char))
+            print("PositFinNbre")
+            print(PositFinNbre)
+
+            id_tournoi = tournoi_trouv[(PositDebNbre + 12): (PositFinNbre - 3)]
+            print("id_tournoi")
+            print(id_tournoi)
+
+        else:
+            id_libre = tournoi_cherche
+
+        id_tournoi = id_libre
+        id_j1="";id_j2="";id_j3="";id_j4="";id_j5="";id_j6="";id_j7="";id_j8=""
+
         # Serialize l'instance tournoi
-        tournoi = {"nom": nom, "lieu": lieu, "date du tournoi": date,
-                  "nombre de rounds": nbr_rounds}
+        tournoi = {"id_tournoi": id_tournoi,"nom": nom, "lieu": lieu, "date du tournoi": date,
+                  "nombre de rounds": nbr_rounds, "id_j1":id_j1,"id_j2":id_j2,"id_j3":id_j3,"id_j4":id_j4,"id_j5":id_j5,"id_j6":id_j6,"id_j7":id_j7,"id_j8":id_j8,}
 
         return (tournoi)
+
