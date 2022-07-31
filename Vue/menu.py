@@ -20,21 +20,18 @@ class ClassMainMenu():
         menu_niv2 = self.niv2
         id_tournoi = self.id_tournoi
 
+        # *********************************** Exit prog *********************************
         while (clavier != "E"):
             clavier = input("Entrez une commande valide help pour aide ")
             if (clavier != "") and (clavier != "E") :
                 if (clavier == "help"):
                     print( "1 pour ..., 2 pour..., 3 pour ..." )
 
-                # MENU TOURNOI
+                # *********************************** MENU TOURNOI *********************************
                 if (clavier == "T"):
                     menu_niv0 = clavier; menu_niv1= ""; menu_niv2=""
                     print ("TOURNOI : ")
                     print("r pour afficher la liste des tournois - w pour créer un nouveau tournoi, c pour charger un tournoi existant")
-                    #ClassControleurTournoi()
-                    #print (" Vous avez entré :" + clavier + " TOURNOIS : r pour consultation des tournois, w pour création d'un nouveau tournoi")
-                    # si r, requête pour récupération des données d'un tournoi
-                    # si w, création d'un tournoi
 
                 #création d'un tournoi
                 if (menu_niv0 == "T" and clavier=="w"):
@@ -44,22 +41,20 @@ class ClassMainMenu():
                     #Echange avec le contrôleur qui créé l'instance de tournoi à partir du modèle
                     print("Nom, lieu, date mise en auto, date de fin mise en auto")
                     tournoi=""
-                    #InstCreatTournoi = ClassControleurTournoi(tournoi).main_controleur_tournoi()
-                # affiche tous les tournois
+
+                #affichage se tous les tournois
                 if (menu_niv0 == "T" and clavier=="r"):
                     menu_niv1 = clavier
                     print("requête pour afficher la liste des tournois")
-                    #main_controleur_tournoi()
-                #*******************************
-                # possibilité de purger la table, utile pour debug
+
+                #purge de la table des tournois, utile pour debug
                 if (menu_niv0 == "T" and clavier == "purge"):
                     menu_niv1 = clavier
                     print("vous allez purger la base de donnée des tournois tapez :\"o\" pour confirmer")
                 if (menu_niv0 == "T" and menu_niv1 == "purge" and clavier == "o"):
                     menu_niv2 = clavier
-                    #main_controleur_tournoi()
 
-                # possibilité d'effacer un joueur de la liste si erreur de saisie
+                #effacement d'un joueur de la liste si erreur de saisie
                 if (menu_niv0 == "T" and clavier == "sup"):
                     menu_niv1 = clavier
                     print(
@@ -73,64 +68,57 @@ class ClassMainMenu():
                 if (menu_niv0 == "T" and menu_niv1 == "sup" and clavier != "sup"):
                     menu_niv2 = clavier
 
-                #Sélection d'un tournoi
-                #if (menu_niv0 == "T" and menu_niv1 == "s"):
-                #    menu_niv2 = clavier
-
-                # sélectionner le tournoi et les joueurs dans le tournoi
+                # sélectionner du tournoi et chargement des joueurs dans le tournoi
                 if (menu_niv0 == "T" and clavier=="c"):
                     menu_niv1 = clavier
-                    print("chargment du tournoi avec son id")
+                    print("chargement du tournoi avec son id")
 
-                # ***************************************************************************************************************************
-                # ***************************************************************************************************************************
-                # MENU JOUEURS
+
+                #************************************MENU JOUEURS *********************************
                 if (clavier == "J"):
                     menu_niv0 = clavier;menu_niv1 = "";menu_niv2 = ""
                     print("JOUEURS : ")
                     print (" Vous avez entré : " + clavier + " JOUEURS TOURNOIS EN COURS: r pour lecture, w pour création de joueurs, c pour charger")
-                    #main_controleur_joueurs()
-                    #Si r, requête pour récupération des données des données des joueurs d'un tournoi
-                    #21 pour données joueurs 1, 22 pour données joueur 2....
-                    # si w, création des joueurs d'un tournoi, touche entrée pour passer au joueur suivant..
 
                 #création de la liste des joueurs
                 if (menu_niv0 == "J" and clavier == "w"):
                     menu_niv1 = clavier
                     print ("création de la liste des joueurs, nom, prénom, date de naissance, sexe, classement")
 
-                # affichage la liste des joueurs pour les sélectionner ensuite dans le tournoi
+                #affichage la liste des joueurs pour les sélectionner ensuite dans le tournoi
                 if (menu_niv0 == "J" and clavier == "r"):
                     menu_niv1 = clavier
 
-
-                # possibilité de purger la table, utile pour debug
+                #purge de la table des joueurs, utile pour debug
                 if (menu_niv0 == "J" and clavier == "purge"):
                     menu_niv1 = clavier
                     print("vous allez purger la base de donnée des joueurs tapez :\"o\" pour confirmer")
-
                 if (menu_niv0 == "J" and menu_niv1 == "purge" and clavier == "o"):
                     menu_niv2 = clavier
 
-
-                # possibilité d'effacer un joueur de la liste si erreur de saisie
+                #effacement un joueur de la liste si erreur de saisie
                 if (menu_niv0 == "J" and clavier == "sup"):
                     menu_niv1 = clavier
                     print("vous voulez supprimer un joueur, suite à une erreur de saisie par exemple, de la liste des joueurs, tapez le nom du joueur pour le supprimer !")
                     print("Attention tous les joueurs portant ce nom seront supprimés, mais le cahier des charges ne prévoyait pas de pouvoir supprimer des joueurs,")
                     print("donc noter les caractéristiques de tous les joueurs portant ce nom pour éventuellement les ressaisir.")
-
-
                 if (menu_niv0 == "J" and menu_niv1 == "sup" and clavier!="sup"):
                     menu_niv2 = clavier
 
                 #****************************************************************
                 # MENU ROUND
                 if (clavier == "R"):
-                    menu_niv0 = clavier; menu_niv1: ""; menu_niv2: ""
-                    print (" Vous avez entré :"+ clavier + " ROUND : AFFICHE LE ROUND EN COURS ET CALCULE LES PAIRES, PUIS LES AFFICHE")
+                    menu_niv0 = clavier;
+                    menu_niv1 = "";
+                    menu_niv2 = ""
+                if (menu_niv0 == "R" and clavier == "+"):
+                    menu_niv1 = clavier #; menu_niv2: ""
+                    print (" Création d'un nouveau round :" + clavier + " Sélectionner le tournoi où les 8 joueurs ont été saisis")
 
-                # MENU MATCH
+                if (menu_niv0 == "R" and menu_niv0 == "+" and clavier != "+"):
+                    menu_niv1 = clavier
+
+                    # MENU MATCH
                 if (clavier == "M"):
                     menu_niv0 = clavier; menu_niv1: ""; menu_niv2: ""
                     print (" Vous avez entré :"+ clavier + " MATCH : r pour lecture, w pour écriture; si écriture, "
@@ -178,7 +166,7 @@ class ClassMainMenu():
                     #print(clavier)
                     return (id_tournoi,clavier,menu_niv0,menu_niv1,menu_niv2)
         else :
-            print("os.exit")
+            print("os._exit(0)")
             os._exit(0)
 
         print ("self.clavier")

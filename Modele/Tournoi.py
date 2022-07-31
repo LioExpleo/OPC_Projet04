@@ -34,9 +34,22 @@ class ClassTournoi:
         lieu = input("saisie lieu : \n")
         date = input("date (format DD/MM/YYYY): \n")
 
-        nbr_rounds = input("saisie nombre de rounds, 4 rounds si pas de saisie: \n")
+
+        nbr_rounds = input("saisie nombre de rounds, 4 rounds si pas de saisie ou erreur de saisie: \n")
+
         if nbr_rounds =="":
             nbr_rounds ="4"
+
+        try:
+            int_nbr_rounds = int(nbr_rounds)
+        except ValueError:
+            print("Nombre de round max = 7, mini = 1, 4 par défaut")
+            int_nbr_rounds = 4
+            nbr_rounds="4"
+
+        if int_nbr_rounds > 7 or int_nbr_rounds<1:
+            print("Nombre de round max = 7, mini = 1, 4 par défaut")
+            nbr_rounds = "4"
 
         # identifiant tournoi
         import json

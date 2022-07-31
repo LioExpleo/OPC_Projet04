@@ -122,7 +122,7 @@ def select_tournoi():
         str_list_tournoi = str_list_tournoi.replace('\']', '')
         str_list_tournoi = str_list_tournoi.replace('\'', 'tournoi n°')
         print("liste des numéros de tournois dans la base de donnée qu'il est possible de sélectionner :")
-        # print(str_list_tournoi)
+        print(str_list_tournoi)
 
         # Faire input de l'id, comparer avec les id de la liste, si id de la liste, mettre
         # dans le tournoi à l'emplacement de l'id 1 au début, et supprimer l'élément de la liste
@@ -144,7 +144,7 @@ def select_tournoi():
                         time.sleep(0.2)
                         id_tournoi_select = id_a_charger
                         print("Le tournoi " + id_tournoi_select + " est sélectionné")
-                        print("Vous allez pouvoir sélectionner les joueurs dans la base de donnée pour ce tournoi")
+                        #print("Vous allez pouvoir sélectionner les joueurs dans la base de donnée pour ce tournoi")
                 else:
                         print("Ce tournoi n'est pas dans la liste des tournois existants, re-saisir un tournoi de la liste")
         return (id_tournoi_select)

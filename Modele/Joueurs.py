@@ -27,11 +27,21 @@ class ClassJoueurs:
             print("E est un nom interdit, cela correspond à une commande clavier, le nom par défaut enregistré est \"_E\"")
 
         prenom = input("saisie prénom : \n")
+        if prenom=="":
+            prenom = "Y"
+
         date_naissance = input ("date (format DD/MM/YYYY): \n")
         #date_naissance=input(datetime.datetime(2020,6,19))
+        if date_naissance=="":
+            date_naissance = "01-01-1900"
 
-        sexe = input("saisie sexe h ou f : \n" )
+        sexe = input("saisie sexe h ou f ou nc : \n" )
+        if sexe=="":
+            sexe ="nc"
+
         classement = input("classement : \n")
+        if classement=="":
+            classement = 10000
 
         #CREATION DE L'ID DU JOUEUR ************************************
         from tinydb import TinyDB, Query
@@ -89,8 +99,8 @@ class ClassJoueurs:
 
         id_joueur=id_libre
         #Serialize l'instance joueurs
-        joueur ={"id_joueur":id_joueur,"Nom":nom , "Prenom":prenom, "Date de naissance" : date_naissance,
-                 "Sexe" : sexe, "Classement" : classement}
+        joueur ={"id_joueur":id_joueur,"Nom":nom , "Prenom":prenom, "date de naissance" : date_naissance,
+                 "sexe" : sexe, "Classement" : classement}
 
         #exemple de reconversion de l'instance sérialisée
         name = (joueur['Nom'])
