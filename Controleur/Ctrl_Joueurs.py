@@ -12,8 +12,7 @@ db_joueurs = TinyDB('joueurs.json')
 
 def creat_joueurs():
         print ("Creation joueurs, retapez \"w\" une fois le 1er créé pour retaper le suivant")
-        joueur = ""
-        inst_creat_joueurs = ClassJoueurs.CreatJoueurs(joueur)
+        inst_creat_joueurs = ClassJoueurs.CreatJoueurs(self.__class__)
 
         wd = os.getcwd() #récupération du chemin
         print (wd)
@@ -33,7 +32,7 @@ def creat_joueurs():
 
 def lect_joueurs():# Afficher la liste des joueurs
         #import json
-        print("Test affichage des joueurs de la base de donnée")
+
         with open('joueurs.json') as mon_fichier:
                 dico = json.load(mon_fichier)
         #print("data dico")
@@ -41,7 +40,8 @@ def lect_joueurs():# Afficher la liste des joueurs
         #faire une fonction qui supprime les {, [, et qui remplace chaque { par un \n
         serialised_joueurs = db_joueurs.all()
         str_joueurs = str(serialised_joueurs)
-        print (str_joueurs)
+        #print (str_joueurs)
+        print_liste_joueurs=""
         char = "{"
         for x in range(len(char)):
                 print_liste_joueurs = str_joueurs.replace(char,"\n")
@@ -53,6 +53,7 @@ def lect_joueurs():# Afficher la liste des joueurs
         print_liste_joueurs = print_liste_joueurs.replace("[", "")
         print_liste_joueurs = print_liste_joueurs.replace("]", "    ")
 
+        print()
         print("liste des joueurs de la base de données :")
         print(print_liste_joueurs + "\n")
         return ()
@@ -61,7 +62,9 @@ def lect_joueurs():# Afficher la liste des joueurs
 def sup_joueurs(menu_niv_2):
         with open('joueurs.json') as mon_fichier:
                 dico = json.load(mon_fichier)
-        db_joueurs.remove(Todo.nom == menu_niv_2)
+        #db_joueurs.remove(Todo.Nom == menu_niv_2)
+        menu_niv_2=int(menu_niv_2)
+        db_joueurs.remove(Todo.id_joueur == menu_niv_2)
 
 #purge de la base de donnée
 def purge_joueurs():

@@ -99,17 +99,16 @@ class ClassMainMenu():
                 #effacement un joueur de la liste si erreur de saisie
                 if (menu_niv0 == "J" and clavier == "sup"):
                     menu_niv1 = clavier
-                    print("vous voulez supprimer un joueur, suite à une erreur de saisie par exemple, de la liste des joueurs, tapez le nom du joueur pour le supprimer !")
-                    print("Attention tous les joueurs portant ce nom seront supprimés, mais le cahier des charges ne prévoyait pas de pouvoir supprimer des joueurs,")
-                    print("donc noter les caractéristiques de tous les joueurs portant ce nom pour éventuellement les ressaisir.")
+                    print("vous voulez supprimer un joueur, suite à une erreur de saisie par exemple, de la liste des joueurs, tapez l'id du joueur à supprimer !")
+
                 if (menu_niv0 == "J" and menu_niv1 == "sup" and clavier!="sup"):
                     menu_niv2 = clavier
 
                 #****************************************************************
                 # MENU ROUND
                 if (clavier == "R"):
-                    menu_niv0 = clavier;
-                    menu_niv1 = "";
+                    menu_niv0 = clavier
+                    menu_niv1 = ""
                     menu_niv2 = ""
                 if (menu_niv0 == "R" and clavier == "+"):
                     menu_niv1 = clavier #; menu_niv2: ""

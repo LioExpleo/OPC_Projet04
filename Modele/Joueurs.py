@@ -15,34 +15,6 @@ class ClassJoueurs:
 #Permet la création de tous les joueurs un par un, ils seront mis dans la bd par le contrôleur ou directement ici
     def CreatJoueurs(self):
 
-        nom= input("saisie nom :\n")
-        if nom=="":
-            nom ="X"
-            print("en absence de nom, le nom par défaut est \"X\"")
-        if nom == "r":
-            nom = "_x"
-            print("r est un nom interdit, cela correspond à une commande clavier, le nom par défaut enregistré est \"_r\"")
-        if nom=="E":
-            nom = "_E"
-            print("E est un nom interdit, cela correspond à une commande clavier, le nom par défaut enregistré est \"_E\"")
-
-        prenom = input("saisie prénom : \n")
-        if prenom=="":
-            prenom = "Y"
-
-        date_naissance = input ("date (format DD/MM/YYYY): \n")
-        #date_naissance=input(datetime.datetime(2020,6,19))
-        if date_naissance=="":
-            date_naissance = "01-01-1900"
-
-        sexe = input("saisie sexe h ou f ou nc : \n" )
-        if sexe=="":
-            sexe ="nc"
-
-        classement = input("classement : \n")
-        if classement=="":
-            classement = 10000
-
         #CREATION DE L'ID DU JOUEUR ************************************
         from tinydb import TinyDB, Query
         Todo = Query()
@@ -72,8 +44,8 @@ class ClassJoueurs:
 
         #Recherche de l'id à partir des positions précédentes et suivantes'
         id_joueur = joueur_trouv[(PositDebNbre + 12): (PositFinNbre - 3)]
-        print("id_joueur")
-        print (id_joueur)
+        #print("id_joueur")
+        #print (id_joueur)
 
         #tant que l'id cherché existe, on recherche jusqu'à en trouver un libre en l'incrémentant
         while (id_joueur !=""):
@@ -83,19 +55,62 @@ class ClassJoueurs:
             char = 'id_joueur'
             PositDebNbre = (joueur_trouv.find(char))
 
-            print("PositDebNbre")
-            print(PositDebNbre)
+            #print("PositDebNbre")
+            #print(PositDebNbre)
             char = "nom"
             PositFinNbre = (joueur_trouv.find(char))
-            print("PositFinNbre")
-            print(PositFinNbre)
+            #print("PositFinNbre")
+            #print(PositFinNbre)
 
             id_joueur = joueur_trouv[(PositDebNbre + 12): (PositFinNbre - 3)]
-            print("id_joueur")
-            print(id_joueur)
+            #print("id_joueur")
+            #print(id_joueur)
 
         else:
             id_libre = joueur_cherche
+
+        nom = input("saisie nom :\n")
+        if nom == "":
+            nom = ("Joueur " + str(id_libre))
+            print("en absence de nom, le nom par défaut est " + nom)
+        if nom == "r":
+            nom = ("Joueur " + str(id_libre))
+            print("r est un nom interdit, cela correspond à une commande clavier, le nom par défaut est " + nom)
+        if nom == "E":
+            nom = ("Joueur " + str(id_libre))
+            print(
+                "E est un nom interdit, cela correspond à une commande clavier, le nom par défaut enregistré est " + nom)
+
+        prenom = input("saisie prénom : \n")
+        if prenom == "":
+            prenom = ("Prenom " + str(id_libre))
+            print("en absence de prenom, le prenom par défaut est " + prenom)
+        if prenom == "r":
+            prenom = ("Prenom " + str(id_libre))
+            print("r est un nom interdit, cela correspond à une commande clavier, le prenom par défaut est " + prenom)
+        if prenom == "E":
+            prenom = ("Prenom " + str(id_libre))
+            print(
+                "E est un nom interdit, cela correspond à une commande clavier, le prenom par défaut enregistré est " + prenom)
+
+        date_naissance = input("date (format DD/MM/YYYY): \n")
+        # date_naissance=input(datetime.datetime(2020,6,19))
+        if date_naissance == "":
+            date_naissance = "01-01-1900"
+
+        sexe = input("saisie sexe h ou f ou nc : \n")
+        assertions = ["H", "h", "F", "f"]
+        if sexe == "":
+            sexe = "nc"
+            print("en absence d'indication, le sexe est indiqué nc")
+
+        classement = input("classement : \n")
+        if classement.isdigit() :
+            print("classement ok")
+        else:
+            print("Error saisie")
+            classement=10000
+            print("en absence d'indication, le classement indiqué 10000")
 
         id_joueur=id_libre
         #Serialize l'instance joueurs

@@ -25,7 +25,7 @@ while (1<2):
 
     if (menu_niv_0 == "J" and menu_niv_1 == "r"and saisie_clavier == "r"):
     #if (menu_niv_0 == "J"):
-        print("joueurs dans la base de donnée :")
+        #print("joueurs dans la base de donnée :")
         lect_joueurs()
 
     if (menu_niv_0 == "J" and menu_niv_1 == "sup" and menu_niv_2 !=""):
@@ -45,7 +45,7 @@ while (1<2):
 
     if (menu_niv_0 == "T" and menu_niv_1 == "r"and saisie_clavier == "r"):
     #if (menu_niv_0 == "J"):
-        print("joueurs dans la base de donnée :")
+        #print("joueurs dans la base de donnée :")
         lect_tournois()
 
     if (menu_niv_0 == "T" and menu_niv_1 == "sup" and menu_niv_2 !=""):

@@ -1,5 +1,5 @@
 import json
-import datetime
+from datetime import datetime
 # noinspection PyUnresolvedReferences
 from tinydb import TinyDB,Query,where
 
@@ -20,36 +20,6 @@ class ClassTournoi:
         self.id_j8 = id_j8
 
     def CreatTournois(self):
-        nom= input("saisie nom : \n")
-        if nom=="":
-            nom ="X"
-            print("en absence de nom, le nom par défaut est \"X\"")
-        if nom == "r":
-            nom = "_x"
-            print("r est un nom interdit, cela correspond à une commande clavier, le nom par défaut enregistré est \"_r\"")
-        if nom == "E":
-            nom = "_E"
-            print("E est un nom interdit, cela correspond à une commande clavier, le nom par défaut enregistré est \"_E\"")
-
-        lieu = input("saisie lieu : \n")
-        date = input("date (format DD/MM/YYYY): \n")
-
-
-        nbr_rounds = input("saisie nombre de rounds, 4 rounds si pas de saisie ou erreur de saisie: \n")
-
-        if nbr_rounds =="":
-            nbr_rounds ="4"
-
-        try:
-            int_nbr_rounds = int(nbr_rounds)
-        except ValueError:
-            print("Nombre de round max = 7, mini = 1, 4 par défaut")
-            int_nbr_rounds = 4
-            nbr_rounds="4"
-
-        if int_nbr_rounds > 7 or int_nbr_rounds<1:
-            print("Nombre de round max = 7, mini = 1, 4 par défaut")
-            nbr_rounds = "4"
 
         # identifiant tournoi
         import json
@@ -104,6 +74,48 @@ class ClassTournoi:
             id_libre = tournoi_cherche
 
         id_tournoi = id_libre
+
+        nom = input("saisie nom : \n")
+        if nom == "":
+            nom = ("Tournoi " + str(id_tournoi))
+            print("en absence de nom, le nom par défaut est " + nom)
+        if nom == "r":
+            nom = ("Tournoi " + str(id_tournoi))
+            print("r est un nom interdit, cela correspond à une commande clavier, le nom par défaut est " + nom)
+        if nom == "E":
+            nom = ("Tournoi " + str(id_tournoi))
+            print(
+                "E est un nom interdit, cela correspond à une commande clavier, le nom par défaut enregistré est " + nom)
+
+        lieu = input("saisie lieu : \n")
+        if lieu == "":
+            lieu = ("Lieu " + str(id_tournoi))
+
+        date = input("date (format DD/MM/YYYY): \n")
+        if date =="":
+            date_heure = datetime.now()
+            str_date_heure = str(date_heure)
+            char = '.'
+            PositChar = str_date_heure.find(char)
+            str_date_heure = str_date_heure[0:(PositChar-9)]
+            date = str_date_heure
+
+        nbr_rounds = input("saisie nombre de rounds, 4 rounds si pas de saisie ou erreur de saisie: \n")
+
+        if nbr_rounds == "":
+            nbr_rounds = "4"
+
+        try:
+            int_nbr_rounds = int(nbr_rounds)
+        except ValueError:
+            print("Nombre de round max = 7, mini = 1, 4 par défaut")
+            int_nbr_rounds = 4
+            nbr_rounds = "4"
+
+        if int_nbr_rounds > 7 or int_nbr_rounds < 1:
+            print("Nombre de round max = 7, mini = 1, 4 par défaut")
+            nbr_rounds = "4"
+
         id_j1="";id_j2="";id_j3="";id_j4="";id_j5="";id_j6="";id_j7="";id_j8=""
 
         # Serialize l'instance tournoi

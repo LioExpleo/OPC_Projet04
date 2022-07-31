@@ -61,7 +61,8 @@ class ClassRound:
         while (index_joueur<9):
             id_jx = "id_j" + str(index_joueur)
             print("id_joueur " + str(index_joueur)+ ": ")
-
+            id_joueur_en_cours=""
+            int_id_joueur_en_cours=""
             try:
                 id_joueur_en_cours = (dict_tournoi[id_jx])
             except ValueError:
@@ -131,7 +132,7 @@ class ClassRound:
         print("Paire 1, par ordre de classement, 1er joueur contre 5ème")
         print("ID: " + str(liste_paire_1[0][0]) + " , Nom:" + str(liste_paire_1[0][2]) + " , Prénom : " + str(liste_paire_1[0][3]))
         print("VS")
-        print("identifiant: " + str(liste_paire_1[1][0]) + " , Nom:" + str(liste_paire_1[1][2]) + " , Prénom : " + str(liste_paire_1[1][3]))
+        print("ID: " + str(liste_paire_1[1][0]) + " , Nom:" + str(liste_paire_1[1][2]) + " , Prénom : " + str(liste_paire_1[1][3]))
         print()
 
         liste_paire_2 = []
@@ -142,7 +143,7 @@ class ClassRound:
         print("ID: " + str(liste_paire_2[0][0]) + " , Nom:" + str(liste_paire_2[0][2]) + " , Prénom : " + str(
             liste_paire_2[0][3]))
         print("VS")
-        print("identifiant: " + str(liste_paire_2[1][0]) + " , Nom:" + str(liste_paire_2[1][2]) + " , Prénom : " + str(
+        print("ID: " + str(liste_paire_2[1][0]) + " , Nom:" + str(liste_paire_2[1][2]) + " , Prénom : " + str(
             liste_paire_2[1][3]))
         print()
 
@@ -153,7 +154,7 @@ class ClassRound:
         print("Paire 3, par ordre de classement, 3eme joueur contre 7ème")
         print("ID: " + str(liste_paire_3[0][0]) + " , Nom:" + str(liste_paire_3[0][2]) + " , Prénom : " + str(liste_paire_3[0][3]))
         print("VS")
-        print("identifiant: " + str(liste_paire_3[1][0]) + " , Nom:" + str(liste_paire_3[1][2]) + " , Prénom : " + str(
+        print("ID: " + str(liste_paire_3[1][0]) + " , Nom:" + str(liste_paire_3[1][2]) + " , Prénom : " + str(
             liste_paire_3[1][3]))
         print()
 
@@ -164,14 +165,11 @@ class ClassRound:
         print("Paire 4, par ordre de classement, 4eme joueur contre 8ème")
         print("ID: " + str(liste_paire_4[0][0]) + " , Nom:" + str(liste_paire_4[0][2]) + " , Prénom : " + str(
             liste_paire_4[0][3]))
-        print("VS")
+        print("ID")
         print("identifiant: " + str(liste_paire_4[1][0]) + " , Nom:" + str(liste_paire_4[1][2]) + " , Prénom : " + str(
             liste_paire_4[1][3]))
         print()
-
         print("********** FIN DE RECUPERATION DES JOUEURS POUR LES ROUNDS ********************")
-
-
 
 
         nom = input("saisie nom du Round, Round 1 si pas de saisie:\n")

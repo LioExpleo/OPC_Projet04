@@ -15,26 +15,25 @@ def creat_tournois():
         print ("Creation tournoi tapez \"w\"")
         tournoi = ""
         inst_creat_tournois =""
-        inst_creat_tournois = ClassTournoi.CreatTournois(tournoi)
-
-        wd = os.getcwd() #récupération du chemin
-        print (wd)
-        working_directory = str(wd)
-        working_directory_db = working_directory + "/tournois.json"
+        inst_creat_tournois = ClassTournoi.CreatTournois(self.__class__)
+        #wd = os.getcwd() #récupération du chemin
+        #print (wd)
+        #working_directory = str(wd)
+        #working_directory_db = working_directory + "/tournois.json"
         mode_ouv_fichier_json = "a+"
-        with open('tournois.json', mode_ouv_fichier_json) as fichier_joueur:
+        #with open('tournois.json', mode_ouv_fichier_json) as fichier_joueur:
                 # with open(working_directory_db):
                 # print("fichier joueurs.json ouvert en mode \""+ str(mode_ouv_fichier_json) +"\"")
-                pass
+        #        pass
 
         # Insertion du joueur saisi dans la base de donnée
         db_tournois.insert(inst_creat_tournois)
-        print("affichage db_tounois de contrôleur joueurs")
-        print(db_tournois.all())
+        #print("affichage db_tounois de contrôleur joueurs")
+        #print(db_tournois.all())
         return()
 
 def lect_tournois():# Afficher la liste des joueurs
-        print("Test affichage des joueurs de la base de donnée")
+
         with open('tournois.json') as mon_fichier:
                 dico = json.load(mon_fichier)
         #print("data dico")
@@ -42,8 +41,9 @@ def lect_tournois():# Afficher la liste des joueurs
         #faire une fonction qui supprime les {, [, et qui remplace chaque { par un \n
         serialised_tournois = db_tournois.all()
         str_tournois = str(serialised_tournois)
-        print (str_tournois)
+        #print (str_tournois)
         char = "{"
+        print_liste_tournois=""
         for x in range(len(char)):
                 print_liste_tournois = str_tournois.replace(char,"\n")
                 print_liste_tournois = print_liste_tournois.replace("}", "")
@@ -52,17 +52,19 @@ def lect_tournois():# Afficher la liste des joueurs
         print_liste_tournois = print_liste_tournois.replace("[", "")
         print_liste_tournois = print_liste_tournois.replace("]", "")
 
+        print()
         print("liste des tournois de la base de données :")
         print(print_liste_tournois + "\n")
         return ()
 
 #supprimer un tournoi de la liste pour éventuellement le ressaisir
 def sup_tournois(menu_niv_2):
-        print ("SUPPRESSION D'UN TOURNOI, tapez le nom du tournoi à supprimer, attention 2 tournois pourraient porter le même nom")
+        print ("SUPPRESSION D'UN TOURNOI, tapez l'identifiant du tournoi à supprimer.")
         with open('tournois.json') as mon_fichier:
                 dico = json.load(mon_fichier)
         db_tournois = TinyDB('tournois.json')
-        db_tournois.remove(Todo.nom == menu_niv_2)
+        id_tournoi_del = int(menu_niv_2)
+        db_tournois.remove(Todo.id_tournoi == id_tournoi_del)
 
 #purge de la base de donnée
 def purge_tournois():
@@ -89,8 +91,8 @@ def select_tournoi():
 
         char = "{"
         x = 0
-        tournoi_cherché = 1
-        tournoi_trouvé = 0
+        tournoi_cherche = 1
+        #tournoi_trouvé = 0
         # for x in range(len(str_joueurs)):
         index = 1  # A SUPPRIMER
         for i in serialised_tournoi:
@@ -112,7 +114,7 @@ def select_tournoi():
                 str_tournoi = str_tournoi[(PositDebNbre + 2):-1]
                 list_tournoi.append(id_tournoi)
 
-                tournoi_cherché = tournoi_cherché + 1
+                tournoi_cherche = tournoi_cherche + 1
 
         # print("liste Id tournois")
         # print(list_tournoi)
@@ -174,8 +176,8 @@ def charge_joueurs_tournoi():
 
         char = "{"
         x=0
-        joueur_cherché = 1
-        joueur_trouvé = 0
+        joueur_cherche = 1
+        joueur_trouve = 0
         #for x in range(len(str_joueurs)):
         index=1
         for i in serialised_joueurs:
@@ -208,7 +210,7 @@ def charge_joueurs_tournoi():
                 #print("id_joueur")
                 #print(id_joueur)
                 list_joueurs.append(id_joueur)
-                joueur_cherché = joueur_cherché + 1
+                joueur_cherche = joueur_cherche + 1
         print("liste Id joueurs")
         print(list_joueurs)
         #Faire input de l'id, comparer avec les id de la liste, si id de la liste, mettre
@@ -241,19 +243,20 @@ def charge_joueurs_tournoi():
                         str_tournoi = str(serialised_tournoi)
 
                         str_tournoi = str(serialised_tournoi)
-                        print(str_tournoi)
+                        #print(str_tournoi)
                         str_id_tournoi_select = str(id_tournoi_select)
 
                         #Sélection du joueur de la table tournoi à charger
                         id_jx=("id_j"+str(joueur_a_charger))
-                        print("id-jx : " + id_jx)
-                        print ("id_tournoi_select : " +str(id_tournoi_select))
-                        print("id_a_charger : " + str(id_a_charger))
-                        print("id_jx : " + str(id_jx))
+                        #print("id-jx : " + id_jx)
+                        print ("Chargment du joueur dans le tournoi : " +str(id_tournoi_select))
+                        #print("id_a_charger : " + str(id_a_charger))
+                        #print("id_jx : " + str(id_jx))
 
                         db_tournois = TinyDB('tournois.json')
                         id_tournoi_select=int(id_tournoi_select)
                         db_tournois.update({id_jx: id_a_charger}, Todo.id_tournoi == id_tournoi_select)
                         joueur_a_charger = joueur_a_charger + 1
+
                 else:
                         print("n° de joueur absent de la liste des joueurs ou déjà sélectionné pour le tournoi")
