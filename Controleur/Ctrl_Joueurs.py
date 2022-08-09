@@ -72,7 +72,7 @@ def creat_new_joueurs():
         with open('joueurs.json', mode_ouv_fichier_json) as fichier_joueur:
                 pass
         #***************************************************************************************
-        nom = ClassVueAffichage.Input(self=True, texte1="saisie nom :")
+        nom = ClassVueAffichage.Input(self=True,texte1="saisie nom :")
         if nom == "":
                 nom = ("Joueur " + str(id_libre))
                 ClassVueAffichage.Affichage(self=True,texte1="en absence de nom, le nom par défaut est " + nom,texte2="",texte3="")
@@ -97,8 +97,7 @@ def creat_new_joueurs():
                                             texte2="", texte3="")
         if prenom == "E":
                 prenom = ("Prenom " + str(id_libre))
-                ClassVueAffichage.Affichage(self=True,
-                                            texte1="E est un nom interdit, cela correspond à une commande clavier, le prenom par défaut enregistré est " + prenom,
+                ClassVueAffichage.Affichage(self=True,texte1="E est un nom interdit, cela correspond à une commande clavier, le prenom par défaut enregistré est " + prenom,
                                             texte2="", texte3="")
 
         date_naissance = ClassVueAffichage.Input(self=True, texte1="date de naissance (format DD/MM/YYYY):")
