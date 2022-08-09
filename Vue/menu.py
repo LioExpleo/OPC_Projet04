@@ -1,10 +1,5 @@
 import os
 
-
-#from Controleur.Contrôleur_Tournoi import ClassControleurTournoi
-#from Controleur.Test_Contrôleur_Joueurs import creat_joueurs
-#from Controleur.Contrôleur_Joueurs import main_controleur_joueurs
-
 class ClassMainMenu():
     def __init__(self, id_tournoi, clavier,niv0,niv1,niv2):
         self.clavier = clavier
@@ -31,7 +26,7 @@ class ClassMainMenu():
                 if (clavier == "T"):
                     menu_niv0 = clavier; menu_niv1= ""; menu_niv2=""
                     print ("TOURNOI : ")
-                    print("r pour afficher la liste des tournois - w pour créer un nouveau tournoi, c pour charger un tournoi existant")
+                    print("r pour afficher la liste des tournois - w pour créer un nouveau tournoi, c pour charger les joueurs dans un tournoi existant")
 
                 #création d'un tournoi
                 if (menu_niv0 == "T" and clavier=="w"):
@@ -58,12 +53,7 @@ class ClassMainMenu():
                 if (menu_niv0 == "T" and clavier == "sup"):
                     menu_niv1 = clavier
                     print(
-                        "vous voulez supprimer un tournoi, suite à une erreur de saisie par exemple, de la liste des tournois, tapez le nom du tournoi pour le supprimer !")
-                    print(
-                        "Attention tous les tournois portant ce nom seront supprimés, mais le cahier des charges ne prévoyait pas de pouvoir supprimer des tournois,")
-                    print(
-                        "donc noter les caractéristiques de tous les tounrois portant ce nom pour éventuellement les ressaisir.")
-
+                        "vous voulez supprimer un tournoi, suite à une erreur de saisie par exemple, de la liste des tournois, tapez l'identifiant du tournoi pour le supprimer !")
                 #suppression d'un tournoi
                 if (menu_niv0 == "T" and menu_niv1 == "sup" and clavier != "sup"):
                     menu_niv2 = clavier
@@ -170,3 +160,72 @@ class ClassMainMenu():
 
         print ("self.clavier")
         return (id_tournoi,clavier,menu_niv0,menu_niv1,menu_niv2)
+
+    def Action_menu(self):
+        from Controleur.Ctrl_Joueurs import creat_joueurs, lect_joueurs, sup_joueurs, purge_joueurs
+        from Controleur.Ctrl_Tournoi import creat_tournois, lect_tournois, sup_tournois, purge_tournois,charge_joueurs_tournoi
+        from Controleur.Ctrl_Round import creat_round_1
+        from Vue.menu import ClassMainMenu
+
+        saisie_clavier = ""
+        menu_niv_0 = ""
+        menu_niv_1 = ""
+        menu_niv_2 = ""
+        derniere_saisie = ""
+
+        # essayer de voir s'il est possible d'appeler les fonctions directement dans le menu.py
+        while (1 < 2):
+            id_tournoi, saisie_clavier, menu_niv_0, menu_niv_1, menu_niv_2 = ClassMainMenu(id_tournoi="", clavier="",
+                                                                                           niv0=menu_niv_0,
+                                                                                           niv1=menu_niv_1,
+                                                                                           niv2=menu_niv_2).CommandeClavier()
+            print("return menu niv0 : " + menu_niv_0)
+            print("return menu niv1 : " + menu_niv_1)
+            print("return menu niv2 : " + menu_niv_2)
+            # print("return id_tournoi : " + id_tournoi)
+
+            if (menu_niv_0 == "J" and menu_niv_1 == "w" and saisie_clavier == "w"):
+                # if (menu_niv_0 == "J"):
+                print("Creation joueurs, retapez \"w\" une fois le 1er créé pour ressaisir le suivant")
+                creat_joueurs()
+
+            if (menu_niv_0 == "J" and menu_niv_1 == "r" and saisie_clavier == "r"):
+                # if (menu_niv_0 == "J"):
+                # print("joueurs dans la base de donnée :")
+                lect_joueurs()
+
+            if (menu_niv_0 == "J" and menu_niv_1 == "sup" and menu_niv_2 != ""):
+                # if (menu_niv_0 == "J"):
+                print("suppression d'un joueur")
+                sup_joueurs(menu_niv_2)
+
+            if (menu_niv_0 == "J" and menu_niv_1 == "purge"):
+                # if (menu_niv_0 == "J"):
+                print("Purge de la base de donnée des joueurs")
+                purge_joueurs()
+
+            if (menu_niv_0 == "T" and menu_niv_1 == "w" and saisie_clavier == "w"):
+                # if (menu_niv_0 == "J"):
+                print("Creation tournoi, tapez \"w\" ")
+                creat_tournois()
+
+            if (menu_niv_0 == "T" and menu_niv_1 == "r" and saisie_clavier == "r"):
+                # if (menu_niv_0 == "J"):
+                # print("joueurs dans la base de donnée :")
+                lect_tournois()
+
+            if (menu_niv_0 == "T" and menu_niv_1 == "sup" and menu_niv_2 != ""):
+                # if (menu_niv_0 == "J"):
+                print("suppression d'un tournoi")
+                sup_tournois(menu_niv_2)
+
+            if (menu_niv_0 == "T" and menu_niv_1 == "purge"):
+                # if (menu_niv_0 == "J"):
+                print("Purge de la base de donnée des joueurs")
+                purge_tournois()
+
+            if (menu_niv_0 == "T" and menu_niv_1 == "c" and saisie_clavier == "c"):
+                charge_joueurs_tournoi()
+
+            if (menu_niv_0 == "R" and menu_niv_1 == "+" and saisie_clavier == "+"):
+                creat_round_1()

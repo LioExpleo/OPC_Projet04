@@ -4,21 +4,9 @@ from datetime import datetime
 from tinydb import TinyDB,Query,where
 
 class ClassTournoi:
-    def __init__(self, id_tournoi,nom, lieu, date, nbr_rounds=4,id_j1=0,id_j2=0,id_j3=0,id_j4=0,id_j5=0,id_j6=0,id_j7=0,id_j8=0):
-        self.id_tournoi = id_tournoi
-        self.nom = nom
-        self.lieu = lieu
-        self.date = date
-        self.nbr_rounds = nbr_rounds
-        self.id_j1 = id_j1
-        self.id_j2 = id_j2
-        self.id_j3 = id_j3
-        self.id_j4 = id_j4
-        self.id_j5 = id_j5
-        self.id_j6 = id_j6
-        self.id_j7 = id_j7
-        self.id_j8 = id_j8
-
+    def __init__(self):
+        pass
+    '''
     def CreatTournois(self):
 
         # identifiant tournoi
@@ -28,8 +16,8 @@ class ClassTournoi:
         db_tournoi = TinyDB('tournois.json')
         mode_ouv_fichier_json = "r"
         with open('tournois.json', mode_ouv_fichier_json) as fichier_joueur:
-            print("")
-
+            pass
+        ''''''
         # Rechercher un id libre dans la base de donnée en incrémentant l'id de test jusqu'à trouver un ID libre
         tournoi_cherche = 1
         tournoi_trouve = 0
@@ -122,5 +110,17 @@ class ClassTournoi:
         tournoi = {"id_tournoi": id_tournoi,"nom": nom, "lieu": lieu, "date du tournoi": date,
                   "nombre de rounds": nbr_rounds, "id_j1":id_j1,"id_j2":id_j2,"id_j3":id_j3,"id_j4":id_j4,"id_j5":id_j5,"id_j6":id_j6,"id_j7":id_j7,"id_j8":id_j8,}
 
+        db_tournois.insert(inst_creat_tournois)
         return (tournoi)
+    '''
+    def CreatNewTournois(self,tournoi):
+        # insertion des données d'un tournoi dans la nase de donnée
+        import json
+        from tinydb import TinyDB, Query, where
+        Todo = Query()
+        db_tournois = TinyDB('tournois.json')
+        mode_ouv_fichier_json = "a+"
+        with open('tournois.json', mode_ouv_fichier_json) as fichier_joueur:
+            db_tournois.insert(tournoi)
 
+        return (tournoi)

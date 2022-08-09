@@ -6,15 +6,18 @@ from Vue.menu import ClassMainMenu
 from Modele.Tournoi import ClassTournoi
 import time
 import json
+from Vue.affichage import ClassVueAffichage
 from tinydb import TinyDB, Query, where
+from datetime import datetime
 Todo = Query()
 
 db_tournois = TinyDB('tournois.json')
 
+'''
 def creat_tournois():
-        print ("Creation tournoi tapez \"w\"")
         tournoi = ""
         inst_creat_tournois =""
+        self=""
         inst_creat_tournois = ClassTournoi.CreatTournois(self.__class__)
         #wd = os.getcwd() #récupération du chemin
         #print (wd)
@@ -28,20 +31,155 @@ def creat_tournois():
 
         # Insertion du joueur saisi dans la base de donnée
         db_tournois.insert(inst_creat_tournois)
-        #print("affichage db_tounois de contrôleur joueurs")
-        #print(db_tournois.all())
         return()
+'''
+def creat_new_tournois():
+        # identifiant tournoi
+        import json
+        from tinydb import TinyDB, Query, where
+        Todo = Query()
+        db_tournoi = TinyDB('tournois.json')
+        mode_ouv_fichier_json = "r"
+        with open('tournois.json', mode_ouv_fichier_json) as fichier_joueur:
+                pass
 
-def lect_tournois():# Afficher la liste des joueurs
+        # Rechercher un id libre dans la base de donnée en incrémentant l'id de test jusqu'à trouver un ID libre
+        tournoi_cherche = 1
+        tournoi_trouve = 0
+        id_libre = 0
+
+        # Si l' id_tournoi_cherché n'est pas trouvé, on le prend pour le mettre à l'id du nouveau tournoi
+        # sinon, on reboucle jusqu'a trouver un id libre. On commence par regarder si l'id 1 existe
+        tournoi_trouve = db_tournoi.search(Todo.id_tournoi == tournoi_cherche)
+        tournoi_trouv = str(tournoi_trouve)
+        # recherche de la position de id_joueur dans la chaine
+        char = 'id_tournoi'
+        PositDebNbre = (tournoi_trouv.find(char))
+        # recherche de la position de nom dans la chaine
+        char = "nom"
+        PositFinNbre = (tournoi_trouv.find(char))
+
+        # Recherche de l'id à partir des positions précédentes et suivantes'
+        id_tournoi = tournoi_trouv[(PositDebNbre + 12): (PositFinNbre - 3)]
+        #print("id_tournoi")
+        #print(id_tournoi)
+
+        # tant que l'id cherché existe, on recherche jusqu'à en trouver un libre en l'incrémentant
+        while (id_tournoi != ""):
+                tournoi_cherche = tournoi_cherche + 1
+                tournoi_trouve = db_tournoi.search(Todo.id_tournoi == tournoi_cherche)
+                tournoi_trouv = str(tournoi_trouve)
+                char = 'id_tournoi'
+                PositDebNbre = (tournoi_trouv.find(char))
+
+                #print("PositDebNbre")
+                #print(PositDebNbre)
+                char = "nom"
+                PositFinNbre = (tournoi_trouv.find(char))
+                #print("PositFinNbre")
+                #print(PositFinNbre)
+
+                id_tournoi = tournoi_trouv[(PositDebNbre + 12): (PositFinNbre - 3)]
+                #print("id_tournoi")
+                #print(id_tournoi)
+
+        else:
+                id_libre = tournoi_cherche
+
+        id_tournoi = id_libre
+
+        nom=ClassVueAffichage.Input(self=True, texte1="saisie nom :")
+        #nom = input("saisie nom : \n")
+        if nom == "":
+                nom = ("Tournoi " + str(id_tournoi))
+                ClassVueAffichage.Affichage(self=True,texte1="en absence de nom, le nom par défaut est " + nom,texte2="",texte3="")
+                #print("en absence de nom, le nom par défaut est " + nom)
+        if nom == "r":
+                nom = ("Tournoi " + str(id_tournoi))
+                ClassVueAffichage.Affichage(self=True, texte1="r est un nom interdit, cela correspond à une commande clavier, le nom par défaut est " + nom,
+                                            texte2="", texte3="")
+                #print("r est un nom interdit, cela correspond à une commande clavier, le nom par défaut est " + nom)
+        if nom == "E":
+                nom = ("Tournoi " + str(id_tournoi))
+                ClassVueAffichage.Affichage(self=True,
+                                            texte1="E est un nom interdit, cela correspond à une commande clavier, le nom par défaut enregistré est " + nom,
+                                            texte2="", texte3="")
+                #print("E est un nom interdit, cela correspond à une commande clavier, le nom par défaut enregistré est " + nom)
+
+        lieu = ClassVueAffichage.Input(self=True, texte1="saisie lieu :")
+        #lieu = input("saisie lieu : \n")
+        if lieu == "":
+                lieu = ("Lieu " + str(id_tournoi))
+
+        date = ClassVueAffichage.Input(self=True, texte1="date (format DD/MM/YYYY): ")
+        #date = input("date (format DD/MM/YYYY): \n")
+        if date == "":
+                date_heure = datetime.now()
+                str_date_heure = str(date_heure)
+                char = '.'
+                PositChar = str_date_heure.find(char)
+                str_date_heure = str_date_heure[0:(PositChar - 9)]
+                date = str_date_heure
+
+        nbr_rounds = ClassVueAffichage.Input(self=True, texte1="saisie nombre de rounds, 4 rounds si pas de saisie ou erreur de saisie: ")
+        #nbr_rounds = input("saisie nombre de rounds, 4 rounds si pas de saisie ou erreur de saisie: \n")
+
+        if nbr_rounds == "":
+                nbr_rounds = "4"
+        try:
+                int_nbr_rounds = int(nbr_rounds)
+        except ValueError:
+                ClassVueAffichage.Affichage(self=True,texte1="Nombre de round max = 7, mini = 1, 4 par défaut",texte2="",texte3="")
+                #print("Nombre de round max = 7, mini = 1, 4 par défaut")
+                int_nbr_rounds = 4
+                nbr_rounds = "4"
+
+        if int_nbr_rounds > 7 or int_nbr_rounds < 1:
+                ClassVueAffichage.Affichage(self=True, texte1="Nombre de round max = 7, mini = 1, 4 par défaut",
+                                            texte2="", texte3="")
+                #print("Nombre de round max = 7, mini = 1, 4 par défaut")
+                nbr_rounds = "4"
+
+        id_j1 = ""
+        id_j2 = ""
+        id_j3 = ""
+        id_j4 = ""
+        id_j5 = ""
+        id_j6 = ""
+        id_j7 = ""
+        id_j8 = ""
+
+        # Serialize l'instance tournoi
+        tournoi = {"id_tournoi": id_tournoi, "nom": nom, "lieu": lieu, "date du tournoi": date,
+                   "nombre de rounds": nbr_rounds, "id_j1": id_j1, "id_j2": id_j2, "id_j3": id_j3, "id_j4": id_j4,
+                   "id_j5": id_j5, "id_j6": id_j6, "id_j7": id_j7, "id_j8": id_j8, }
+
+        #inst_creat_tournois = ClassTournoi.CreatNewTournois(self=True,tournoi=tournoi)
+        # wd = os.getcwd() #récupération du chemin
+        # print (wd)
+        # working_directory = str(wd)
+        # working_directory_db = working_directory + "/tournois.json"
+        mode_ouv_fichier_json = "a+"
+        # with open('tournois.json', mode_ouv_fichier_json) as fichier_joueur:
+        # with open(working_directory_db):
+        # print("fichier joueurs.json ouvert en mode \""+ str(mode_ouv_fichier_json) +"\"")
+        #        pass
+
+        # Insertion du joueur saisi dans la base de donnée
+        #db_tournois.insert(inst_creat_tournois)
+        ClassTournoi.CreatNewTournois(self=True,tournoi=tournoi)
+        return ()
+
+def lect_tournois():# Afficher la liste des tournois
 
         with open('tournois.json') as mon_fichier:
                 dico = json.load(mon_fichier)
-        #print("data dico")
+
         index = 0
         #faire une fonction qui supprime les {, [, et qui remplace chaque { par un \n
         serialised_tournois = db_tournois.all()
         str_tournois = str(serialised_tournois)
-        #print (str_tournois)
+
         char = "{"
         print_liste_tournois=""
         for x in range(len(char)):
@@ -52,14 +190,16 @@ def lect_tournois():# Afficher la liste des joueurs
         print_liste_tournois = print_liste_tournois.replace("[", "")
         print_liste_tournois = print_liste_tournois.replace("]", "")
 
-        print()
-        print("liste des tournois de la base de données :")
-        print(print_liste_tournois + "\n")
+        # Appel de la méthode vue du modèle VMC pour affichage de la résultante de la base de données
+        self = ""
+        texte1 = ""
+        texte2 = "Ci-dessous, la liste des tournois issus de la base de données :"
+        texte3 = print_liste_tournois + "\n"
+        ClassVueAffichage.Affichage(self, texte1, texte2, texte3)
         return ()
 
 #supprimer un tournoi de la liste pour éventuellement le ressaisir
 def sup_tournois(menu_niv_2):
-        print ("SUPPRESSION D'UN TOURNOI, tapez l'identifiant du tournoi à supprimer.")
         with open('tournois.json') as mon_fichier:
                 dico = json.load(mon_fichier)
         db_tournois = TinyDB('tournois.json')
@@ -71,7 +211,6 @@ def purge_tournois():
         db_tournois.truncate()
 
 def select_tournoi():
-        print("SELECTION DU TOURNOI")
         id_tournoi_select = ""
         from tinydb import TinyDB, Query, where
         list_tournoi = []
@@ -82,12 +221,11 @@ def select_tournoi():
         # SELECTION DU TOURNOI
         serialised_tournoi = db_tournois.all()
         str_tournoi = str(serialised_tournoi)
-        # print(str_tournoi)
+
 
         # faire une fonction qui supprime les {, [, et qui remplace chaque { par un \n
         serialised_joueurs = db_joueurs.all()
         str_joueurs = str(serialised_joueurs)
-        # print(str_joueurs)
 
         char = "{"
         x = 0
@@ -106,7 +244,7 @@ def select_tournoi():
                 PositFinNbre = (str_tournoi.find(char))
 
                 id_tournoi = str_tournoi[(PositDebNbre + 13): (PositFinNbre - 3)]
-                print("id tournoi trouvé : " + id_tournoi)
+
                 # Supprimer le 1er tournoi traité de la trame du dictionnaire
                 char = '}'
                 PositDebNbre = (str_tournoi.find(char))
@@ -116,15 +254,21 @@ def select_tournoi():
 
                 tournoi_cherche = tournoi_cherche + 1
 
-        # print("liste Id tournois")
-        # print(list_tournoi)
         str_list_tournoi = str(list_tournoi)
         str_list_tournoi = str_list_tournoi.replace('[', '')
         str_list_tournoi = str_list_tournoi.replace('\',', ' -')
         str_list_tournoi = str_list_tournoi.replace('\']', '')
         str_list_tournoi = str_list_tournoi.replace('\'', 'tournoi n°')
-        print("liste des numéros de tournois dans la base de donnée qu'il est possible de sélectionner :")
-        print(str_list_tournoi)
+        #********************************
+        # Appel de la méthode vue du modèle VMC pour affichage de la résultante de la base de données
+        #ClassVueAffichage.Affichage(self=, "", "liste des numéros de tournois dans la base de donnée qu'il est possible de sélectionner :", str_list_tournoi + "\n")
+
+        # Appel de la méthode vue du modèle VMC pour affichage de la résultante de la base de données
+        ClassVueAffichage.Affichage(self=True,
+                                    texte1="",
+                                    texte2="liste des numéros de tournois dans la base de donnée qu'il est possible de sélectionner :",
+                                    texte3=str_list_tournoi + "\n")
+
 
         # Faire input de l'id, comparer avec les id de la liste, si id de la liste, mettre
         # dans le tournoi à l'emplacement de l'id 1 au début, et supprimer l'élément de la liste
@@ -133,10 +277,11 @@ def select_tournoi():
 
         tournoi_a_charger = 1
         while (tournoi_a_charger < 2):
-                # print("saisie d'un Id de joueur existant pour le joueur n°" + str(joueur_a_charger) + "\n")
-                id_a_charger = input("saisie Id ou n° du tournoi existant à sélectionner" + "\n")
+                #saisie d'un Id de joueur existant pour le joueur
+                id_a_charger=ClassVueAffichage.Input(self=True,texte1="saisie Id ou n° du tournoi existant à sélectionner")
+
                 if id_a_charger == "E" or id_a_charger == "e":
-                        print("E ou e = commande pour sortir du prog")
+                        #print("E ou e = commande pour sortir du prog")
                         os._exit(0)
 
                 # Vérification que le tournoi est bien dans la liste des tournois
@@ -145,15 +290,23 @@ def select_tournoi():
                         list_tournoi.remove(id_a_charger)
                         time.sleep(0.2)
                         id_tournoi_select = id_a_charger
-                        print("Le tournoi " + id_tournoi_select + " est sélectionné")
-                        #print("Vous allez pouvoir sélectionner les joueurs dans la base de donnée pour ce tournoi")
+
+                        # Appel de la méthode vue du modèle VMC pour affichage de la résultante de la base de données
+                        ClassVueAffichage.Affichage(self=True, texte1="",
+                                                    texte2="Le tournoi " + id_tournoi_select + " est sélectionné",
+                                                    texte3="")
+
                 else:
-                        print("Ce tournoi n'est pas dans la liste des tournois existants, re-saisir un tournoi de la liste")
+                        # Appel de la méthode vue du modèle VMC pour affichage de la résultante de la base de données
+                        ClassVueAffichage.Affichage(self=True, texte1="Ce tournoi n'est pas dans la liste des tournois existants, re-saisir un tournoi de la liste",texte2="",texte3="")
         return (id_tournoi_select)
 
 def charge_joueurs_tournoi():
         id_tournoi_select=select_tournoi()
-        print ("id_tournoi_select : " + id_tournoi_select)
+        # Appel de la méthode vue du modèle VMC pour affichage de la résultante de la base de données
+        ClassVueAffichage.Affichage(self=True,
+                                    texte1="Chargment des joueurs dans le tournoi " + id_tournoi_select,
+                                    texte2="", texte3="")
 
         from tinydb import TinyDB, Query, where
         list_tournoi = []
@@ -172,7 +325,6 @@ def charge_joueurs_tournoi():
         # faire une fonction qui supprime les {, [, et qui remplace chaque { par un \n
         serialised_joueurs = db_joueurs.all()
         str_joueurs = str(serialised_joueurs)
-        #print(str_joueurs)
 
         char = "{"
         x=0
@@ -181,38 +333,30 @@ def charge_joueurs_tournoi():
         #for x in range(len(str_joueurs)):
         index=1
         for i in serialised_joueurs:
-                #print("index")
-                #print(index)
                 index = index +1
 
                 #Extraction de l'id
                 char = 'id_joueur'
                 PositDebNbre = (str_joueurs.find(char))
-                #print("PositDebNbre")
-                #print(PositDebNbre)
 
                 char = "Nom"
                 PositFinNbre = (str_joueurs.find(char))
-                #print("PositFinNbre")
-                #print(PositFinNbre)
 
                 id_joueur = str_joueurs[(PositDebNbre + 12): (PositFinNbre - 3)]
-                #x = txt.split("hello")
 
-                #Supprimer le 1er joueur traité de la trame du dictionnaire
+                #Supprimer le 1er joueur traité de la trame du dictionnaire car il ne peut être chargé deux fois
                 char = '}'
                 PositDebNbre = (str_joueurs.find(char))
-                #print("PositDebNbre")
-                #print(PositDebNbre)
 
                 str_joueurs=str_joueurs[(PositDebNbre+2):-1]
-                #print (str_joueurs)
-                #print("id_joueur")
-                #print(id_joueur)
                 list_joueurs.append(id_joueur)
                 joueur_cherche = joueur_cherche + 1
-        print("liste Id joueurs")
-        print(list_joueurs)
+
+        # Appel de la méthode vue du modèle VMC pour affichage de la résultante de la base de données
+        ClassVueAffichage.Affichage(self=True,
+                                    texte1="liste Id joueurs",
+                                    texte2=list_joueurs, texte3="")
+
         #Faire input de l'id, comparer avec les id de la liste, si id de la liste, mettre
         #dans le tournoi à l'emplacement de l'id 1 au début, et supprimer l'élément de la liste
         #sinon, forcer à ressaisir jusqu'à un id correct
@@ -220,14 +364,19 @@ def charge_joueurs_tournoi():
         #sinon le charger dans le Tournoi et le supprimer de la liste, puis reproposer la liste pour le prochain joueur à charger
         joueur_a_charger = 1
         while (joueur_a_charger < 9 ):
-                #print("saisie d'un Id de joueur existant pour le joueur n°" + str(joueur_a_charger) + "\n")
-                id_a_charger = input("saisie Id ou n° de joueur existant pour le joueur n°" + str(joueur_a_charger) + "\n")
+                #saisie d'un Id de joueur existant pour le joueur n°"
+                id_a_charger = ClassVueAffichage.Input(self=True,
+                                                       texte1="saisie Id ou n° de joueur existant pour le joueur n°" + str(joueur_a_charger))
+
                 if id_a_charger == "E" or id_a_charger == "e":
-                        print("E ou e = commande pour sortir du prog")
                         os._exit(0)
-                #print (list_joueurs)
+
                 if id_a_charger in list_joueurs:
-                        print("joueur n°"+ id_a_charger + " sélectionné pour le tournoi"+ "\n")
+                        # Appel de la méthode vue du modèle VMC pour affichage de la résultante de la base de données
+                        ClassVueAffichage.Affichage(self=True, texte1="joueur n°"+ id_a_charger + " sélectionné pour le tournoi",
+                                                    texte2="",
+                                                    texte3="")
+
                         list_joueurs.remove(id_a_charger)
                         time.sleep(0.2)
                         str_list_joueurs=str(list_joueurs)
@@ -235,23 +384,24 @@ def charge_joueurs_tournoi():
                         str_list_joueurs = str_list_joueurs.replace('\',', ' -')
                         str_list_joueurs = str_list_joueurs.replace('\']', '')
                         str_list_joueurs = str_list_joueurs.replace('\'', 'joueur n°')
-                        print ("liste des numéros des joueurs non sélectionnés :")
-                        print(str_list_joueurs)
-                        print()
+
+                        ClassVueAffichage.Affichage(self=True,
+                                                    texte1="liste des numéros des joueurs non sélectionnés :",
+                                                    texte2=str_list_joueurs,
+                                                    texte3="")
 
                         serialised_tournoi = db_tournois.all()
                         str_tournoi = str(serialised_tournoi)
-
                         str_tournoi = str(serialised_tournoi)
-                        #print(str_tournoi)
                         str_id_tournoi_select = str(id_tournoi_select)
 
                         #Sélection du joueur de la table tournoi à charger
                         id_jx=("id_j"+str(joueur_a_charger))
-                        #print("id-jx : " + id_jx)
-                        print ("Chargment du joueur dans le tournoi : " +str(id_tournoi_select))
-                        #print("id_a_charger : " + str(id_a_charger))
-                        #print("id_jx : " + str(id_jx))
+
+                        #ClassVueAffichage.Affichage(self=True,
+                        #                            texte1="Chargement du joueur dans le tournoi : " +str(id_tournoi_select),
+                        #                            texte2="",
+                        #                            texte3="")
 
                         db_tournois = TinyDB('tournois.json')
                         id_tournoi_select=int(id_tournoi_select)
@@ -259,4 +409,7 @@ def charge_joueurs_tournoi():
                         joueur_a_charger = joueur_a_charger + 1
 
                 else:
-                        print("n° de joueur absent de la liste des joueurs ou déjà sélectionné pour le tournoi")
+                        ClassVueAffichage.Affichage(self=True,
+                                                   texte1="n° de joueur absent de la liste des joueurs ou déjà sélectionné pour le tournoi",
+                                                   texte2="",
+                                                   texte3="")

@@ -74,4 +74,3 @@ while (1<2):
             nbr_rounds="4"
             charge_joueurs_tournoi()
         '''
-
