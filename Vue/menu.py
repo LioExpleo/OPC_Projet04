@@ -97,6 +97,7 @@ class ClassMainMenu():
                 #****************************************************************
                 # MENU ROUND
                 if (clavier == "R"):
+                    print(" touche + pour créer un nouveau Round")
                     menu_niv0 = clavier
                     menu_niv1 = ""
                     menu_niv2 = ""
@@ -114,6 +115,11 @@ class ClassMainMenu():
                         "le round précédant se termine et la saisie des scores est à faire par paire")
                     #chronologiquement, la personne qui saisi doit repasser au 4 pour refaire des round, peut aussi se faire en automatiquement"
                     #si round 4, fin tournoi, mise à jour manuelle du classement des joueurs"
+                    # création de la liste des joueurs
+                if (menu_niv0 == "M" and clavier == "w"):
+                    menu_niv1 = clavier
+                    print("création du match")
+
 
                 # MENU REQUETES EN DEHORS DU TOURNOI
                 if (clavier == "C"):
@@ -157,6 +163,7 @@ class ClassMainMenu():
         else :
             print("os._exit(0)")
             os._exit(0)
+
 
         print ("self.clavier")
         return (id_tournoi,clavier,menu_niv0,menu_niv1,menu_niv2)

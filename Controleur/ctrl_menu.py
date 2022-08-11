@@ -5,6 +5,7 @@ class ClassCtrlMenu():
         from Controleur.Ctrl_Joueurs import lect_joueurs, sup_joueurs, purge_joueurs,creat_new_joueurs
         from Controleur.Ctrl_Tournoi import lect_tournois, sup_tournois, purge_tournois,charge_joueurs_tournoi,creat_new_tournois
         from Controleur.Ctrl_Round import creat_round_1
+        from Controleur.Ctrl_Match import creat_match
         from Vue.menu import ClassMainMenu
 
         #saisie_clavier = ""
@@ -49,3 +50,8 @@ class ClassCtrlMenu():
 
             if (menu_niv_0 == "R" and menu_niv_1 == "+" and saisie_clavier == "+"):
                 creat_round_1()
+
+            if (menu_niv_0 == "M" and menu_niv_1 == "w"):
+                creat_match()
+
+

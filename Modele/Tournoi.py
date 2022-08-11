@@ -6,6 +6,7 @@ from tinydb import TinyDB,Query,where
 class ClassTournoi:
     def __init__(self):
         pass
+
     '''
     def CreatTournois(self):
 

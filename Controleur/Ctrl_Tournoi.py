@@ -148,11 +148,18 @@ def creat_new_tournois():
         id_j6 = ""
         id_j7 = ""
         id_j8 = ""
+        round_1=""
+        round_2 = ""
+        round_3 = ""
+        round_4 = ""
+        round_5 = ""
+        round_6 = ""
+        round_7 = ""
 
         # Serialize l'instance tournoi
         tournoi = {"id_tournoi": id_tournoi, "nom": nom, "lieu": lieu, "date du tournoi": date,
                    "nombre de rounds": nbr_rounds, "id_j1": id_j1, "id_j2": id_j2, "id_j3": id_j3, "id_j4": id_j4,
-                   "id_j5": id_j5, "id_j6": id_j6, "id_j7": id_j7, "id_j8": id_j8, }
+                   "id_j5": id_j5, "id_j6": id_j6, "id_j7": id_j7, "id_j8": id_j8, "round_1+match":round_1,"round_2+match":round_2,"round_3+match":round_3,"round_4+match":round_4,"round_5+match":round_5,"round_6+match":round_6,"round_7+match":round_7}
 
         #inst_creat_tournois = ClassTournoi.CreatNewTournois(self=True,tournoi=tournoi)
         # wd = os.getcwd() #récupération du chemin
@@ -183,18 +190,19 @@ def lect_tournois():# Afficher la liste des tournois
         char = "{"
         print_liste_tournois=""
         for x in range(len(char)):
-                print_liste_tournois = str_tournois.replace(char,"\n")
-                print_liste_tournois = print_liste_tournois.replace("}", "")
+                print_liste_tournois = str_tournois.replace(char,"")
+                print_liste_tournois = print_liste_tournois.replace("}","")
                 print_liste_tournois = print_liste_tournois.replace(",", "")
+                print("\n")
 
         print_liste_tournois = print_liste_tournois.replace("[", "")
         print_liste_tournois = print_liste_tournois.replace("]", "")
 
         # Appel de la méthode vue du modèle VMC pour affichage de la résultante de la base de données
         self = ""
-        texte1 = ""
-        texte2 = "Ci-dessous, la liste des tournois issus de la base de données :"
-        texte3 = print_liste_tournois + "\n"
+        texte1 = "Ci-dessous, la liste des tournois issus de la base de données :"
+        texte2 = print_liste_tournois + ""
+        texte3 = ""
         ClassVueAffichage.Affichage(self, texte1, texte2, texte3)
         return ()
 
@@ -221,7 +229,6 @@ def select_tournoi():
         # SELECTION DU TOURNOI
         serialised_tournoi = db_tournois.all()
         str_tournoi = str(serialised_tournoi)
-
 
         # faire une fonction qui supprime les {, [, et qui remplace chaque { par un \n
         serialised_joueurs = db_joueurs.all()

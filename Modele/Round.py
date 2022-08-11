@@ -3,17 +3,15 @@ from Controleur.fonctions import creat_dict
 from datetime import datetime
 import os
 
+
 class ClassRound:
     def __init__(self, nom="Num_round", date_heure_debut="",date_heure_fin="", id_j1="", id_j2="", id_j3="", id_j4="", id_j5="", id_j6="", id_j7="", id_j8=""):
         #nom entré à la main Round numero de round sinon
         #date et heure de début récupéré automatiquement à la création du tour
         #date et heure de fin récupéré automatiquement quand l'utilisateur indique le tour terminé
         self.nom = nom
-
         self.date_heure_debut=date_heure_debut
-
         self.date_heure_fin = date_heure_fin
-
         self.id_tournoi = id_tournoi
         self.id_j1 = id_j1
         self.id_j2 = id_j2
@@ -24,9 +22,15 @@ class ClassRound:
         self.id_j7 = id_j7
         self.id_j8 = id_j8
 
+    def DonneesRound1(self, liste_paire_1,liste_paire_2,liste_paire_3,liste_paire_4):
 
-        # Permet la création de tous les joueurs un par un, ils seront mis dans la bd par le contrôleur ou directement ici
 
+
+
+
+
+      # Permet la création de tous les joueurs un par un, ils seront mis dans la bd par le contrôleur ou directement ici
+'''
     def CreatRound_1(self):
         from Controleur.Ctrl_Tournoi import select_tournoi
         print("CreatRound_1")
@@ -336,7 +340,7 @@ class ClassRound:
         print ("début heure round : " + str_date_heure_debut)
 
         print("********* FIN CREATION ROUND 1*************************")
-'''
+
     def CreatRound_xx(self):
         from Controleur.Ctrl_Tournoi import select_tournoi
         print("CreatRound_1")
