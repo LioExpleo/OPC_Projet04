@@ -48,8 +48,13 @@ def creat_match():
         id_t = (tournoi[0]['id_tournoi'])
         print("id tournoi : " + str(id_t))
 
-        round_en_cours = (tournoi[0]['round_en_cours'])
-        print("round_en_cours : " + str(round_en_cours))
+        try:
+                round_en_cours = (tournoi[0]['round_en_cours'])
+                print("round_en_cours : " + str(round_en_cours))
+        except KeyError:
+                print("Le round doit être créé dans le match pour que les scores du match puissent être saisis, - R suivi de + - pour créer le 1er round" )
+                os._exit(0)
+
 
         List_de_liste_joueur = (tournoi[0]['round_en_cours'])
         round_select= "round_"+str(round_en_cours)+"+match"
@@ -243,17 +248,48 @@ def creat_match():
         print(liste_match4)
 
         liste_4matchs=[]
-        liste_4matchs.append("Paire 1")
+        #liste_4matchs.append("Paire 1")
         liste_4matchs.append(liste_match1)
-        liste_4matchs.append("-")
-        liste_4matchs.append("Paire 2")
+        #liste_4matchs.append("-")
+        #liste_4matchs.append("Paire 2")
         liste_4matchs.append(liste_match2)
-        liste_4matchs.append("-")
-        liste_4matchs.append("Paire 3")
+        #liste_4matchs.append("-")
+        #liste_4matchs.append("Paire 3")
         liste_4matchs.append(liste_match3)
-        liste_4matchs.append("-")
-        liste_4matchs.append("Paire 4")
+        #liste_4matchs.append("-")
+        #liste_4matchs.append("Paire 4")
         liste_4matchs.append(liste_match4)
+
+        print("liste_4matchs.append(liste_match4)")
+        print(liste_4matchs)
+
+        print(liste_4matchs[0])
+        print(liste_4matchs[0][0][0])
+        print(liste_4matchs[0][0][1])
+        print(liste_4matchs[0][0][2])
+        print(liste_4matchs[0][0][3])
+
+        print(liste_4matchs[1])
+        print(liste_4matchs[1][0])
+        print(liste_4matchs[1][0][0])
+        print(liste_4matchs[1][0][1])
+        print(liste_4matchs[1][0][2])
+        print(liste_4matchs[1][0][3])
+
+        print(liste_4matchs[2])
+        print(liste_4matchs[2][0])
+        print(liste_4matchs[2][0][0])
+        print(liste_4matchs[2][0][1])
+        print(liste_4matchs[2][0][2])
+        print(liste_4matchs[2][0][3])
+
+        print(liste_4matchs[3])
+        print(liste_4matchs[3][0])
+        print(liste_4matchs[3][0][0])
+        print(liste_4matchs[3][0][1])
+        print(liste_4matchs[3][0][2])
+        print(liste_4matchs[3][0][3])
+
 
         # mise de l'heure de fin du match pour la mettre dans la base de donnée du tournoi
         date_heure_fin = datetime.now()
@@ -273,7 +309,7 @@ def creat_match():
         print (nom_donnees)
         db_tournois.update({nom_donnees: liste_4matchs}, Todo.id_tournoi == int_tournoi_select)
 
-        #IL FAUT MAINTENANT QUE LA FIN DE MATCH EST FAITE CREER LE ROUND SUIVANT A PARTIR DE CETTE FIN DE MATCH
+        #MAINTENANT QUE LA FIN DE MATCH EST FAITE CREER LE ROUND SUIVANT A PARTIR DE CETTE FIN DE MATCH
         #A LA CREATION DU ROUND SUIVANT, VERIFIER QUE CE N'EST PAS LE DERNIER AVANT
         #UNE FOIS LE ROUND SUIVANT CREE, IL FAUDRA METTRE LE NUMERO DE ROUND EN COURS DANS LA BASE DE DONNEE
 

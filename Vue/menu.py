@@ -97,13 +97,18 @@ class ClassMainMenu():
                 #****************************************************************
                 # MENU ROUND
                 if (clavier == "R"):
-                    print(" touche + pour créer un nouveau Round")
+                    print(" touche 1 pour créer le 1er round, touche + pour créer les suivants")
                     menu_niv0 = clavier
                     menu_niv1 = ""
                     menu_niv2 = ""
-                if (menu_niv0 == "R" and clavier == "+"):
+
+                if (menu_niv0 == "R" and clavier == "1"):
                     menu_niv1 = clavier #; menu_niv2: ""
                     print (" Création d'un nouveau round :" + clavier + " Sélectionner le tournoi où les 8 joueurs ont été saisis")
+
+                if (menu_niv0 == "R" and clavier == "+"):
+                    menu_niv1 = clavier  # ; menu_niv2: ""
+                    print(" Création d'un nouveau round :" + clavier + " Sélectionner le tournoi où les 8 joueurs ont été saisis")
 
                 if (menu_niv0 == "R" and menu_niv0 == "+" and clavier != "+"):
                     menu_niv1 = clavier
@@ -233,6 +238,9 @@ class ClassMainMenu():
 
             if (menu_niv_0 == "T" and menu_niv_1 == "c" and saisie_clavier == "c"):
                 charge_joueurs_tournoi()
+
+            if (menu_niv_0 == "R" and menu_niv_1 == "1" and saisie_clavier == "1"):
+                creat_round_1()
 
             if (menu_niv_0 == "R" and menu_niv_1 == "+" and saisie_clavier == "+"):
                 creat_round_1()
