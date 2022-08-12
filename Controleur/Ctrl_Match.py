@@ -277,8 +277,6 @@ def creat_match():
         #A LA CREATION DU ROUND SUIVANT, VERIFIER QUE CE N'EST PAS LE DERNIER AVANT
         #UNE FOIS LE ROUND SUIVANT CREE, IL FAUDRA METTRE LE NUMERO DE ROUND EN COURS DANS LA BASE DE DONNEE
 
-
-
         # FAIRE UNE METHODE DANS MODELE ET L'APPELER ICI POUR RESPECT MVC
         # La sélection du round 1 est sauvegardée dans la base de données du tournoi, il faudra écraser l'instance avec le résultat en plus des matchs
         #*****************************************************
