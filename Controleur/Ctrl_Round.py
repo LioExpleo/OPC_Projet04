@@ -145,6 +145,7 @@ def creat_round_1():
         print("liste_liste_class_joueur : ")
         print(liste_liste_class_joueur)
 
+        #Mise des joueurs dans ordre décroissant
         from operator import itemgetter
         print("List A based on index 0: % s" % (sorted(liste_liste_class_joueur, key=itemgetter(1), reverse=True)))
         joueur_class_decroissant = (sorted(liste_liste_class_joueur, key=itemgetter(1), reverse=True))
@@ -244,6 +245,7 @@ def creat_round_1():
         print("numéro de tournoi")
         print(int_tournoi_select)
 
+        #FAIRE UNE METHODE DANS MODELE ET L'APPELER ICI POUR RESPECT MVC
         #La sélection du round 1 est sauvegardée dans la base de données du tournoi, il faudra écraser l'instance avec le résultat en plus des matchs
         #Si round_1+match n'existe pas dans la nase de donnée, il est créé
         db_tournois.update({"round_1+match": liste_round_1}, Todo.id_tournoi == int_tournoi_select)
