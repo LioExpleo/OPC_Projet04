@@ -398,8 +398,11 @@ def creat_round_2():
                 print(liste_liste_class_joueur)
 
                 #Liste avec id joueur et classement pour construction round > 1
-                #0.5 POUR LE TEST, SUPPRIMER DES QUE OK***********************************************************************************************************************
-                list_ja = [round_id_joueur, int(round_class_joueur),0.5]
+                #Liste contient l'id, le classement, et un score à 0 pour le moment'
+                #Attention, il ne faudra pas réécraser le score avec 0 lors des prochains rounds
+
+                #SI TOURNOI ROUND EN COURS = 1 FAIRE
+                list_ja = [round_id_joueur, int(round_class_joueur),0]
                 list_jx.append(list_ja)
 
                 index_joueur = index_joueur + 1

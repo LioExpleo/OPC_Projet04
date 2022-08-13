@@ -64,13 +64,3 @@ while (1<2):
     if (menu_niv_0 == "R" and menu_niv_1 == "+" and saisie_clavier == "+"):
         creat_round_1()
 
-        #print("round")
-        '''
-        try:
-            int_nbr_rounds = int(nbr_rounds)
-        except ValueError:
-            print("Nombre de round max = 7, mini = 1, 4 par défaut")
-            int_nbr_rounds = 4
-            nbr_rounds="4"
-            charge_joueurs_tournoi()
-        '''
