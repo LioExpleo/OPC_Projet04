@@ -17,11 +17,7 @@ class ClassMatch:
 
     def CreatMatch(self):
         from Controleur.Ctrl_Tournoi import select_tournoi
-
         print("CreatMatch")
-
-        #VERIFIER QUE LES ENTREES SONT 0 OU 0.0 OU 1 ET QUE LE TOTAL DES 2 JOUEURS SOIT EGAL A 1
-        #SINON OBLIGER A RESSAISIR
         score_Liste_paire1 = input("score : \n")
         if score_Liste_paire1.isdigit():
             pass

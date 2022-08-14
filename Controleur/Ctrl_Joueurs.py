@@ -134,7 +134,7 @@ def creat_new_joueurs():
                   "sexe": sexe, "Classement": classement}
         ClassJoueurs.CreatJoueurs(self=True,joueur=joueur)
         return(joueur)
-
+        #TEST
 def lect_joueurs():# Afficher la liste des joueurs
         #import json
 

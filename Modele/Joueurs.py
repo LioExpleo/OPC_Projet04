@@ -19,11 +19,9 @@ class ClassJoueurs:
         mode_ouv_fichier_json = "a+"
         with open('joueurs.json', mode_ouv_fichier_json) as fichier_joueur:
             pass
-
         #Ajout du joueur dans la base de données à partir de l'attribut
         db_joueurs.insert(joueur)
 
         #exemple de reconversion de l'instance sérialisée
         #name = (joueur['Nom'])
-
         return (joueur)

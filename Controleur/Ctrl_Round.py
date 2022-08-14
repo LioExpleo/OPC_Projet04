@@ -294,22 +294,10 @@ def creat_round_2():
         print(nb_r + " rounds")
 
         list_id_joueur=[]
-        list_id_joueur1 = []
-        list_id_joueur2 = []
-        list_id_joueur3 = []
-        list_id_joueur4 = []
-        list_id_joueur5 = []
-        list_id_joueur6 = []
-        list_id_joueur7 = []
-        list_id_joueur8 = []
-
 
         id_j1=(tournoi[0]['id_j1'])
         print("id joueur 1 : " + id_j1)
         list_id_joueur.append(id_j1)
-        #print("list_id_joueur1")
-        #print(list_id_joueur1)
-
 
         id_j2 = (tournoi[0]['id_j2'])
         print("id joueur 2 : " + id_j2)
@@ -341,8 +329,6 @@ def creat_round_2():
 
         print("nombre de rounds")
         print(nb_r)
-
-        #******************************
 
         db_joueurs = TinyDB('joueurs.json')
         index_joueur = 0
@@ -404,19 +390,14 @@ def creat_round_2():
                 #SI TOURNOI ROUND EN COURS = 1 FAIRE
                 list_ja = [round_id_joueur, int(round_class_joueur),0]
                 list_jx.append(list_ja)
-
                 index_joueur = index_joueur + 1
-
-
 
 #                print("FIN RECUPERATION DES DONNEES DU JOUEUR")
 
-        print("liste_liste_class_joueur : ")
-        print(liste_liste_class_joueur)
-
+        #print("liste_liste_class_joueur : ")
+        #print(liste_liste_class_joueur)
         print("Liste_jx***************************************************")
         print(list_jx)
-
 
         #Récupération des scores des joueurs dans le tournoi pour les mettre dans une liste
         #de joueur qui contient, l'id du joueur, son score, son classement
@@ -430,9 +411,7 @@ def creat_round_2():
 
         while Tournoi_round_en_cours_temp >0:
                 ScoreMatchRound ="ScoreMatchRound" + str(Tournoi_round_en_cours)
-
                 score_matchRx = (tournoi[0][ScoreMatchRound])
-
                 print("score match ******************************************************* : " + str(score_matchRx))
 
                 # si variable[index id] = variable List_jx[0] append list_jx avec index_id+1
@@ -441,8 +420,6 @@ def creat_round_2():
                 index_id_jx=0
                 index_list_jx = 0
                 while (index_id_jx<8):
-                        #print ("boucle_8 : " + str(index_id_jx))
-                        #List_jx ="List_j"+str(index_id_jx)
                         index_paire = 0
                         #faire une boucle des 4 paires des scores
                         #Faire une boucle pour vérifier que l'id du joueur se trouve dans les 4 paires
@@ -454,26 +431,18 @@ def creat_round_2():
                                         #print("boucle_8 : " + str(index_id_jx))
                                         #print("boucle_4 : " + str(index_paire))
                                         #print("boucle_2 : " + str(index_id))
-                                        print (list_jx[index_list_jx][0])
-                                        print (str(score_matchRx[index_paire][0][index_id]))
-                                        #print(list_jx[0][0])
-                                        print('===========================================')
 
-                                        #print(str(score_matchRx[index_paire][0][index_id]))
                                         if (str(list_jx[index_list_jx][0]) == str(score_matchRx[index_paire][0][index_id])):
                                                 #list_jx[index_list_jx].insert(2, "score")
-                                                print(list_jx[index_list_jx][0])
-                                                print(str(score_matchRx[index_paire][0][index_id]))
-                                                print("joueur 1 trouvé, score :")
-                                                print(score_matchRx[index_paire][0][index_id + 1])
-
-                                                print("score déjà dans la base")
-                                                print(list_jx[index_list_jx][2])
-                                                #SCORE A METTRE, SCORE DANS LA BASE + SCORE DU MATCH
+                                                #print(list_jx[index_list_jx][0])
+                                                #print(str(score_matchRx[index_paire][0][index_id]))
+                                                #print("joueur 1 trouvé, score :")
+                                                #print(score_matchRx[index_paire][0][index_id + 1])
+                                                #print("score déjà dans la base")
+                                                #print(list_jx[index_list_jx][2])
+                                                #SCORE A METTRE A JOUR, SCORE DANS LA BASE + SCORE DU MATCH
                                                 score_total= float(list_jx[index_list_jx][2]) + float(score_matchRx[index_paire][0][index_id + 1])
-                                                #list_jx[index_list_jx].insert(2, score_matchRx[index_paire][0][index_id + 1])
                                                 list_jx[index_list_jx].insert(2, score_total)
-
                                                 #Supprimer le score précédent de la liste
                                                 removed_element = list_jx[index_list_jx].pop(3)
                                                 print()
@@ -481,53 +450,33 @@ def creat_round_2():
                                         #test 2eme joueur de la paire
                                         index_id_2=index_id+2
                                         if (str(list_jx[index_list_jx][0]) == str(score_matchRx[index_paire][0][index_id_2])):
-                                                print("joueur 2 trouvé")
+                                                #print("joueur 2 trouvé")
                                                 #list_jx[index_list_jx].insert(2, "score")
-                                                print(list_jx[index_list_jx][0])
-                                                print(str(score_matchRx[index_paire][0][index_id_2]))
-
-                                                print("joueur 2 trouvé, score :")
-                                                print(score_matchRx[index_paire][0][index_id_2 + 1])
-
-                                                print("score déjà dans la base")
-                                                print(list_jx[index_list_jx][2])
-
+                                                #print(list_jx[index_list_jx][0])
+                                                #print(str(score_matchRx[index_paire][0][index_id_2]))
+                                                #print("joueur 2 trouvé, score :")
+                                                #print(score_matchRx[index_paire][0][index_id_2 + 1])
+                                                #print("score déjà dans la base")
+                                                #print(list_jx[index_list_jx][2])
                                                 # SCORE A METTRE, SCORE DANS LA BASE + SCORE DU MATCH
                                                 score_total = float(list_jx[index_list_jx][2]) + float(score_matchRx[index_paire][0][index_id_2 + 1])
                                                 #list_jx[index_list_jx].insert(2, score_matchRx[index_paire][0][index_id_2 + 1])
                                                 list_jx[index_list_jx].insert(2, score_total)
-
                                                 # Supprimer le score précédent de la liste
                                                 removed_element = list_jx[index_list_jx].pop(3)
                                                 print()
-
-                                        if ((list_jx[index_list_jx][0]) == str(score_matchRx[index_paire][0][index_id])):
-                                                x=score_matchRx[index_paire][0][index_id + 1]
-                                                print("x : ")
-                                                print (x)
-                                                #(list_jx[index_list_jx]).append(score_matchRx[index_paire][0][index_id + 1])
-                                                list_jx[index_list_jx].insert(2, score_matchRx[index_paire][0][index_id + 1])
-                                                #list_j1.append(score_matchRx[index_paire][0][index_id + 1])
-                                        else:
-                                                print("y : ")
-                                                print(score_matchRx[index_paire][0][index_id + 1])
-                                        print()
-
                                         index_id=index_id+1
                                 index_paire = index_paire + 1
                         index_id_jx = index_id_jx + 1
-
                         index_list_jx=index_list_jx + 1
-
-
-
                 Tournoi_round_en_cours_temp =Tournoi_round_en_cours_temp -1
+
         print("List_j12345678**************************************************")
         print(list_jx)
 
         #Mise des joueurs dans ordre décroissant
         from operator import itemgetter
-        print("List A based on index 0: % s" % (sorted(liste_liste_class_joueur, key=itemgetter(1), reverse=True)))
+        print("LISTE CLASSEMENT JOUEUR" % (sorted(liste_liste_class_joueur, key=itemgetter(1), reverse=True)))
         joueur_class_decroissant = (sorted(liste_liste_class_joueur, key=itemgetter(1), reverse=True))
         print(joueur_class_decroissant)
 
@@ -537,27 +486,221 @@ def creat_round_2():
         print(joueur_class_croissant)
 
         joueur_class_score_croissant = (sorted(joueur_class_croissant, key=itemgetter(2), reverse=True))
-        print("Affichage joueur par classement croissant et score ")
+        print("Affichage joueur par classement croissant et score -joueur_class_score_croissant-")
         print(joueur_class_score_croissant)
 
-
         #Faire une liste de joueurs déjà affronté par joueur;
-        #Joueur 1 contre joueur 2 si pas joueur déjà affronté.
+        joueur_1=[joueur_class_score_croissant[0][0]]
+        joueur_2 = [joueur_class_score_croissant[1][0]]
+        joueur_3 = [joueur_class_score_croissant[2][0]]
+        joueur_4 = [joueur_class_score_croissant[3][0]]
+        joueur_5 = [joueur_class_score_croissant[4][0]]
+        joueur_6 = [joueur_class_score_croissant[5][0]]
+        joueur_7 = [joueur_class_score_croissant[6][0]]
+        joueur_8 = [joueur_class_score_croissant[7][0]]
 
         '''
-        print("Affichage des paires de joueurs par identifiant du round 1 \n")
-        liste_paire_1 = []
-        liste_paire_1.append(joueur_class_croissant[0])
-        liste_paire_1.append(joueur_class_croissant[4])
-        # print(liste_paire_1)
-        print("Paire 1, par ordre de classement, 1er joueur contre 5ème")
-        print("ID: " + str(liste_paire_1[0][0]) + " , Nom:" + str(liste_paire_1[0][2]) + " , Prénom : " + str(
-                liste_paire_1[0][3]))
-        print("VS")
-        print("ID: " + str(liste_paire_1[1][0]) + " , Nom:" + str(liste_paire_1[1][2]) + " , Prénom : " + str(
-                liste_paire_1[1][3]))
+        print(joueur_1)
+        print(joueur_2)
+        print(joueur_3)
+        print(joueur_4)
+        print(joueur_5)
+        print(joueur_6)
+        print(joueur_7)
+        print(joueur_8)
+        '''
+        #**************************************************************************************************************
+        list_jy=[]
+        list_jy.append(joueur_1)
+        list_jy.append(joueur_2)
+        list_jy.append(joueur_3)
+        list_jy.append(joueur_4)
+        list_jy.append(joueur_5)
+        list_jy.append(joueur_6)
+        list_jy.append(joueur_7)
+        list_jy.append(joueur_8)
+
+        print(list_jy)
+
+        #faire une boucle sur tous les rounds joués
+        Tournoi_round_en_cours_temp = Tournoi_round_en_cours
+
+
+        while Tournoi_round_en_cours_temp > 0:
+                ScoreMatchRound = "ScoreMatchRound" + str(Tournoi_round_en_cours)
+                score_matchRx = (tournoi[0][ScoreMatchRound])
+
+                # Faire une boucle avec les 8 joueurs de la liste triée
+                index_id_jy = 0
+                index_list_jy = 0
+                while (index_id_jy < 8):
+                        index_paire = 0
+                        # faire une boucle des 4 paires des scores
+                        # Faire une boucle pour vérifier que l'id du joueur se trouve dans les 4 paires
+                        while (index_paire < 4):
+                                # print ("boucle_4 : " + str(index_paire))
+                                index_id = 0
+                                # faire une boucle des 2 joueurs par paire
+                                #while (index_id < 1):
+                                if (str(list_jy[index_list_jy][0]) == str(score_matchRx[index_paire][0][index_id])):
+                                        joueur_affront = (score_matchRx[index_paire][0][index_id + 2])
+                                        print(list_jy[index_list_jy][0])
+                                        print("VS1")
+                                        print(joueur_affront)
+                                        print()
+                                        list_jy[index_list_jy].insert(1, joueur_affront)
+
+
+                                if (str(list_jy[index_list_jy][0]) == str(
+                                        score_matchRx[index_paire][0][index_id+2])):
+                                        joueur_affront = (score_matchRx[index_paire][0][index_id])
+                                        print(list_jy[index_list_jy][0])
+                                        print("VS2")
+                                        print(joueur_affront)
+                                        print()
+                                        list_jy[index_list_jy].insert(1, joueur_affront)
+                                        #index_id = index_id + 1
+                                index_paire = index_paire + 1
+                        index_id_jy = index_id_jy + 1
+                        index_list_jy = index_list_jy + 1
+                Tournoi_round_en_cours_temp = Tournoi_round_en_cours_temp - 1
+                print(list_jy)
         print()
 
+        #**************************************************************************************************************
+        #Joueur 1 contre joueur 2 si pas joueur déjà affronté.
+        #liste : joueur_class_score_croissant
+
+
+        #joueur_class_score_croissant
+        #list_jy, liste de joueurs déjà affrontés
+
+        print("Affichage des paires de joueurs par identifiant du round " + str(Tournoi_round_en_cours))
+        liste_paire_1 = []
+        liste_paire_1.append(joueur_class_score_croissant[0])
+        liste_paire_1.append(joueur_class_score_croissant[1])
+        print(liste_paire_1)
+
+        print("Paire 1, par ordre de classement et score, 1er joueur contre 2ème si pas déjà rencontré le 2ème")
+        print("ID: " + str(joueur_class_score_croissant[0][0]))#
+        print("VS")
+        import time
+        #pour test ------------------------------------------------------------------------------------------------------------------------------------------:
+        list_jy = [[71, 78, 75], [77, 73, 78], [72, 76, 74], [74, 78, 77], [76, 72, 71], [78, 74, 71], [73, 77, 71], [75, 71, 73]]
+        print (list_jy)
+        Tournoi_round_en_cours_temp=2
+        # FIN TEST ------------------------------------------------------------------------------------------------------------------------------------------:
+
+        #While 4 paires non crées, reboucler
+                # Tester joueur suivant liste temporaire triée [0] avec liste des joueurs déjà rencontrée [x] jusqu'à ce que x égal nbre de round
+                # Si pas joueur rencontré, et liste parcourue, mettre le joueur suivant testé dans la paire
+                # Sinon, refaire le test avec le joueur suivant
+                # Supprimer les joueurs de la liste triée temporaire et de l'autre liste les joueurs mis dans la paire
+                # et faire le test encore pour le joueur 1, puisqu'en supprimant les joueurs de la liste, le deuxième joueur testé est remonté en haut de la liste
+
+
+        # Tant qu'on n'a pas créé les 4 paires, on reboucle
+
+        index_4paire = 1
+        joueur_class_score_croissant_temp = joueur_class_score_croissant
+        list_jy_temp = list_jy
+        index_jy_test=1
+        test=""
+        index_partenaire = 1
+        while (index_4paire < 4):
+
+                #il faudra tester le 1er joueur qui suit celui à appairer avec ceux déjà rencontrés
+                index_joueur_renc = 1
+
+                #index_partenaire = 1
+                while (index_joueur_renc <(Tournoi_round_en_cours_temp+1)):
+                        #print("11111111111111111111111111111111111111")
+                        #print(index_4paire)
+                        #print(index_joueur_renc)
+
+                        print("joueur testé :")
+                        joueur_1_test = joueur_class_score_croissant_temp[0][0]
+                        print (joueur_1_test)
+
+                        print("joueur à tester si déjà rencontré :")
+                        #print("index partenaire")
+                        print(index_partenaire)
+                        joueur_1_test = joueur_class_score_croissant_temp[index_partenaire][0]
+                        print(joueur_1_test)
+
+                        print("joueur à tester dans la liste des déjà rencontrés :")
+                        print(list_jy_temp[0][index_joueur_renc])
+
+                        if (joueur_class_score_croissant_temp[index_partenaire][0]) == (list_jy_temp[0][index_joueur_renc]):
+                                print("joueur déja rencontré")
+                                test = test + "1"
+                        else :
+                                print("joueur " + str(list_jy_temp[0][index_joueur_renc]) + " non rencontré")
+
+                        index_joueur_renc = index_joueur_renc + 1
+
+                        print("si les deux joueurs se retrouvent, il faut passer au joueur suivant pour appairer")
+                        #print("22222222222222222222222222222222222222")
+
+                        print (test)
+                        if test=="":
+                                print("JOUEUR A QUI TROUVER UN PARTENAIRE " + str(joueur_class_score_croissant_temp[0][0]))
+                                print("PARTENAIRE TROUVE :" + str(joueur_class_score_croissant_temp[index_partenaire][0]))
+
+                                print("suppression du joueur à qui on a trouvé un partenaire de la base de donnée et du partenaire trouvé")
+                                print(joueur_class_score_croissant_temp)
+                                joueur_class_score_croissant_temp.pop(0)
+                                index = index_partenaire - 1
+                                joueur_class_score_croissant_temp.pop(index)
+
+                                index = index_joueur_renc - 1
+                                print(joueur_class_score_croissant_temp)
+                                print()
+                                print("suppression du joueur à qui on a trouvé un partenaire et du partenaire de la base de donnée des joueurs rencontrés" )
+                                print(str(list_jy_temp))
+                                list_jy_temp.pop(0)
+
+                                index = index_partenaire -1
+                                list_jy_temp.pop(index)
+                                print(list_jy_temp)
+                                print()
+                                index_partenaire =1
+                        else :
+                                print("tester joueur suivant")
+                                index_partenaire=index_partenaire+1
+                                test = ""
+
+                #joueur_class_score_croissant_temp.pop(0)
+                #list_jy_temp.pop(0)
+                #print("3333333333333333333333333")
+                print("4444444444444444444444444444444")
+                #print("index_4paire")
+                #print(index_4paire )
+                index_j_test_temp= 1
+                index_4paire = index_4paire + 1
+
+
+
+
+
+
+
+
+                #Test si adversaire déjà rencontré
+        #liste des adversaires rencontrés, list-jy
+        #liste des joueurs triés, joueur_class_score_croissant
+        joueur_class_score_croissant_temp=joueur_class_score_croissant
+        list_jy_temp=list_jy
+        #aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        ''''''
+
+        time.sleep(1)
+
+        #index_joueur = index_joueur+1
+        print("----------------")
+        #print("ID: " + str(joueur_class_score_croissant[1][0]))#
+        print()
+        '''
         liste_paire_2 = []
         liste_paire_2.append(joueur_class_croissant[1])
         liste_paire_2.append(joueur_class_croissant[5])
