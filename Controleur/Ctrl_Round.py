@@ -136,6 +136,7 @@ def creat_round_1():
                 print("liste : id_joueur, classement joueur, nom, prenom")
                 print(liste_class_joueur)
                 liste_liste_class_joueur.append(liste_class_joueur)
+                print("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz")
                 print(liste_liste_class_joueur)
 
                 index_joueur = index_joueur + 1
@@ -247,7 +248,7 @@ def creat_round_1():
 
         #FAIRE UNE METHODE DANS MODELE ET L'APPELER ICI POUR RESPECT MVC
         #La sélection du round 1 est sauvegardée dans la base de données du tournoi, il faudra écraser l'instance avec le résultat en plus des matchs
-        #Si round_1+match n'existe pas dans la nase de donnée, il est créé
+        #Si round_1+match n'existe pas dans la base de donnée, il est créé
         db_tournois.update({"round_1+match": liste_round_1}, Todo.id_tournoi == int_tournoi_select)
         #joueur_a_charger = joueur_a_charger + 1
         #Ecriture du round en cours dans la base de donnée du tournoi
@@ -403,19 +404,27 @@ def creat_round_2():
         #de joueur qui contient, l'id du joueur, son score, son classement
         #les scores s'incrémentent des scores des matchs précédents en utilisant le round en cours
         #pour savoir combien de scores à aller chercher, attention, les joueurs ne sont pas dans le même ordre
-
         print("")
         print("Tournoi_round_en_cours : " + str(Tournoi_round_en_cours))
 
         Tournoi_round_en_cours_temp = Tournoi_round_en_cours
 
+        #Récupération des scores des joueurs dans les rounds précédents
+        #donc on enlève 1 au round en cours
+        Tournoi_round_en_cours_temp = Tournoi_round_en_cours_temp - 1
         while Tournoi_round_en_cours_temp >0:
-                ScoreMatchRound ="ScoreMatchRound" + str(Tournoi_round_en_cours)
+                #recuperation des acines scores
+                #ScoreMatchRound ="ScoreMatchRound" + str(Tournoi_round_en_cours)
+                ScoreMatchRound = "ScoreMatchRound" + str(Tournoi_round_en_cours-1)
+                print("ATTENTION !!!!!!, il faudra récupérer les scores des rounds précédents et les ajouter les uns aux autres")
+                print()
                 score_matchRx = (tournoi[0][ScoreMatchRound])
+                print("score_matchRx")
+                print (score_matchRx)
+
                 print("score match ******************************************************* : " + str(score_matchRx))
 
                 # si variable[index id] = variable List_jx[0] append list_jx avec index_id+1
-
                 #Faire une boucle avec les 8 listes de joueur où sauvegarder les id, score
                 index_id_jx=0
                 index_list_jx = 0
@@ -433,13 +442,6 @@ def creat_round_2():
                                         #print("boucle_2 : " + str(index_id))
 
                                         if (str(list_jx[index_list_jx][0]) == str(score_matchRx[index_paire][0][index_id])):
-                                                #list_jx[index_list_jx].insert(2, "score")
-                                                #print(list_jx[index_list_jx][0])
-                                                #print(str(score_matchRx[index_paire][0][index_id]))
-                                                #print("joueur 1 trouvé, score :")
-                                                #print(score_matchRx[index_paire][0][index_id + 1])
-                                                #print("score déjà dans la base")
-                                                #print(list_jx[index_list_jx][2])
                                                 #SCORE A METTRE A JOUR, SCORE DANS LA BASE + SCORE DU MATCH
                                                 score_total= float(list_jx[index_list_jx][2]) + float(score_matchRx[index_paire][0][index_id + 1])
                                                 list_jx[index_list_jx].insert(2, score_total)
@@ -450,14 +452,6 @@ def creat_round_2():
                                         #test 2eme joueur de la paire
                                         index_id_2=index_id+2
                                         if (str(list_jx[index_list_jx][0]) == str(score_matchRx[index_paire][0][index_id_2])):
-                                                #print("joueur 2 trouvé")
-                                                #list_jx[index_list_jx].insert(2, "score")
-                                                #print(list_jx[index_list_jx][0])
-                                                #print(str(score_matchRx[index_paire][0][index_id_2]))
-                                                #print("joueur 2 trouvé, score :")
-                                                #print(score_matchRx[index_paire][0][index_id_2 + 1])
-                                                #print("score déjà dans la base")
-                                                #print(list_jx[index_list_jx][2])
                                                 # SCORE A METTRE, SCORE DANS LA BASE + SCORE DU MATCH
                                                 score_total = float(list_jx[index_list_jx][2]) + float(score_matchRx[index_paire][0][index_id_2 + 1])
                                                 #list_jx[index_list_jx].insert(2, score_matchRx[index_paire][0][index_id_2 + 1])
@@ -499,16 +493,6 @@ def creat_round_2():
         joueur_7 = [joueur_class_score_croissant[6][0]]
         joueur_8 = [joueur_class_score_croissant[7][0]]
 
-        '''
-        print(joueur_1)
-        print(joueur_2)
-        print(joueur_3)
-        print(joueur_4)
-        print(joueur_5)
-        print(joueur_6)
-        print(joueur_7)
-        print(joueur_8)
-        '''
         #**************************************************************************************************************
         list_jy=[]
         list_jy.append(joueur_1)
@@ -523,11 +507,12 @@ def creat_round_2():
         print(list_jy)
 
         #faire une boucle sur tous les rounds joués
-        Tournoi_round_en_cours_temp = Tournoi_round_en_cours
-
+        #donc enlever 1 au tournoi en cours temp
+        #Rechercher les scores de chaque joueur dont l'emplacment est différent selon le round
+        Tournoi_round_en_cours_temp = Tournoi_round_en_cours - 1
 
         while Tournoi_round_en_cours_temp > 0:
-                ScoreMatchRound = "ScoreMatchRound" + str(Tournoi_round_en_cours)
+                ScoreMatchRound = "ScoreMatchRound" + str(Tournoi_round_en_cours_temp)
                 score_matchRx = (tournoi[0][ScoreMatchRound])
 
                 # Faire une boucle avec les 8 joueurs de la liste triée
@@ -567,14 +552,6 @@ def creat_round_2():
                 print(list_jy)
         print()
 
-        #**************************************************************************************************************
-        #Joueur 1 contre joueur 2 si pas joueur déjà affronté.
-        #liste : joueur_class_score_croissant
-
-
-        #joueur_class_score_croissant
-        #list_jy, liste de joueurs déjà affrontés
-
         print("Affichage des paires de joueurs par identifiant du round " + str(Tournoi_round_en_cours))
         liste_paire_1 = []
         liste_paire_1.append(joueur_class_score_croissant[0])
@@ -585,6 +562,8 @@ def creat_round_2():
         print("ID: " + str(joueur_class_score_croissant[0][0]))#
         print("VS")
         import time
+
+
         #pour test ------------------------------------------------------------------------------------------------------------------------------------------:
         list_jy = [[71, 78, 75], [77, 73, 78], [72, 76, 74], [74, 78, 77], [76, 72, 71], [78, 74, 71], [73, 77, 71], [75, 71, 73]]
         print (list_jy)
@@ -607,18 +586,21 @@ def creat_round_2():
         index_jy_test=1
         test=""
         index_partenaire = 1
-        while (index_4paire < 4):
+        liste_paire1=[]
+        liste_paire2 = []
+        liste_paire3 = []
+        liste_paire4 = []
+        index_paire_trouv=0
+        while (index_4paire < 4) and (index_paire_trouv <4):
 
                 #il faudra tester le 1er joueur qui suit celui à appairer avec ceux déjà rencontrés
                 index_joueur_renc = 1
 
                 #index_partenaire = 1
-                while (index_joueur_renc <(Tournoi_round_en_cours_temp+1)):
-                        #print("11111111111111111111111111111111111111")
-                        #print(index_4paire)
-                        #print(index_joueur_renc)
-
+                while (index_joueur_renc <(Tournoi_round_en_cours_temp+1))and (index_paire_trouv <4):
                         print("joueur testé :")
+                        print(joueur_class_score_croissant_temp)
+                        #joueur_1_test = joueur_class_score_croissant_temp[0]
                         joueur_1_test = joueur_class_score_croissant_temp[0][0]
                         print (joueur_1_test)
 
@@ -639,13 +621,26 @@ def creat_round_2():
 
                         index_joueur_renc = index_joueur_renc + 1
 
-                        print("si les deux joueurs se retrouvent, il faut passer au joueur suivant pour appairer")
-                        #print("22222222222222222222222222222222222222")
-
                         print (test)
                         if test=="":
                                 print("JOUEUR A QUI TROUVER UN PARTENAIRE " + str(joueur_class_score_croissant_temp[0][0]))
                                 print("PARTENAIRE TROUVE :" + str(joueur_class_score_croissant_temp[index_partenaire][0]))
+                                index_paire_trouv = index_paire_trouv +1
+                                if index_paire_trouv == 1:
+                                        liste_paire1.append(joueur_class_score_croissant_temp[0][0])
+                                        liste_paire1.append(joueur_class_score_croissant_temp[index_partenaire][0])
+
+                                if index_paire_trouv == 2:
+                                        liste_paire2.append(joueur_class_score_croissant_temp[0][0])
+                                        liste_paire2.append(joueur_class_score_croissant_temp[index_partenaire][0])
+
+                                if index_paire_trouv == 3:
+                                        liste_paire3.append(joueur_class_score_croissant_temp[0][0])
+                                        liste_paire3.append(joueur_class_score_croissant_temp[index_partenaire][0])
+
+                                if index_paire_trouv == 4:
+                                        liste_paire4.append(joueur_class_score_croissant_temp[0][0])
+                                        liste_paire4.append(joueur_class_score_croissant_temp[index_partenaire][0])
 
                                 print("suppression du joueur à qui on a trouvé un partenaire de la base de donnée et du partenaire trouvé")
                                 print(joueur_class_score_croissant_temp)
@@ -669,80 +664,22 @@ def creat_round_2():
                                 print("tester joueur suivant")
                                 index_partenaire=index_partenaire+1
                                 test = ""
-
-                #joueur_class_score_croissant_temp.pop(0)
-                #list_jy_temp.pop(0)
-                #print("3333333333333333333333333")
+                        #index_4paire = index_4paire + 1
                 print("4444444444444444444444444444444")
-                #print("index_4paire")
-                #print(index_4paire )
-                index_j_test_temp= 1
+                print(liste_paire1)
+                print(liste_paire2)
+                print(liste_paire3)
+                print(liste_paire4)
+
                 index_4paire = index_4paire + 1
 
+        print("********* FIN CREATION ROUND *************************")
 
+        #print ("Ctrl_Round - creat_round_1")
+        #print("inst_creat_round_1 = ClassRound.CreatRound_1(x)")
 
-
-
-
-
-
-                #Test si adversaire déjà rencontré
-        #liste des adversaires rencontrés, list-jy
-        #liste des joueurs triés, joueur_class_score_croissant
-        joueur_class_score_croissant_temp=joueur_class_score_croissant
-        list_jy_temp=list_jy
-        #aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-        ''''''
-
-        time.sleep(1)
-
-        #index_joueur = index_joueur+1
-        print("----------------")
-        #print("ID: " + str(joueur_class_score_croissant[1][0]))#
-        print()
-        '''
-        liste_paire_2 = []
-        liste_paire_2.append(joueur_class_croissant[1])
-        liste_paire_2.append(joueur_class_croissant[5])
-        # print(liste_paire_2)
-        print("Paire 2, par ordre de classement, 2eme joueur contre 6ème")
-        print("ID: " + str(liste_paire_2[0][0]) + " , Nom:" + str(liste_paire_2[0][2]) + " , Prénom : " + str(
-                liste_paire_2[0][3]))
-        print("VS")
-        print("ID: " + str(liste_paire_2[1][0]) + " , Nom:" + str(liste_paire_2[1][2]) + " , Prénom : " + str(
-                liste_paire_2[1][3]))
-        print()
-
-        liste_paire_3 = []
-        liste_paire_3.append(joueur_class_croissant[2])
-        liste_paire_3.append(joueur_class_croissant[6])
-        # print(liste_paire_3)
-        print("Paire 3, par ordre de classement, 3eme joueur contre 7ème")
-        print("ID: " + str(liste_paire_3[0][0]) + " , Nom:" + str(liste_paire_3[0][2]) + " , Prénom : " + str(
-                liste_paire_3[0][3]))
-        print("VS")
-        print("ID: " + str(liste_paire_3[1][0]) + " , Nom:" + str(liste_paire_3[1][2]) + " , Prénom : " + str(
-                liste_paire_3[1][3]))
-        print()
-
-        liste_paire_4 = []
-        liste_paire_4.append(joueur_class_croissant[3])
-        liste_paire_4.append(joueur_class_croissant[7])
-        # print(liste_paire_4)
-        print("Paire 4, par ordre de classement, 4eme joueur contre 8ème")
-        print("ID: " + str(liste_paire_4[0][0]) + " , Nom:" + str(liste_paire_4[0][2]) + " , Prénom : " + str(
-                liste_paire_4[0][3]))
-        print("ID")
-        print("identifiant: " + str(liste_paire_4[1][0]) + " , Nom:" + str(liste_paire_4[1][2]) + " , Prénom : " + str(
-                liste_paire_4[1][3]))
-        print()
-        print("********** FIN DE RECUPERATION DES JOUEURS POUR LE ROUNDS EN COURS********************")
-
-        nom = input("saisie nom du Round, Round 1 si pas de saisie:\n")
-        if (nom == ""):
-                nom = "Round 1"
-
-        #mise de l'heure de depart dans la liste pour la mettre dans la base de donnée du tournoi
+        #inst_creat_round_1 = ClassRound.CreatRound_1(self=True)
+        #Stocker les instances de Round dans le tournoi
         date_heure_debut = datetime.now()
         str_date_heure_debut = str(date_heure_debut)
         char = '.'
@@ -750,26 +687,15 @@ def creat_round_2():
         str_date_heure_debut = str_date_heure_debut[0:(PositChar)]
         print("début heure round : " + str_date_heure_debut)
 
-        print(liste_paire_1)
-        print(liste_paire_2)
-        print(liste_paire_3)
-        print(liste_paire_4)
-
-        print("********* FIN CREATION ROUND 1 *************************")
-        #print ("Ctrl_Round - creat_round_1")
-        #print("inst_creat_round_1 = ClassRound.CreatRound_1(x)")
-
-        #inst_creat_round_1 = ClassRound.CreatRound_1(self=True)
-        #Stocker les instances de Round dans le tournoi
-        liste_round_1=[]
-        liste_round_1.append(str_date_heure_debut)
-        liste_round_1.append(liste_paire_1)
-        liste_round_1.append(liste_paire_2)
-        liste_round_1.append(liste_paire_3)
-        liste_round_1.append(liste_paire_4)
+        liste_round_x=[]
+        liste_round_x.append(str_date_heure_debut)
+        liste_round_x.append(liste_paire1)
+        liste_round_x.append(liste_paire2)
+        liste_round_x.append(liste_paire3)
+        liste_round_x.append(liste_paire4)
         print()
-        print("liste_round_1")
-        print(liste_round_1)
+        print("liste_round_x")
+        print(liste_round_x)
 
         from tinydb import TinyDB, Query, where
         db_tournois = TinyDB('tournois.json')
@@ -777,18 +703,23 @@ def creat_round_2():
         print("numéro de tournoi")
         print(int_tournoi_select)
 
+
+
         #FAIRE UNE METHODE DANS MODELE ET L'APPELER ICI POUR RESPECT MVC
         #La sélection du round 1 est sauvegardée dans la base de données du tournoi, il faudra écraser l'instance avec le résultat en plus des matchs
         #Si round_1+match n'existe pas dans la nase de donnée, il est créé
-        db_tournois.update({"round_1+match": liste_round_1}, Todo.id_tournoi == int_tournoi_select)
-        #joueur_a_charger = joueur_a_charger + 1
-        #Ecriture du round en cours dans la base de donnée du tournoi
-        round_cree =Tournoi_round_en_cours + 1
-        print("nouveau round")
-        print(round_cree)
 
-        print("AJOUTER UN AU ROUND EN COURS QUAND LE PROGRAMME DE CREATION DE TOUS LES ROUNDS FONCTIONNE")
-        print("PAS AVANT POUR LES TEST")
+        Tournoi_round_en_cours = Tournoi_round_en_cours +1
+        update_round = ("round_"+str(Tournoi_round_en_cours)+"+match")
+
+        db_tournois.update({update_round: liste_round_x}, Todo.id_tournoi == int_tournoi_select)
+        #joueur_a_charger = joueur_a_charger + 1
+        print("nouveau round")
+        print(Tournoi_round_en_cours)
+        db_tournois.update({"round_en_cours": Tournoi_round_en_cours}, Todo.id_tournoi == int_tournoi_select)
+
+        #print("AJOUTER UN AU ROUND EN COURS QUAND LE PROGRAMME DE CREATION DE TOUS LES ROUNDS FONCTIONNE")
+        #print("PAS AVANT POUR LES TEST")
         #db_tournois.update({"round_en_cours": Tournoi_round_en_cours + 1}, Todo.id_tournoi == int_tournoi_select)
-        '''
+
         return()
