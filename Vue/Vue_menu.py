@@ -3,9 +3,10 @@ import os
 class ClassVueMenu():
     def Action_menu(self):
         from Controleur.Ctrl_Joueurs import lect_joueurs, sup_joueurs, purge_joueurs,creat_new_joueurs
-        from Controleur.Ctrl_Tournoi import lect_tournois, sup_tournois, purge_tournois,charge_joueurs_tournoi,creat_new_tournois
+        from Controleur.Ctrl_Tournoi import lect_tournois, sup_tournois, purge_tournois,charge_joueurs_tournoi,creat_new_tournois,lecture_match_tournoi
         from Controleur.Ctrl_Round import creat_round_1,creat_round_2,creat_round
         from Controleur.Ctrl_Match import creat_match
+
 
         menu_niv_0 = ""
         menu_niv_1 = ""
@@ -80,6 +81,7 @@ class ClassVueMenu():
 
             if (menu_niv_0 == "TM"):
                 print("Saisir ensuite l'id du tournoi, s'afficheront tous les rounds - ID Joueur, numero round, et score")
+                lecture_match_tournoi()
                 pass
                 #lecture_matchs_tounroi()
 

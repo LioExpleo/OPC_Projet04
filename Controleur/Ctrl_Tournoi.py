@@ -366,3 +366,148 @@ def charge_joueurs_tournoi():
                                                    texte1="n° de joueur absent de la liste des joueurs ou déjà sélectionné pour le tournoi",
                                                    texte2="",
                                                    texte3="")
+
+def lecture_match_tournoi():
+        # Récupération des informations du fichier JSON du tournoi pour créer les rounds
+        from tinydb import TinyDB, Query, where
+        Todo = Query()
+        db_tournois = TinyDB('tournois.json')
+        db_joueurs = TinyDB('joueurs.json')
+        print("db_tournois.search(where('id_tournoi')==tournoi_select")
+
+        tournoi_select = ClassVueAffichage.Input(self=True,
+                                               texte1="saisie Id du tournoi pour lequel on veut le résultat des matchs" )
+        tournoi_select=2
+        int_tournoi_select = int(tournoi_select)
+
+        # charger le tournoi selectionné à partir de la base de données dans tournoi
+        tournoi = (db_tournois.search(where('id_tournoi') == int_tournoi_select))
+        print(tournoi)
+
+        import json
+        fileObject = open("tournois.json", "r")
+        jsonContent = fileObject.read()
+        aList = json.loads(jsonContent)
+
+        print()
+        try:
+                score_round1 = (tournoi[0]['ScoreMatchRound1'])
+                print("Score des joueurs round 1 - ID joueur + score : " + str(score_round1[0]) + str(score_round1[1]))
+                print("Score des joueurs round 1 - ID joueur + score : " + str(score_round1[2]) + str(score_round1[3]))
+                print("Score des joueurs round 1 - ID joueur + score : " + str(score_round1[4]) + str(score_round1[5]))
+                print("Score des joueurs round 1 - ID joueur + score : " + str(score_round1[6]) + str(score_round1[7]))
+                print()
+        except KeyError:
+                print("pas de score pour le round 1")
+
+        try:
+                score_round2 = (tournoi[0]['ScoreMatchRound2'])
+                print("Score des joueurs round 2 - ID joueur + score : " + str(score_round2[0])+ str(score_round2[1]))
+                print("Score des joueurs round 2 - ID joueur + score : " + str(score_round2[2]) + str(score_round2[3]))
+                print("Score des joueurs round 2 - ID joueur + score : " + str(score_round2[4]) + str(score_round2[5]))
+                print("Score des joueurs round 2 - ID joueur + score : " + str(score_round2[6]) + str(score_round2[7]))
+                print()
+        except KeyError:
+                print("pas de score pour le round 2")
+
+        try:
+                score_round3 = (tournoi[0]['ScoreMatchRound3'])
+                print("Score des joueurs round 3 - ID joueur + score : " + str(score_round3[0]) + str(score_round3[1]))
+                print("Score des joueurs round 3 - ID joueur + score : " + str(score_round3[2]) + str(score_round3[3]))
+                print("Score des joueurs round 3 - ID joueur + score : " + str(score_round3[4]) + str(score_round3[5]))
+                print("Score des joueurs round 3 - ID joueur + score : " + str(score_round3[6]) + str(score_round3[7]))
+                print()
+        except KeyError:
+                print("pas de score pour le round 3")
+
+        try:
+                score_round4 = (tournoi[0]['ScoreMatchRound4'])
+                print("Score des joueurs round 4 - ID joueur + score : " + str(score_round4[0]) + str(score_round4[1]))
+                print("Score des joueurs round 4 - ID joueur + score : " + str(score_round4[2]) + str(score_round4[3]))
+                print("Score des joueurs round 4 - ID joueur + score : " + str(score_round4[4]) + str(score_round4[5]))
+                print("Score des joueurs round 4 - ID joueur + score : " + str(score_round4[6]) + str(score_round4[7]))
+                print()
+        except KeyError:
+                print("pas de score pour le round 4")
+
+        try:
+                score_round5 = (tournoi[0]['ScoreMatchRound5'])
+                print("Score des joueurs round 5 - ID joueur + score : " + str(score_round5[0]) + str(score_round5[1]))
+                print("Score des joueurs round 5 - ID joueur + score : " + str(score_round5[2]) + str(score_round5[3]))
+                print("Score des joueurs round 5 - ID joueur + score : " + str(score_round5[4]) + str(score_round5[5]))
+                print("Score des joueurs round 5 - ID joueur + score : " + str(score_round5[6]) + str(score_round5[7]))
+                print()
+        except KeyError:
+                print("pas de score pour le round 5")
+                print()
+
+
+        '''
+        db_tournois = TinyDB('tournois.json')
+
+        mode_ouv_fichier_json = "r"
+        # Tournoi à charger
+        with open('tournois.json') as mon_fichier:
+                dico = json.load(mon_fichier)
+                # print("data dico")
+        index = 0
+        # faire une fonction qui supprime les {, [, et qui remplace chaque { par un \n
+        serialised_tournois = db_tournois.all()
+        str_tournois = str(serialised_tournois)
+
+        char = "{"
+        x = 0
+        joueur_cherche = 1
+        joueur_trouve = 0
+        # for x in range(len(str_joueurs)):
+
+        index = 1
+        for i in serialised_tournois:
+                index = index + 1
+
+                # Extraction de l'id
+                char = 'ScoreMatchRound1'
+                score_match_round1 = (str_tournois.find(char))
+        print()
+        print(score_match_round1)
+        
+
+        # Affichage du tournoi
+        from tinydb import TinyDB, Query, where
+        Todo = Query()
+        db_tournois = TinyDB('tournois.json')
+        db_joueurs = TinyDB('joueurs.json')
+        print("db_tournois.search(where('id_tournoi')==tournoi_select")
+
+        tournoi_select = 2
+
+        int_tournoi_select = int(tournoi_select)
+
+        # charger le tournoi selectionné à partir de la base de données dans tournoi
+        tournoi = (db_tournois.search(where('id_tournoi') == int_tournoi_select))
+        print(tournoi)
+
+        match_tournoi=
+        '''
+        '''
+        db_joueurs = TinyDB('joueurs.json')
+
+                print("id_joueur " + str(index_joueur) + ": ")
+                id_joueur_en_cours = ""
+                int_id_joueur_en_cours = ""
+                try:
+                        #id_joueur_en_cours = (dict_tournoi[id_jx])
+                        id_joueur_en_cours = list_id_joueur[index_joueur]
+                except IndexError:
+                        print("Vous devez choisir un tournoi où les 8 joueurs sont chargés pour créer des rounds X")
+                        os._exit(1)
+
+                try:
+                        int_id_joueur_en_cours = int(id_joueur_en_cours)
+                except ValueError:
+                        print("Erreur, vous devez choisir un tournoi où les 8 joueurs sont chargés pour créer des rounds Y")
+                        os._exit(0)
+
+                joueur = (db_joueurs.search(where('id_joueur') == int_id_joueur_en_cours))
+                dict_joueur = creat_dict(joueur)
+        '''

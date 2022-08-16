@@ -5,6 +5,7 @@ import re
 #from Vue.menu import ClassMainMenu
 from Modele.Joueurs import ClassJoueurs
 from Vue.affichage import ClassVueAffichage
+from Controleur.fonctions import creat_list,creat_dict
 
 import json
 from tinydb import TinyDB, Query, where
@@ -174,3 +175,5 @@ def sup_joueurs(menu_niv_2):
 #purge de la base de donnée
 def purge_joueurs():
         db_joueurs.truncate()
+
+
