@@ -12,7 +12,6 @@ class ClassVueAffichage:
 
     def Input(self,texte1):
             input_saisie = input(texte1 + "\n")
-
             return(input_saisie)
 
     def SaisieScore(self,joueur1,joueur2, texte_joueur1,texte_joueur2):

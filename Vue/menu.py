@@ -97,7 +97,7 @@ class ClassMainMenu():
                 #****************************************************************
                 # MENU ROUND
                 if (clavier == "R"):
-                    print(" touche 1 pour créer le 1er round, touche + pour créer les suivants")
+                    print(" touche 1 pour créer le 1er round, touche + pour créer les suivants, touche X pour test")
                     menu_niv0 = clavier
                     menu_niv1 = ""
                     menu_niv2 = ""
@@ -107,6 +107,10 @@ class ClassMainMenu():
                     print (" Création d'un nouveau round :" + clavier + " Sélectionner le tournoi où les 8 joueurs ont été saisis")
 
                 if (menu_niv0 == "R" and clavier == "+"):
+                    menu_niv1 = clavier  # ; menu_niv2: ""
+                    print(" Création d'un nouveau round :" + clavier + " Sélectionner le tournoi où les 8 joueurs ont été saisis")
+
+                if (menu_niv0 == "R" and clavier == "X"):
                     menu_niv1 = clavier  # ; menu_niv2: ""
                     print(" Création d'un nouveau round :" + clavier + " Sélectionner le tournoi où les 8 joueurs ont été saisis")
 
@@ -176,7 +180,7 @@ class ClassMainMenu():
     def Action_menu(self):
         from Controleur.Ctrl_Joueurs import creat_joueurs, lect_joueurs, sup_joueurs, purge_joueurs
         from Controleur.Ctrl_Tournoi import creat_tournois, lect_tournois, sup_tournois, purge_tournois,charge_joueurs_tournoi
-        from Controleur.Ctrl_Round import creat_round_1
+        from Controleur.Ctrl_Round import creat_round_1,creat_round_2,creat_round
         from Vue.menu import ClassMainMenu
 
         saisie_clavier = ""
@@ -243,4 +247,7 @@ class ClassMainMenu():
                 creat_round_1()
 
             if (menu_niv_0 == "R" and menu_niv_1 == "+" and saisie_clavier == "+"):
-                creat_round_1()
+                creat_round_2()
+
+            if (menu_niv_0 == "R" and menu_niv_1 == "X" and saisie_clavier == "X"):
+                creat_round()

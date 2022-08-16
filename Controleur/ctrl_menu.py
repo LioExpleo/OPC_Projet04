@@ -4,7 +4,7 @@ class ClassCtrlMenu():
     def Action_menu(self):
         from Controleur.Ctrl_Joueurs import lect_joueurs, sup_joueurs, purge_joueurs,creat_new_joueurs
         from Controleur.Ctrl_Tournoi import lect_tournois, sup_tournois, purge_tournois,charge_joueurs_tournoi,creat_new_tournois
-        from Controleur.Ctrl_Round import creat_round_1,creat_round_2
+        from Controleur.Ctrl_Round import creat_round_1,creat_round_2,creat_round
         from Controleur.Ctrl_Match import creat_match
         from Vue.menu import ClassMainMenu
 
@@ -55,6 +55,10 @@ class ClassCtrlMenu():
             if (menu_niv_0 == "R" and menu_niv_1 == "+" and saisie_clavier == "+"):
                 print("creat ROUND 2 et +, le programme sera modifié pour que les rounds soient créés automatiquement à la fin de la saisie des scores des 4 matchs du round")
                 creat_round_2()
+
+            if (menu_niv_0 == "R" and menu_niv_1 == "X" and saisie_clavier == "X"):
+                print("creat ROUND X ")
+                creat_round()
 
             if (menu_niv_0 == "M" and menu_niv_1 == "w"):
                 creat_match()
