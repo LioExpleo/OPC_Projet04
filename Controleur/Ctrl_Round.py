@@ -1,6 +1,6 @@
 import os
 import re
-from Vue.menu import ClassMainMenu
+#from Vue.menu import ClassMainMenu
 from Modele.Tournoi import ClassTournoi
 #from Modele.Round import ClassRound
 import time
@@ -803,9 +803,5 @@ def creat_round_2(tournoi_select):
                 print("nouveau round")
                 print(Tournoi_round_en_cours)
                 db_tournois.update({"round_en_cours": Tournoi_round_en_cours}, Todo.id_tournoi == int_tournoi_select)
-
-        #print("AJOUTER UN AU ROUND EN COURS QUAND LE PROGRAMME DE CREATION DE TOUS LES ROUNDS FONCTIONNE")
-        #print("PAS AVANT POUR LES TEST")
-        #db_tournois.update({"round_en_cours": Tournoi_round_en_cours + 1}, Todo.id_tournoi == int_tournoi_select)
 
         return()

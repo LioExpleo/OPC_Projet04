@@ -2,7 +2,7 @@
 """affichage liste joueurs de la base de donnée, suppression d'un joueur de la base de donnée, purge de la base de donnée"""
 import os
 import re
-from Vue.menu import ClassMainMenu
+#from Vue.menu import ClassMainMenu
 from Modele.Tournoi import ClassTournoi
 import time
 import json
@@ -28,8 +28,9 @@ def creat_match():
         db_tournois = TinyDB('tournois.json')
         int_tournoi_select = int(tournoi_select)
 
-        print("int_tournoi_select")
-        print(int_tournoi_select)
+
+        ClassVueAffichage.Affichage(self=True,texte1="int_tournoi_select",texte2=int_tournoi_select,texte3="")
+
 
         tournoi = (db_tournois.search(where('id_tournoi') == int_tournoi_select))
         print(tournoi)
@@ -41,12 +42,15 @@ def creat_match():
         aList = json.loads(jsonContent)
 
         id_t = (tournoi[0]['id_tournoi'])
-        print("id tournoi : " + str(id_t))
+        ClassVueAffichage.Affichage(self=True, texte1= "id_tournoi :", texte2=str(id_t),texte3="")
+        #print("id tournoi : " + str(id_t))
 
         try:
                 round_en_cours = (tournoi[0]['round_en_cours'])
+                ClassVueAffichage.Affichage(self=True, texte1="round en cours :", texte2=round_en_cours, texte3="")
                 print("round_en_cours : " + str(round_en_cours))
         except KeyError:
+                lassVueAffichage.Affichage(self=True, texte1="Le round doit être créé dans le match pour que les scores du match puissent être saisis, - R suivi de + - pour créer le 1er round", texte2="", texte3="")
                 print("Le round doit être créé dans le match pour que les scores du match puissent être saisis, - R suivi de + - pour créer le 1er round")
                 os._exit(0)
 
@@ -59,11 +63,13 @@ def creat_match():
 
 
 def creat_match_r1(tournoi,round):
-        print ("tournoi r1 : " + str(tournoi))
-        print ("round r1 : " + str(round))
-        print()
+        ClassVueAffichage.Affichage(self=True,texte1="tournoi r1 : ", texte2=tournoi,texte3="")
+        ClassVueAffichage.Affichage(self=True,texte1="round r1 : ", texte2=round, texte3="")
+        #print ("tournoi r1 : " + str(tournoi))
+        #print ("round r1 : " + str(round))
+        #print()
         from Controleur.Ctrl_Tournoi import select_tournoi
-        print("saisie des scores du match")
+        ClassVueAffichage.Affichage(self=True,texte1="saisie des scores du match", texte2="",texte3="")
         # faire un input pour indiquer le tournoi à sélectionner
         #saisie_tournoi = (input("Tournoi ? : \n"))
 
@@ -81,11 +87,11 @@ def creat_match_r1(tournoi,round):
         #int_tournoi_select = int(tournoi_select)
         int_tournoi_select = tournoi
         tournoi_select=tournoi
-        print("int_tournoi_select")
-        print (int_tournoi_select)
+        #print("int_tournoi_select")
+        #print (int_tournoi_select)
 
         tournoi = (db_tournois.search(where('id_tournoi') == int_tournoi_select))
-        print(tournoi)
+        #print(tournoi)
 
         # Récupération des informations du fichier JSON du tournoi pour vérifier le round en cours
         import json
@@ -95,25 +101,27 @@ def creat_match_r1(tournoi,round):
 
 
         id_t = (tournoi[0]['id_tournoi'])
-        print("id tournoi : " + str(id_t))
+        #print("id tournoi : " + str(id_t))
 
         try:
                 round_en_cours = (tournoi[0]['round_en_cours'])
-                print("round_en_cours : " + str(round_en_cours))
+                ClassVueAffichage.Affichage(self=True,texte1="round_en_cours : " , texte2=round_en_cours,texte3="")
+                #print("round_en_cours : " + str(round_en_cours))
         except KeyError:
-                print("Le round doit être créé dans le match pour que les scores du match puissent être saisis, - R suivi de + - pour créer le 1er round" )
+                ClassVueAffichage.Affichage(self=True, texte1="Le round doit être créé dans le match pour que les scores du match puissent être saisis, - R suivi de + - pour créer le 1er round", texte2="", texte3="")
+                #print("Le round doit être créé dans le match pour que les scores du match puissent être saisis, - R suivi de + - pour créer le 1er round" )
                 os._exit(0)
 
 
         List_de_liste_joueur = (tournoi[0]['round_en_cours'])
         round_select= "round_"+str(round_en_cours)+"+match"
-        print(round_select)
+        #print(round_select)
 
         #aller chercher les listes en fonction du round en cours
         List_de_liste_joueur = (tournoi[0][round_select])
-        print ("List_de_liste_joueur")
-        print(List_de_liste_joueur)
-        print()
+        #print ("List_de_liste_joueur")
+        #print(List_de_liste_joueur)
+        #print()
         print("paire 1")
         print(List_de_liste_joueur[1])
         print()
@@ -134,7 +142,8 @@ def creat_match_r1(tournoi,round):
         texteJ1 = "saisissez le score pour le 1er joueur du 1er Match"
         texteJ2 = "saisissez le score pour le 2eme joueur du 1er Match"
         saisie_score1,saisie_score2 =ClassVueAffichage.SaisieScore(self,str_liste_liste_joueur1,str_liste_liste_joueur2, texteJ1,texteJ2)
-        print('saisie score 1 et 2 du match 1: ' + (saisie_score1) + " - " + saisie_score2)
+        ClassVueAffichage.Affichage(self=True, texte1="saisie score 1 et 2 du match 1:",texte2=saisie_score1,texte3= saisie_score2 )
+        #print('saisie score 1 et 2 du match 1: ' + (saisie_score1) + " - " + saisie_score2)
 
         # Ajout dans la liste de l'id du joueur et de son score
         #joueur 1
@@ -352,7 +361,6 @@ def creat_match_r1(tournoi,round):
         nom_donnees= "ScoreMatchRound" + str(round_en_cours)
         print (nom_donnees)
 
-        #newwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
         liste_4matchs = []
         liste_4matchs.append(liste_paire1_j1)
         liste_4matchs.append(liste_paire1_j2)
@@ -362,42 +370,13 @@ def creat_match_r1(tournoi,round):
         liste_4matchs.append(liste_paire3_j2)
         liste_4matchs.append(liste_paire4_j1)
         liste_4matchs.append(liste_paire4_j2)
-        #newwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+
         db_tournois.update({nom_donnees: liste_4matchs}, Todo.id_tournoi == int_tournoi_select)
 
         #MAINTENANT QUE LA FIN DE MATCH EST FAITE CREER LE ROUND SUIVANT A PARTIR DE CETTE FIN DE MATCH
         #A LA CREATION DU ROUND SUIVANT, VERIFIER QUE CE N'EST PAS LE DERNIER AVANT
         #UNE FOIS LE ROUND SUIVANT CREE, IL FAUDRA METTRE LE NUMERO DE ROUND EN COURS DANS LA BASE DE DONNEE
 
-        # FAIRE UNE METHODE DANS MODELE ET L'APPELER ICI POUR RESPECT MVC
-        # La sélection du round 1 est sauvegardée dans la base de données du tournoi, il faudra écraser l'instance avec le résultat en plus des matchs
-        #*****************************************************
-        #db_tournois.update({"round_1+match": liste_round_1}, Todo.id_tournoi == int_tournoi_select)
-        # *****************************************************
-
-        #Les tuples 1, 2, 3 et 4 contiennent toutes les données à mettre dans la base de données du tournoi.
-        #Ajouter un champ avec le nom du tuple et son contenu dans la base de donnée
-        #puis mettre l'heure de fin du round et lancer le 2eme round
-
-
-
-        #Chaque match génèrera 1 tuple avec comme nom, « Tuple_ « Id_tournoi » & n°round & « idMatch(n°paire)» de 2 listes
-        #Chaque tuple contiendra 2 listes :
-        #La liste 1, id_joueur1 et score joueur 1.
-        #La liste 2, id_joueur2 et score joueur 2.
-        # Stocker les instances de round dans le tournoi.
-
-        #une fois les 4 scores saisis, (tuple de listes) l'heure de fin du round est mis dans la base de donnée,
-        # attention à la position des nouvelles valeurs dans la base de donnée, écrire les nouvelles infos à la fin
-        #chargement des tuples dans la base de donnée
-        #la génération du round suivant est générée, et le round en cours indiqué + 1 jusqu'à la fin des rounds.
-
-
-#générer nom tuple : Tuple + id_tournoi+numéro round+ numéro de paire
-#liste 1 : id_joueur_1 + score joueur 1
-#liste 2 : id_joueur_2 + score joueur 2
-
-#ECRIRE HEURE ARRET DU ROUND QUAND SCORES SAISIS DES 4 MATCHS DANS LA LISTE ROUND DANS LE TOURNOI
 
 def creat_match_r2(tournoi,round):
         print ("tournoi r1 : " + str(tournoi))
@@ -405,15 +384,11 @@ def creat_match_r2(tournoi,round):
         print()
         from Controleur.Ctrl_Tournoi import select_tournoi
         print("saisie des scores du match")
-        # faire un input pour indiquer le tournoi à sélectionner
-        #saisie_tournoi = (input("Tournoi ? : \n"))
+
 
         #Vérifier que la saisie du numero du tournoi est correcte
         #tournoi_select = select_tournoi()
 
-        # charger le tournoi selectionné à partir de la base de données dans tournoi
-        #tournoi = (db_tournois.search(where('id_tournoi') == tournoi_select))
-        #print(tournoi)
 
         #tournoi_select = select_tournoi()
         from tinydb import TinyDB, Query, where
@@ -425,6 +400,7 @@ def creat_match_r2(tournoi,round):
         print("int_tournoi_select")
         print (int_tournoi_select)
 
+        #va cherhcher l'id du tournoi dans la base de donnée
         tournoi = (db_tournois.search(where('id_tournoi') == int_tournoi_select))
         print(tournoi)
 
@@ -433,8 +409,6 @@ def creat_match_r2(tournoi,round):
         fileObject = open("tournois.json", "r")
         jsonContent = fileObject.read()
         aList = json.loads(jsonContent)
-
-
         id_t = (tournoi[0]['id_tournoi'])
         print("id tournoi : " + str(id_t))
 
@@ -489,7 +463,7 @@ def creat_match_r2(tournoi,round):
         #liste_paire1_j1.append(List_de_liste_joueur[1][0][0])
         liste_paire1_j1.append(List_de_liste_joueur[1][0])
         liste_paire1_j1.append(saisie_score1)
-        print("888888888888888888888888888888888888888888888888888888888888888")
+
         print (liste_paire1_j1)
         print(liste_paire1_j2)
         # joueur 2
@@ -706,7 +680,7 @@ def creat_match_r2(tournoi,round):
         # chargment dans la base de données des scores des 4 matchs du round
         nom_donnees= "ScoreMatchRound" + str(round_en_cours)
         print (nom_donnees)
-        #newwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+
         liste_4matchs=[]
         liste_4matchs.append(liste_paire1_j1)
         liste_4matchs.append(liste_paire1_j2)
@@ -717,40 +691,4 @@ def creat_match_r2(tournoi,round):
         liste_4matchs.append(liste_paire4_j1)
         liste_4matchs.append(liste_paire4_j2)
 
-
-        #finnewwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
         db_tournois.update({nom_donnees: liste_4matchs}, Todo.id_tournoi == int_tournoi_select)
-
-        #MAINTENANT QUE LA FIN DE MATCH EST FAITE CREER LE ROUND SUIVANT A PARTIR DE CETTE FIN DE MATCH
-        #A LA CREATION DU ROUND SUIVANT, VERIFIER QUE CE N'EST PAS LE DERNIER AVANT
-        #UNE FOIS LE ROUND SUIVANT CREE, IL FAUDRA METTRE LE NUMERO DE ROUND EN COURS DANS LA BASE DE DONNEE
-
-        # FAIRE UNE METHODE DANS MODELE ET L'APPELER ICI POUR RESPECT MVC
-        # La sélection du round 1 est sauvegardée dans la base de données du tournoi, il faudra écraser l'instance avec le résultat en plus des matchs
-        #*****************************************************
-        #db_tournois.update({"round_1+match": liste_round_1}, Todo.id_tournoi == int_tournoi_select)
-        # *****************************************************
-
-        #Les tuples 1, 2, 3 et 4 contiennent toutes les données à mettre dans la base de données du tournoi.
-        #Ajouter un champ avec le nom du tuple et son contenu dans la base de donnée
-        #puis mettre l'heure de fin du round et lancer le 2eme round
-
-
-
-        #Chaque match génèrera 1 tuple avec comme nom, « Tuple_ « Id_tournoi » & n°round & « idMatch(n°paire)» de 2 listes
-        #Chaque tuple contiendra 2 listes :
-        #La liste 1, id_joueur1 et score joueur 1.
-        #La liste 2, id_joueur2 et score joueur 2.
-        # Stocker les instances de round dans le tournoi.
-
-        #une fois les 4 scores saisis, (tuple de listes) l'heure de fin du round est mis dans la base de donnée,
-        # attention à la position des nouvelles valeurs dans la base de donnée, écrire les nouvelles infos à la fin
-        #chargement des tuples dans la base de donnée
-        #la génération du round suivant est générée, et le round en cours indiqué + 1 jusqu'à la fin des rounds.
-
-
-#générer nom tuple : Tuple + id_tournoi+numéro round+ numéro de paire
-#liste 1 : id_joueur_1 + score joueur 1
-#liste 2 : id_joueur_2 + score joueur 2
-
-#ECRIRE HEURE ARRET DU ROUND QUAND SCORES SAISIS DES 4 MATCHS DANS LA LISTE ROUND DANS LE TOURNOI

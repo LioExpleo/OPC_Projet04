@@ -3,7 +3,6 @@ from Controleur.fonctions import creat_dict
 from datetime import datetime
 import os
 
-
 class ClassRound:
     def __init__(self, nom="Num_round", date_heure_debut="",date_heure_fin="", id_j1="", id_j2="", id_j3="", id_j4="", id_j5="", id_j6="", id_j7="", id_j8=""):
         #nom entré à la main Round numero de round sinon

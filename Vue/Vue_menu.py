@@ -1,12 +1,102 @@
 import os
 
+class ClassVueMenu():
+    def Action_menu(self):
+        from Controleur.Ctrl_Joueurs import lect_joueurs, sup_joueurs, purge_joueurs,creat_new_joueurs
+        from Controleur.Ctrl_Tournoi import lect_tournois, sup_tournois, purge_tournois,charge_joueurs_tournoi,creat_new_tournois
+        from Controleur.Ctrl_Round import creat_round_1,creat_round_2,creat_round
+        from Controleur.Ctrl_Match import creat_match
+
+        menu_niv_0 = ""
+        menu_niv_1 = ""
+        menu_niv_2 = ""
+
+        # Boucle / Menu.
+        while (True):
+            id_tournoi, saisie_clavier, menu_niv_0, menu_niv_1, menu_niv_2 = ClassMainMenu(id_tournoi="", clavier="",
+                                                                                          niv0=menu_niv_0,
+                                                                                          niv1=menu_niv_1,
+                                                                                          niv2=menu_niv_2).CommandeClavier()
+
+            if (menu_niv_0 == "J" and menu_niv_1 == "w" and saisie_clavier == "w"):
+                creat_new_joueurs()
+
+            if (menu_niv_0 == "J" and menu_niv_1 == "r" and saisie_clavier == "r"):
+                lect_joueurs()
+
+            if (menu_niv_0 == "J" and menu_niv_1 == "sup" and menu_niv_2 != ""):
+                sup_joueurs(menu_niv_2)
+
+            if (menu_niv_0 == "J" and menu_niv_1 == "purge"):
+                purge_joueurs()
+
+            if (menu_niv_0 == "T" and menu_niv_1 == "w" and saisie_clavier == "w"):
+                creat_new_tournois()
+
+            if (menu_niv_0 == "T" and menu_niv_1 == "r" and saisie_clavier == "r"):
+                lect_tournois()
+
+            if (menu_niv_0 == "T" and menu_niv_1 == "sup" and menu_niv_2 != ""):
+                sup_tournois(menu_niv_2)
+
+            if (menu_niv_0 == "T" and menu_niv_1 == "purge"):
+                purge_tournois()
+
+            if (menu_niv_0 == "T" and menu_niv_1 == "c" and saisie_clavier == "c"):
+                charge_joueurs_tournoi()
+
+            #if (menu_niv_0 == "R" and menu_niv_1 == "1" and saisie_clavier == "1"):
+            #    print("creat ROUND 1")
+            #    creat_round_1()
+
+            #if (menu_niv_0 == "R" and menu_niv_1 == "+" and saisie_clavier == "+"):
+            #    print("creat ROUND 2 et +, le programme sera modifié pour que les rounds soient créés automatiquement à la fin de la saisie des scores des 4 matchs du round")
+            #    creat_round_2()
+
+            if (menu_niv_0 == "R" and menu_niv_1 == "+" and saisie_clavier == "+"):
+                print("Création d'un round selon le système suisse ")
+                creat_round()
+
+            if (menu_niv_0 == "M" and menu_niv_1 == "w"):
+                creat_match()
+
+            if (menu_niv_0 == "JA"):
+                pass
+                #lecture_joueurs_alpha()
+
+            if (menu_niv_0 == "JC"):
+                pass
+                #lecture_joueurs_class()
+
+            if (menu_niv_0 == "TJ"):
+                print("Saisir ensuite l'id du tournoi")
+                pass
+                #lecture_joueurs_tournoi()
+
+            if (menu_niv_0 == "TR"):
+                print("Saisir ensuite l'id du tournoi, s'afficheront tous les rounds")
+                pass
+                #lecture_joueurs_round()
+
+            if (menu_niv_0 == "TM"):
+                print("Saisir ensuite l'id du tournoi, s'afficheront tous les rounds - ID Joueur, numero round, et score")
+                pass
+                #lecture_matchs_tounroi()
+
+            if (menu_niv_0 == "TT"):
+                print("Afficher la liste simplifiée des tournois avec ID, nom, lieu et date")
+                pass
+                #lecture_joueurs_alpha()
+
+
+
 class ClassMainMenu():
-    def __init__(self, id_tournoi, clavier,niv0,niv1,niv2):
+    def __init__(self, id_tournoi, clavier, niv0, niv1, niv2):
         self.clavier = clavier
         self.niv0 = niv0
         self.niv1 = niv1
         self.niv2 = niv2
-        self.id_tournoi =id_tournoi
+        self.id_tournoi = id_tournoi
 
     def CommandeClavier(self):
         clavier=""
@@ -94,23 +184,22 @@ class ClassMainMenu():
                 if (menu_niv0 == "J" and menu_niv1 == "sup" and clavier!="sup"):
                     menu_niv2 = clavier
 
-                #****************************************************************
-                # MENU ROUND
+                #************************************** MENU ROUND **************************
                 if (clavier == "R"):
-                    print(" touche 1 pour créer le 1er round, touche + pour créer les suivants, touche X pour test")
+                    print(" Touche + pour créer un nouveau round")
                     menu_niv0 = clavier
                     menu_niv1 = ""
                     menu_niv2 = ""
 
-                if (menu_niv0 == "R" and clavier == "1"):
-                    menu_niv1 = clavier #; menu_niv2: ""
-                    print (" Création d'un nouveau round :" + clavier + " Sélectionner le tournoi où les 8 joueurs ont été saisis")
+                #if (menu_niv0 == "R" and clavier == "1"):
+                #    menu_niv1 = clavier #; menu_niv2: ""
+                #    print (" Création d'un nouveau round :" + clavier + " Sélectionner le tournoi où les 8 joueurs ont été saisis")
+
+                #if (menu_niv0 == "R" and clavier == "+"):
+                #    menu_niv1 = clavier  # ; menu_niv2: ""
+                #    print(" Création d'un nouveau round :" + clavier + " Sélectionner le tournoi où les 8 joueurs ont été saisis")
 
                 if (menu_niv0 == "R" and clavier == "+"):
-                    menu_niv1 = clavier  # ; menu_niv2: ""
-                    print(" Création d'un nouveau round :" + clavier + " Sélectionner le tournoi où les 8 joueurs ont été saisis")
-
-                if (menu_niv0 == "R" and clavier == "X"):
                     menu_niv1 = clavier  # ; menu_niv2: ""
                     print(" Création d'un nouveau round :" + clavier + " Sélectionner le tournoi où les 8 joueurs ont été saisis")
 
@@ -122,6 +211,7 @@ class ClassMainMenu():
                     menu_niv0 = clavier; menu_niv1: ""; menu_niv2: ""
                     print (" Vous avez entré :"+ clavier + " MATCH : r pour lecture, w pour écriture; si écriture, "
                         "le round précédant se termine et la saisie des scores est à faire par paire")
+
                     #chronologiquement, la personne qui saisi doit repasser au 4 pour refaire des round, peut aussi se faire en automatiquement"
                     #si round 4, fin tournoi, mise à jour manuelle du classement des joueurs"
                     # création de la liste des joueurs
@@ -129,32 +219,37 @@ class ClassMainMenu():
                     menu_niv1 = clavier
                     print("création du match")
 
-
                 # MENU REQUETES EN DEHORS DU TOURNOI
+                '''
                 if (clavier == "C"):
                     menu_niv0 = clavier; menu_niv1: ""; menu_niv2: ""
                     print (" Vous avez entré :"+ clavier + " REQUETE CLASSEMENT : r pour lecture, w pour écriture du classement des joueurs en dehors du tournoi ")
+                '''
 
-                if (clavier == "R1"):
+                if (clavier == "JA"):
                     menu_niv0 = clavier
-                    print(" Vous avez entré :" + clavier + " REQUETE RAPPORT alphab acteurs: liste de tous les acteurs par ordre alphabétique")
+                    print(" Vous avez entré :" + clavier + " REQUETE AFFICHAGE DE TOUS LES ACTEURS PAR ORDRE ALPHABETIQUE")
 
-                if (clavier == "R2"):
+                if (clavier == "JC"):
                     menu_niv0 = clavier
-                    print(" Vous avez entré :" + clavier + " REQUETE  RAPPORT classement acteurs : liste de tous les acteurs par classement")
+                    print(" Vous avez entré :" + clavier + " REQUETE  AFFICHAGE DE TOUS LES ACTEURS PAR ORDRE DE CLASSEMENT")
 
-                if (clavier == "R3"):
+                if (clavier == "TJ"):
                     menu_niv0 = clavier
-                    print(" Vous avez entré :" + clavier + " REQUETE RAPPORT Tournois : liste de tous les tournois")
+                    print(" Vous avez entré :" + clavier + " REQUETE AFFICHAGE DE TOUS LES JOUEURS D'UN TOURNOI - ENTREZ L'ID DU TOURNOI")
 
-                if (clavier == "R4"):
+                if (clavier == "TR"):
                     menu_niv0 = clavier
-                    print(" Vous avez entré :" + clavier + " REQUETE Rapport tours Tournois : Entrez l'ID du tournoi pour afficher les tours du tournoi,"
-                                                           " liste des tournois avec la commande 1, et r")
-                if (clavier == "R5"):
-                    menu_niv0 = clavier
-                    print(" Vous avez entré :" + clavier + " REQUETE Tournois : Entrez l'ID du tournoi pour afficher les résultats des matchs *Affiche paires et score*")
+                    print(" Vous avez entré :" + clavier + " REQUETE FFICHAGE DE TOUS LES ROUNDS D'UN TOURNOI")
 
+                if (clavier == "TM"):
+                    menu_niv0 = clavier
+                    print(" Vous avez entré :" + clavier + " REQUETE AFFICHAGE DE TOUS LES MATCHS D'UN TOURNOI")
+
+                if (clavier == "TT"):
+                    menu_niv0 = clavier
+                    print(" Vous avez entré :" + clavier + " REQUETE AFFICHAGE DE LA LISTE DES TOURNOIS")
+                '''
                 if (clavier == "R6"):
                     menu_niv0 = clavier
                     print(" Vous avez entré :" + clavier + " REQUETE Rapport : Entrez l'ID du tournoi pour avoir la liste de tous les joueurs d'un tournoi par ordre alphabétique")
@@ -164,8 +259,7 @@ class ClassMainMenu():
                     menu_niv0 = clavier
                     print(" Vous avez entré :" + clavier + " REQUETE Rapport : Entrez l'ID du tournoi pour avoir la liste de tous les joueurs d'un tournoi par ordre alphabétique")
                     print(" Vous avez entré :" + clavier + " REQUETE requête vers base de données : liste de tous les joueurs d'un tournoi par classement")
-
-
+                '''
                 if (clavier != 0):
                     #print(clavier)
                     return (id_tournoi,clavier,menu_niv0,menu_niv1,menu_niv2)
@@ -173,81 +267,5 @@ class ClassMainMenu():
             print("os._exit(0)")
             os._exit(0)
 
-
         print ("self.clavier")
         return (id_tournoi,clavier,menu_niv0,menu_niv1,menu_niv2)
-
-    def Action_menu(self):
-        from Controleur.Ctrl_Joueurs import creat_joueurs, lect_joueurs, sup_joueurs, purge_joueurs
-        from Controleur.Ctrl_Tournoi import creat_tournois, lect_tournois, sup_tournois, purge_tournois,charge_joueurs_tournoi
-        from Controleur.Ctrl_Round import creat_round_1,creat_round_2,creat_round
-        from Vue.menu import ClassMainMenu
-
-        saisie_clavier = ""
-        menu_niv_0 = ""
-        menu_niv_1 = ""
-        menu_niv_2 = ""
-        derniere_saisie = ""
-
-        # essayer de voir s'il est possible d'appeler les fonctions directement dans le menu.py
-        while (1 < 2):
-            id_tournoi, saisie_clavier, menu_niv_0, menu_niv_1, menu_niv_2 = ClassMainMenu(id_tournoi="", clavier="",
-                                                                                           niv0=menu_niv_0,
-                                                                                           niv1=menu_niv_1,
-                                                                                           niv2=menu_niv_2).CommandeClavier()
-            print("return menu niv0 : " + menu_niv_0)
-            print("return menu niv1 : " + menu_niv_1)
-            print("return menu niv2 : " + menu_niv_2)
-            # print("return id_tournoi : " + id_tournoi)
-
-            if (menu_niv_0 == "J" and menu_niv_1 == "w" and saisie_clavier == "w"):
-                # if (menu_niv_0 == "J"):
-                print("Creation joueurs, retapez \"w\" une fois le 1er créé pour ressaisir le suivant")
-                creat_joueurs()
-
-            if (menu_niv_0 == "J" and menu_niv_1 == "r" and saisie_clavier == "r"):
-                # if (menu_niv_0 == "J"):
-                # print("joueurs dans la base de donnée :")
-                lect_joueurs()
-
-            if (menu_niv_0 == "J" and menu_niv_1 == "sup" and menu_niv_2 != ""):
-                # if (menu_niv_0 == "J"):
-                print("suppression d'un joueur")
-                sup_joueurs(menu_niv_2)
-
-            if (menu_niv_0 == "J" and menu_niv_1 == "purge"):
-                # if (menu_niv_0 == "J"):
-                print("Purge de la base de donnée des joueurs")
-                purge_joueurs()
-
-            if (menu_niv_0 == "T" and menu_niv_1 == "w" and saisie_clavier == "w"):
-                # if (menu_niv_0 == "J"):
-                print("Creation tournoi, tapez \"w\" ")
-                creat_tournois()
-
-            if (menu_niv_0 == "T" and menu_niv_1 == "r" and saisie_clavier == "r"):
-                # if (menu_niv_0 == "J"):
-                # print("joueurs dans la base de donnée :")
-                lect_tournois()
-
-            if (menu_niv_0 == "T" and menu_niv_1 == "sup" and menu_niv_2 != ""):
-                # if (menu_niv_0 == "J"):
-                print("suppression d'un tournoi")
-                sup_tournois(menu_niv_2)
-
-            if (menu_niv_0 == "T" and menu_niv_1 == "purge"):
-                # if (menu_niv_0 == "J"):
-                print("Purge de la base de donnée des joueurs")
-                purge_tournois()
-
-            if (menu_niv_0 == "T" and menu_niv_1 == "c" and saisie_clavier == "c"):
-                charge_joueurs_tournoi()
-
-            if (menu_niv_0 == "R" and menu_niv_1 == "1" and saisie_clavier == "1"):
-                creat_round_1()
-
-            if (menu_niv_0 == "R" and menu_niv_1 == "+" and saisie_clavier == "+"):
-                creat_round_2()
-
-            if (menu_niv_0 == "R" and menu_niv_1 == "X" and saisie_clavier == "X"):
-                creat_round()

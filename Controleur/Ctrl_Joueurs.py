@@ -2,7 +2,7 @@
 """affichage liste joueurs de la base de donnée, suppression d'un joueur de la base de donnée, purge de la base de donnée"""
 import os
 import re
-from Vue.menu import ClassMainMenu
+#from Vue.menu import ClassMainMenu
 from Modele.Joueurs import ClassJoueurs
 from Vue.affichage import ClassVueAffichage
 
@@ -57,8 +57,9 @@ def creat_new_joueurs():
 
         else:
                 id_libre = joueur_cherche
-
-        print (id_libre)
+        str_id_libre=str(id_libre)
+        ClassVueAffichage.Affichage(self=True,texte1=str_id_libre ,texte2="",texte3="")
+        #print (id_libre)
 
         #self=""
         #inst_creat_joueurs = ClassJoueurs.CreatJoueurs(self.__class__)

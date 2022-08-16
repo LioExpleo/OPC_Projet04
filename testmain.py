@@ -1,8 +1,11 @@
-from Vue.menu import ClassMainMenu #, ActionMenu
-from Controleur.ctrl_menu import ClassCtrlMenu
+#from Vue.menu import ClassMainMenu #, ActionMenu
+#from Controleur.ctrl_menu import ClassCtrlMenu
+from Vue.Vue_menu import ClassVueMenu
 
 
-ClassCtrlMenu.Action_menu(self=True)
+ClassVueMenu.Action_menu(self=True)
+
+
 
 
 

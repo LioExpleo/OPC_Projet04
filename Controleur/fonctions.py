@@ -42,12 +42,8 @@ def tournoi_exist(id_tournoi_select):
 
 def creat_list(donnees_db):
     str_donnees = str(donnees_db)
-    # str_donnees = str_donnees.replace("[[", "|x")
-    # str_donnees = str_donnees.replace("[[", "|y")
-
     str_donnees = str_donnees.replace("{", "")
     str_donnees = str_donnees.replace("}", "")
-
     liste_donnees = str_donnees
 
     return (liste_donnees)

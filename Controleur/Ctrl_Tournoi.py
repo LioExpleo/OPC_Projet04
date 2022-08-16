@@ -2,7 +2,7 @@
 """affichage liste joueurs de la base de donnée, suppression d'un joueur de la base de donnée, purge de la base de donnée"""
 import os
 import re
-from Vue.menu import ClassMainMenu
+#from Vue.menu import ClassMainMenu
 from Modele.Tournoi import ClassTournoi
 import time
 import json
@@ -13,26 +13,6 @@ Todo = Query()
 
 db_tournois = TinyDB('tournois.json')
 
-'''
-def creat_tournois():
-        tournoi = ""
-        inst_creat_tournois =""
-        self=""
-        inst_creat_tournois = ClassTournoi.CreatTournois(self.__class__)
-        #wd = os.getcwd() #récupération du chemin
-        #print (wd)
-        #working_directory = str(wd)
-        #working_directory_db = working_directory + "/tournois.json"
-        mode_ouv_fichier_json = "a+"
-        #with open('tournois.json', mode_ouv_fichier_json) as fichier_joueur:
-                # with open(working_directory_db):
-                # print("fichier joueurs.json ouvert en mode \""+ str(mode_ouv_fichier_json) +"\"")
-        #        pass
-
-        # Insertion du joueur saisi dans la base de donnée
-        db_tournois.insert(inst_creat_tournois)
-        return()
-'''
 def creat_new_tournois():
         # identifiant tournoi
         import json
@@ -61,8 +41,6 @@ def creat_new_tournois():
 
         # Recherche de l'id à partir des positions précédentes et suivantes'
         id_tournoi = tournoi_trouv[(PositDebNbre + 12): (PositFinNbre - 3)]
-        #print("id_tournoi")
-        #print(id_tournoi)
 
         # tant que l'id cherché existe, on recherche jusqu'à en trouver un libre en l'incrémentant
         while (id_tournoi != ""):
@@ -72,47 +50,38 @@ def creat_new_tournois():
                 char = 'id_tournoi'
                 PositDebNbre = (tournoi_trouv.find(char))
 
-                #print("PositDebNbre")
-                #print(PositDebNbre)
                 char = "nom"
                 PositFinNbre = (tournoi_trouv.find(char))
-                #print("PositFinNbre")
-                #print(PositFinNbre)
 
                 id_tournoi = tournoi_trouv[(PositDebNbre + 12): (PositFinNbre - 3)]
-                #print("id_tournoi")
-                #print(id_tournoi)
 
         else:
                 id_libre = tournoi_cherche
 
         id_tournoi = id_libre
-
         nom=ClassVueAffichage.Input(self=True, texte1="saisie nom :")
-        #nom = input("saisie nom : \n")
+
         if nom == "":
                 nom = ("Tournoi " + str(id_tournoi))
                 ClassVueAffichage.Affichage(self=True,texte1="en absence de nom, le nom par défaut est " + nom,texte2="",texte3="")
-                #print("en absence de nom, le nom par défaut est " + nom)
+
         if nom == "r":
                 nom = ("Tournoi " + str(id_tournoi))
                 ClassVueAffichage.Affichage(self=True, texte1="r est un nom interdit, cela correspond à une commande clavier, le nom par défaut est " + nom,
                                             texte2="", texte3="")
-                #print("r est un nom interdit, cela correspond à une commande clavier, le nom par défaut est " + nom)
         if nom == "E":
                 nom = ("Tournoi " + str(id_tournoi))
                 ClassVueAffichage.Affichage(self=True,
                                             texte1="E est un nom interdit, cela correspond à une commande clavier, le nom par défaut enregistré est " + nom,
                                             texte2="", texte3="")
-                #print("E est un nom interdit, cela correspond à une commande clavier, le nom par défaut enregistré est " + nom)
 
         lieu = ClassVueAffichage.Input(self=True, texte1="saisie lieu :")
-        #lieu = input("saisie lieu : \n")
+
         if lieu == "":
                 lieu = ("Lieu " + str(id_tournoi))
 
         date = ClassVueAffichage.Input(self=True, texte1="date (format DD/MM/YYYY): ")
-        #date = input("date (format DD/MM/YYYY): \n")
+
         if date == "":
                 date_heure = datetime.now()
                 str_date_heure = str(date_heure)
@@ -122,7 +91,6 @@ def creat_new_tournois():
                 date = str_date_heure
 
         nbr_rounds = ClassVueAffichage.Input(self=True, texte1="saisie nombre de rounds, 4 rounds si pas de saisie ou erreur de saisie: ")
-        #nbr_rounds = input("saisie nombre de rounds, 4 rounds si pas de saisie ou erreur de saisie: \n")
 
         if nbr_rounds == "":
                 nbr_rounds = "4"
@@ -130,14 +98,12 @@ def creat_new_tournois():
                 int_nbr_rounds = int(nbr_rounds)
         except ValueError:
                 ClassVueAffichage.Affichage(self=True,texte1="Nombre de round max = 7, mini = 1, 4 par défaut",texte2="",texte3="")
-                #print("Nombre de round max = 7, mini = 1, 4 par défaut")
                 int_nbr_rounds = 4
                 nbr_rounds = "4"
 
         if int_nbr_rounds > 7 or int_nbr_rounds < 1:
                 ClassVueAffichage.Affichage(self=True, texte1="Nombre de round max = 7, mini = 1, 4 par défaut",
                                             texte2="", texte3="")
-                #print("Nombre de round max = 7, mini = 1, 4 par défaut")
                 nbr_rounds = "4"
 
         id_j1 = ""
@@ -161,19 +127,8 @@ def creat_new_tournois():
                    "nombre de rounds": nbr_rounds, "id_j1": id_j1, "id_j2": id_j2, "id_j3": id_j3, "id_j4": id_j4,
                    "id_j5": id_j5, "id_j6": id_j6, "id_j7": id_j7, "id_j8": id_j8, "round_1+match":round_1,"round_2+match":round_2,"round_3+match":round_3,"round_4+match":round_4,"round_5+match":round_5,"round_6+match":round_6,"round_7+match":round_7}
 
-        #inst_creat_tournois = ClassTournoi.CreatNewTournois(self=True,tournoi=tournoi)
-        # wd = os.getcwd() #récupération du chemin
-        # print (wd)
-        # working_directory = str(wd)
-        # working_directory_db = working_directory + "/tournois.json"
-        mode_ouv_fichier_json = "a+"
-        # with open('tournois.json', mode_ouv_fichier_json) as fichier_joueur:
-        # with open(working_directory_db):
-        # print("fichier joueurs.json ouvert en mode \""+ str(mode_ouv_fichier_json) +"\"")
-        #        pass
 
         # Insertion du joueur saisi dans la base de donnée
-        #db_tournois.insert(inst_creat_tournois)
         ClassTournoi.CreatNewTournois(self=True,tournoi=tournoi)
         return ()
 
@@ -237,9 +192,8 @@ def select_tournoi():
         char = "{"
         x = 0
         tournoi_cherche = 1
-        #tournoi_trouvé = 0
-        # for x in range(len(str_joueurs)):
-        index = 1  # A SUPPRIMER
+
+        index = 1
         for i in serialised_tournoi:
                 index = index + 1  # A SUPPRIMER
 
@@ -266,21 +220,13 @@ def select_tournoi():
         str_list_tournoi = str_list_tournoi.replace('\',', ' -')
         str_list_tournoi = str_list_tournoi.replace('\']', '')
         str_list_tournoi = str_list_tournoi.replace('\'', 'tournoi n°')
-        #********************************
-        # Appel de la méthode vue du modèle VMC pour affichage de la résultante de la base de données
-        #ClassVueAffichage.Affichage(self=, "", "liste des numéros de tournois dans la base de donnée qu'il est possible de sélectionner :", str_list_tournoi + "\n")
 
+        # Appel de la méthode vue du modèle VMC pour affichage de la résultante de la base de données
         # Appel de la méthode vue du modèle VMC pour affichage de la résultante de la base de données
         ClassVueAffichage.Affichage(self=True,
                                     texte1="",
                                     texte2="liste des numéros de tournois dans la base de donnée qu'il est possible de sélectionner :",
                                     texte3=str_list_tournoi + "\n")
-
-
-        # Faire input de l'id, comparer avec les id de la liste, si id de la liste, mettre
-        # dans le tournoi à l'emplacement de l'id 1 au début, et supprimer l'élément de la liste
-        # sinon, forcer à ressaisir jusqu'à un id correct
-        # if id pas dans la liste, afficher message défaut et recommencer
 
         tournoi_a_charger = 1
         while (tournoi_a_charger < 2):
