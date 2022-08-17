@@ -517,7 +517,6 @@ def creat_round_2(tournoi_select):
         print("List_jx_**************************************************")
         print(list_jx)
 
-
         #Mise des joueurs dans ordre décroissant
         from operator import itemgetter
         print("LISTE CLASSEMENT JOUEUR" % (sorted(liste_liste_class_joueur, key=itemgetter(1), reverse=True)))
@@ -532,8 +531,6 @@ def creat_round_2(tournoi_select):
         joueur_class_score_croissant = (sorted(joueur_class_croissant, key=itemgetter(2), reverse=True))
         print("Affichage joueur par classement croissant et score -joueur_class_score_croissant-")
         print(joueur_class_score_croissant)
-
-
 
         #Faire une liste de joueurs déjà affronté par joueur;
         joueur_1=[joueur_class_score_croissant[0][0]]
@@ -748,8 +745,8 @@ def creat_round_2(tournoi_select):
                                 print("tester joueur suivant")
                                 index_partenaire=index_partenaire+1
                                 test = ""
-                        #index_4paire = index_4paire + 1
-                print("4444444444444444444444444444444")
+
+
                 print(liste_paire1)
                 print(liste_paire2)
                 print(liste_paire3)

@@ -2,8 +2,8 @@ import os
 
 class ClassVueMenu():
     def Action_menu(self):
-        from Controleur.Ctrl_Joueurs import lect_joueurs, sup_joueurs, purge_joueurs,creat_new_joueurs
-        from Controleur.Ctrl_Tournoi import lect_tournois, sup_tournois, purge_tournois,charge_joueurs_tournoi,creat_new_tournois,lecture_match_tournoi
+        from Controleur.Ctrl_Joueurs import lect_joueurs, sup_joueurs, purge_joueurs,creat_new_joueurs,lecture_joueurs_alpha,lecture_joueurs_classement
+        from Controleur.Ctrl_Tournoi import lect_tournois, sup_tournois, purge_tournois,charge_joueurs_tournoi,creat_new_tournois,lecture_match_tournoi,lecture_round_tournoi,lecture_joueur_tournoi,lecturetournoi
         from Controleur.Ctrl_Round import creat_round_1,creat_round_2,creat_round
         from Controleur.Ctrl_Match import creat_match
 
@@ -62,35 +62,27 @@ class ClassVueMenu():
                 creat_match()
 
             if (menu_niv_0 == "JA"):
-                pass
-                #lecture_joueurs_alpha()
+                lecture_joueurs_alpha()
 
             if (menu_niv_0 == "JC"):
-                pass
-                #lecture_joueurs_class()
+                lecture_joueurs_classement()
 
             if (menu_niv_0 == "TJ"):
+                lecture_joueur_tournoi()
                 print("Saisir ensuite l'id du tournoi")
-                pass
-                #lecture_joueurs_tournoi()
 
             if (menu_niv_0 == "TR"):
                 print("Saisir ensuite l'id du tournoi, s'afficheront tous les rounds")
-                pass
-                #lecture_joueurs_round()
+                lecture_round_tournoi()
 
             if (menu_niv_0 == "TM"):
                 print("Saisir ensuite l'id du tournoi, s'afficheront tous les rounds - ID Joueur, numero round, et score")
                 lecture_match_tournoi()
-                pass
-                #lecture_matchs_tounroi()
 
             if (menu_niv_0 == "TT"):
-                print("Afficher la liste simplifiée des tournois avec ID, nom, lieu et date")
-                pass
-                #lecture_joueurs_alpha()
-
-
+                print()
+                print("Affichage de la liste simplifiée des tournois avec ID, nom, lieu et date")
+                lecturetournoi()
 
 class ClassMainMenu():
     def __init__(self, id_tournoi, clavier, niv0, niv1, niv2):

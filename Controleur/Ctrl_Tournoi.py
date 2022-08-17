@@ -9,6 +9,7 @@ import json
 from Vue.affichage import ClassVueAffichage
 from tinydb import TinyDB, Query, where
 from datetime import datetime
+from Controleur.fonctions import creat_list,creat_dict,tournoi_exist
 Todo = Query()
 
 db_tournois = TinyDB('tournois.json')
@@ -372,24 +373,20 @@ def lecture_match_tournoi():
         from tinydb import TinyDB, Query, where
         Todo = Query()
         db_tournois = TinyDB('tournois.json')
-        db_joueurs = TinyDB('joueurs.json')
-        print("db_tournois.search(where('id_tournoi')==tournoi_select")
 
         tournoi_select = ClassVueAffichage.Input(self=True,
                                                texte1="saisie Id du tournoi pour lequel on veut le résultat des matchs" )
-        tournoi_select=2
+        tournoi_trouv = tournoi_exist(tournoi_select)
+        if tournoi_trouv == []:
+                print("Numéro de tournoi introuvable")
+                os._exit(0)
         int_tournoi_select = int(tournoi_select)
 
         # charger le tournoi selectionné à partir de la base de données dans tournoi
         tournoi = (db_tournois.search(where('id_tournoi') == int_tournoi_select))
-        print(tournoi)
+        #print(tournoi)
+        #print()
 
-        import json
-        fileObject = open("tournois.json", "r")
-        jsonContent = fileObject.read()
-        aList = json.loads(jsonContent)
-
-        print()
         try:
                 score_round1 = (tournoi[0]['ScoreMatchRound1'])
                 print("Score des joueurs round 1 - ID joueur + score : " + str(score_round1[0]) + str(score_round1[1]))
@@ -441,73 +438,163 @@ def lecture_match_tournoi():
                 print("pas de score pour le round 5")
                 print()
 
-
-        '''
-        db_tournois = TinyDB('tournois.json')
-
-        mode_ouv_fichier_json = "r"
-        # Tournoi à charger
-        with open('tournois.json') as mon_fichier:
-                dico = json.load(mon_fichier)
-                # print("data dico")
-        index = 0
-        # faire une fonction qui supprime les {, [, et qui remplace chaque { par un \n
-        serialised_tournois = db_tournois.all()
-        str_tournois = str(serialised_tournois)
-
-        char = "{"
-        x = 0
-        joueur_cherche = 1
-        joueur_trouve = 0
-        # for x in range(len(str_joueurs)):
-
-        index = 1
-        for i in serialised_tournois:
-                index = index + 1
-
-                # Extraction de l'id
-                char = 'ScoreMatchRound1'
-                score_match_round1 = (str_tournois.find(char))
-        print()
-        print(score_match_round1)
-        
-
-        # Affichage du tournoi
+def lecture_round_tournoi():
+        # Récupération des informations du fichier JSON du tournoi pour créer les rounds
         from tinydb import TinyDB, Query, where
         Todo = Query()
         db_tournois = TinyDB('tournois.json')
-        db_joueurs = TinyDB('joueurs.json')
-        print("db_tournois.search(where('id_tournoi')==tournoi_select")
 
-        tournoi_select = 2
+        tournoi_select = ClassVueAffichage.Input(self=True,
+                                               texte1="saisie Id du tournoi pour lequel on veut afficher les rounds" )
+        tournoi_trouv = tournoi_exist(tournoi_select)
+        if tournoi_trouv == []:
+                print("Numéro de tournoi introuvable")
+                os._exit(0)
 
         int_tournoi_select = int(tournoi_select)
 
-        # charger le tournoi selectionné à partir de la base de données dans tournoi
+        # charger le tournoi sélectionné à partir de la base de données dans tournoi
         tournoi = (db_tournois.search(where('id_tournoi') == int_tournoi_select))
-        print(tournoi)
+        #print(tournoi)
+        #print()
 
-        match_tournoi=
-        '''
-        '''
-        db_joueurs = TinyDB('joueurs.json')
+        #ROUND 1
+        #Extraction de round 1 de la base de donnée
+        try:
+                round1 = (tournoi[0]['round_1+match'])
+                print("Round 1 - Date du tournoi : " + str(round1[0]))
+                print()
 
-                print("id_joueur " + str(index_joueur) + ": ")
-                id_joueur_en_cours = ""
-                int_id_joueur_en_cours = ""
+                index=1
+                while index<5 :
+                        print("Round 1 - Paire" +str(index) + " - Joueur 1 : " + "ID : " + str(round1[index][0][0]) + " - "+ str(round1[index][0][2]) + " - : "+ str(round1[index][0][3]))
+                        print("Round 1 - Paire" +str(index) + " - Joueur 2 : " + "ID : " + str(round1[index][1][0]) + " - " + str(round1[index][1][2]) + " - : " + str(round1[index][1][3]))
+                        index = index +1
+                        print()
+        except KeyError:
+                print("pas de score pour le round 1")
+
+        # ROUND 2 ET PLUS
+        index_round = 2
+        while index_round<6:
+                round_bd = "round_" + str(index_round) + "+match"
+                roundx = (tournoi[0][round_bd])
                 try:
-                        #id_joueur_en_cours = (dict_tournoi[id_jx])
-                        id_joueur_en_cours = list_id_joueur[index_joueur]
+                        print("Round" + str(index_round) + " - Date du tournoi : " + str(roundx[0]))
+
+                        index = 1
+                        while index < 5:
+                                print("Round" + str(index_round) + " - Paire" + str(index) + " - Joueur 1 : " + "ID : " + str(roundx[index][0]))#
+                                print("Round" + str(index_round) + " - Paire" + str(index) + " - Joueur 2 : " + "ID : " + str(roundx[index][1]))
+                                index = index + 1
+                        print()
                 except IndexError:
-                        print("Vous devez choisir un tournoi où les 8 joueurs sont chargés pour créer des rounds X")
-                        os._exit(1)
+                        print("pas de score pour le round suivant")
+                index_round = index_round +1
+        print()
 
-                try:
-                        int_id_joueur_en_cours = int(id_joueur_en_cours)
-                except ValueError:
-                        print("Erreur, vous devez choisir un tournoi où les 8 joueurs sont chargés pour créer des rounds Y")
-                        os._exit(0)
+def lecture_joueur_tournoi():
+        # Récupération des informations du fichier JSON du tournoi pour créer les rounds
+        from tinydb import TinyDB, Query, where
+        Todo = Query()
+        db_tournois = TinyDB('tournois.json')
 
-                joueur = (db_joueurs.search(where('id_joueur') == int_id_joueur_en_cours))
-                dict_joueur = creat_dict(joueur)
-        '''
+
+        tournoi_select = ClassVueAffichage.Input(self=True,
+                                               texte1="saisie Id du tournoi pour lequel on veut afficher les rounds" )
+
+        tournoi_trouv=tournoi_exist(tournoi_select)
+        if tournoi_trouv ==[]:
+                print("Numéro de tournoi introuvable")
+                os._exit(0)
+
+        int_tournoi_select = int(tournoi_select)
+
+        # charger le tournoi sélectionné à partir de la base de données dans tournoi
+        tournoi = (db_tournois.search(where('id_tournoi') == int_tournoi_select))
+        #print(tournoi)
+        #print()
+        id_j1 = (tournoi[0]['id_j1'])
+        id_j2 = (tournoi[0]['id_j2'])
+        id_j3 = (tournoi[0]['id_j3'])
+        id_j4 = (tournoi[0]['id_j4'])
+        id_j5 = (tournoi[0]['id_j5'])
+        id_j6 = (tournoi[0]['id_j6'])
+        id_j7 = (tournoi[0]['id_j7'])
+        id_j8 = (tournoi[0]['id_j8'])
+
+        db_joueurs = TinyDB('joueurs.json')
+        #print(db_joueurs)
+        # charger le tournoi sélectionné à partir de la base de données dans tournoi
+        joueur1 = (db_joueurs.search(where('id_joueur') == int(id_j1)))
+        joueur2 = (db_joueurs.search(where('id_joueur') == int(id_j2)))
+        joueur3 = (db_joueurs.search(where('id_joueur') == int(id_j3)))
+        joueur4 = (db_joueurs.search(where('id_joueur') == int(id_j4)))
+        joueur5 = (db_joueurs.search(where('id_joueur') == int(id_j5)))
+        joueur6 = (db_joueurs.search(where('id_joueur') == int(id_j6)))
+        joueur7 = (db_joueurs.search(where('id_joueur') == int(id_j7)))
+        joueur8 = (db_joueurs.search(where('id_joueur') == int(id_j8)))
+
+        id_j, nom_j, prenom_j, date_j, sexe_j, classement_j = liste_joueur_tournoi(joueur1)
+        print("JOUEUR 1 DU TOURNOI : Identifiant n°" + str(id_j) + " - " + str(nom_j) + " - " + str(
+                prenom_j) + " - " + str(
+                date_j) + " - " + str(sexe_j) + " - Classé," + str(classement_j))
+
+        id_j,nom_j,prenom_j,date_j,sexe_j,classement_j =liste_joueur_tournoi(joueur2)
+        print("JOUEUR 2 DU TOURNOI : Identifiant n°" + str(id_j) + " - " + str(nom_j) + " - " + str(prenom_j) + " - " + str(
+                date_j) + " - " + str(sexe_j) + " - Classé," + str(classement_j))
+
+        id_j, nom_j, prenom_j, date_j, sexe_j, classement_j = liste_joueur_tournoi(joueur3)
+        print("JOUEUR 3 DU TOURNOI : Identifiant n°" + str(id_j) + " - " + str(nom_j) + " - " + str(prenom_j) + " - " + str(
+                date_j) + " - " + str(sexe_j) + " - Classé," + str(classement_j))
+
+        id_j, nom_j, prenom_j, date_j, sexe_j, classement_j = liste_joueur_tournoi(joueur4)
+        print("JOUEUR 4 DU TOURNOI : Identifiant n°" + str(id_j) + " - " + str(nom_j) + " - " + str(prenom_j) + " - " + str(
+                date_j) + " - " + str(sexe_j) + " - Classé," + str(classement_j))
+
+        id_j, nom_j, prenom_j, date_j, sexe_j, classement_j = liste_joueur_tournoi(joueur5)
+        print("JOUEUR 5 DU TOURNOI : Identifiant n°" + str(id_j) + " - " + str(nom_j) + " - " + str(prenom_j) + " - " + str(
+                date_j) + " - " + str(sexe_j) + " - Classé," + str(classement_j))
+
+        id_j, nom_j, prenom_j, date_j, sexe_j, classement_j = liste_joueur_tournoi(joueur6)
+        print("JOUEUR 6 DU TOURNOI : Identifiant n°" + str(id_j) + " - " + str(nom_j) + " - " + str(prenom_j) + " - " + str(
+                date_j) + " - " + str(sexe_j) + " - Classé," + str(classement_j))
+
+        id_j, nom_j, prenom_j, date_j, sexe_j, classement_j = liste_joueur_tournoi(joueur7)
+        print("JOUEUR 7 DU TOURNOI : Identifiant n°" + str(id_j) + " - " + str(nom_j) + " - " + str(prenom_j) + " - " + str(
+                date_j) + " - " + str(sexe_j) + " - Classé," + str(classement_j))
+
+        id_j, nom_j, prenom_j, date_j, sexe_j, classement_j = liste_joueur_tournoi(joueur8)
+        print("JOUEUR 8 DU TOURNOI : Identifiant n°" + str(id_j) + " - " + str(nom_j) + " - " + str(prenom_j) + " - " + str(
+                date_j) + " - " + str(sexe_j) + " - Classé," + str(classement_j))
+
+print()
+
+
+def lecturetournoi():
+        # Récupération des informations du fichier JSON du tournoi pour créer les rounds
+        from tinydb import TinyDB, Query, where
+        Todo = Query()
+        db_tournois = TinyDB('tournois.json')
+
+
+        with open('tournois.json') as mon_fichier:
+                dico = json.load(mon_fichier)
+
+        serialised_tournois = db_tournois.all()
+        print()
+        index=0
+        for i in serialised_tournois:
+                print(("ID tournoi n°" + str(serialised_tournois[index]['id_tournoi']))+(",   appelé "+ str(serialised_tournois[index]['nom']))+(", qui s'est passé à "+ str(serialised_tournois[index]['lieu']))+(", en date du "+ str(serialised_tournois[index]['date du tournoi'])))
+                print()
+                index=index+1
+
+def liste_joueur_tournoi(joueur):
+        dict_joueur1 = creat_dict(joueur)
+        id_j = (dict_joueur1["id_joueur"])
+        nom_j = (dict_joueur1["Nom"])
+        prenom_j = (dict_joueur1["Prenom"])
+        date_j = (dict_joueur1["date de naissance"])
+        sexe_j = (dict_joueur1["sexe"])
+        classement_j = (dict_joueur1["Classement"])
+        return(id_j,nom_j,prenom_j,date_j,sexe_j,classement_j)

@@ -134,6 +134,7 @@ def creat_new_joueurs():
         # Serialize l'instance joueurs
         joueur = {"id_joueur": id_joueur, "Nom": nom, "Prenom": prenom, "date de naissance": date_naissance,
                   "sexe": sexe, "Classement": classement}
+
         ClassJoueurs.CreatJoueurs(self=True,joueur=joueur)
         return(joueur)
         #TEST
@@ -175,5 +176,76 @@ def sup_joueurs(menu_niv_2):
 #purge de la base de donnée
 def purge_joueurs():
         db_joueurs.truncate()
+
+
+def lecture_joueurs_alpha():
+        # Récupération des informations du fichier JSON du tournoi pour créer les rounds
+        from tinydb import TinyDB, Query, where
+        Todo = Query()
+        db_joueurs = TinyDB('joueurs.json')
+
+
+        with open('joueurs.json') as mon_fichier:
+                dico = json.load(mon_fichier)
+
+        serialised_joueurs = db_joueurs.all()
+        print()
+        index=0
+        liste_joueurs=[]
+        for i in serialised_joueurs:
+                #print(("ID joueur n°" + str(serialised_joueurs[index]['id_joueur']))+(",   nom,"+ str(serialised_joueurs[index]['Nom']))+(",   prénom, "+ str(serialised_joueurs[index]['Prenom']))+(", date de naissance "+ str(serialised_joueurs[index]['date de naissance']))+(", de sexe "+ str(serialised_joueurs[index]['sexe']))+(", classé "+ str(serialised_joueurs[index]['Classement'])))
+                liste_joueurs.append(("ID joueur n°" + str(serialised_joueurs[index]['id_joueur']))+(",   nom,"+ str(serialised_joueurs[index]['Nom']))+(",   prénom, "+ str(serialised_joueurs[index]['Prenom']))+(", date de naissance "+ str(serialised_joueurs[index]['date de naissance']))+(", de sexe "+ str(serialised_joueurs[index]['sexe']))+(", classé "+ str(serialised_joueurs[index]['Classement']))+"\n")
+
+                print(liste_joueurs)
+                print()
+                index=index+1
+
+                from operator import itemgetter
+
+        print("LISTE CLASSEMENT JOUEUR ALPHABETIQUE PAR IDENTIFIANT" % (sorted(liste_joueurs, key=itemgetter(1), reverse=True)))
+        joueur_class_decroissant = (sorted(liste_joueurs, key=itemgetter(0), reverse=True))
+        print(joueur_class_decroissant)
+
+def lecture_joueurs_classement():
+        # Récupération des informations du fichier JSON du tournoi pour créer les rounds
+        from tinydb import TinyDB, Query, where
+        Todo = Query()
+        db_joueurs = TinyDB('joueurs.json')
+
+
+        with open('joueurs.json') as mon_fichier:
+                dico = json.load(mon_fichier)
+
+        serialised_joueurs = db_joueurs.all()
+        print(serialised_joueurs)
+        print("&é"''''''''"(('&é'é'²é'")
+        print()
+        index=0
+        liste_joueurs=[]
+
+        liste_liste_joueurs=[]
+        for i in serialised_joueurs:
+                #print(("ID joueur n°" + str(serialised_joueurs[index]['id_joueur']))+(",   nom,"+ str(serialised_joueurs[index]['Nom']))+(",   prénom, "+ str(serialised_joueurs[index]['Prenom']))+(", date de naissance "+ str(serialised_joueurs[index]['date de naissance']))+(", de sexe "+ str(serialised_joueurs[index]['sexe']))+(", classé "+ str(serialised_joueurs[index]['Classement'])))
+#                liste_joueurs.append(("ID joueur n°" + str(serialised_joueurs[index]['id_joueur']))+(",   nom,"+ str(serialised_joueurs[index]['Nom']))+(",   prénom, "+ str(serialised_joueurs[index]['Prenom']))+(", date de naissance "+ str(serialised_joueurs[index]['date de naissance']))+(", de sexe "+ str(serialised_joueurs[index]['sexe']))+(", classé "+ str(serialised_joueurs[index]['Classement']))+"\n")
+
+                #print(("ID joueur n°" + str(serialised_joueurs[index]['id_joueur']))+(",   nom,"+ str(serialised_joueurs[index]['Nom']))+(",   prénom, "+ str(serialised_joueurs[index]['Prenom']))+(", date de naissance "+ str(serialised_joueurs[index]['date de naissance']))+(", de sexe "+ str(serialised_joueurs[index]['sexe']))+(", classé "+ str(serialised_joueurs[index]['Classement'])))
+                liste1 = ["ID joueur n°:",int(serialised_joueurs[index]['id_joueur']),"class:",int(serialised_joueurs[index]['Classement'])]
+                #liste1.append("ID joueur n°:")
+                #liste1.append(str(serialised_joueurs[index]['id_joueur']))
+                #liste1.append("class:")
+                #liste1.append(str(serialised_joueurs[index]['Classement']))
+                liste_joueurs.append(liste1)
+
+                #liste_joueurs.append(("ID joueur n°" + str(serialised_joueurs[index]['id_joueur']))+(", classé "+ str(serialised_joueurs[index]['Classement'])))
+                #liste_joueurs.append(liste)
+                #liste_liste_joueurs.append(liste_joueurs)
+                #print(liste_joueurs)
+                index=index+1
+        #print("liste_joueurs")
+        #print(liste_joueurs)
+
+        from operator import itemgetter
+        print("LISTE JOUEUR DANS L'ORDRE DE LEUR CLASSEMENT" % (sorted(liste_joueurs, key=itemgetter(2), reverse=True)))
+        joueur_class_decr = (sorted(liste_joueurs, key=itemgetter(3), reverse=False))
 
 
