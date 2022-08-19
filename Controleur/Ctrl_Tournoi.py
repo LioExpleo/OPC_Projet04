@@ -123,14 +123,37 @@ def creat_new_tournois():
         round_6 = ""
         round_7 = ""
 
+        # saisie du type de matchs, bullet, blitz, ou coup rapide
+        temps_matchs=""
+        saisie=""
+        list_tps={1:"bullet",2:"blitz",3:"coup rapide"}
+
+        while saisie!="1" and saisie!="2" and saisie!="3":
+
+                saisie = ClassVueAffichage.Input(self=True,
+                                                       texte1="saisie type de match : \"1\" pour bullet, \"2\"pour blitz,\"3\"pour coup rapide. E pour stopper le programme")
+
+                if saisie == "E":
+                        os._exit(0)
+        else:
+                temps_matchs = list_tps[int(saisie)]
+
+        print (temps_matchs)
+        print()
+
+        # saisie des remarques générale organisateur tournoi
+        remarque_tournoi = ClassVueAffichage.Input(self=True, texte1="saisie des remarques de l'organisateur du tournoi :")
+        print()
+
         # Serialize l'instance tournoi
         tournoi = {"id_tournoi": id_tournoi, "nom": nom, "lieu": lieu, "date du tournoi": date,
                    "nombre de rounds": nbr_rounds, "id_j1": id_j1, "id_j2": id_j2, "id_j3": id_j3, "id_j4": id_j4,
-                   "id_j5": id_j5, "id_j6": id_j6, "id_j7": id_j7, "id_j8": id_j8, "round_1+match":round_1,"round_2+match":round_2,"round_3+match":round_3,"round_4+match":round_4,"round_5+match":round_5,"round_6+match":round_6,"round_7+match":round_7}
+                   "id_j5": id_j5, "id_j6": id_j6, "id_j7": id_j7, "id_j8": id_j8, "round_1+match":round_1,"round_2+match":round_2,"round_3+match":round_3,"round_4+match":round_4,"round_5+match":round_5,"round_6+match":round_6,"round_7+match":round_7,"Temps":temps_matchs,"Remarques de l'organisateur":remarque_tournoi}
 
 
         # Insertion du joueur saisi dans la base de donnée
         ClassTournoi.CreatNewTournois(self=True,tournoi=tournoi)
+        ClassVueAffichage.Affichage(self=True,texte1="Tournoi "+ nom + ", avec comme identifiant tournoi "+"\""+str(id_tournoi) +"\""+ ", créé.",texte2= "Date du tournoi : "+str(date),texte3="")
         return ()
 
 def lect_tournois():# Afficher la liste des tournois

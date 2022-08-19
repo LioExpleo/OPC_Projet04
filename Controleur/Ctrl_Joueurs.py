@@ -2,250 +2,360 @@
 """affichage liste joueurs de la base de donnée, suppression d'un joueur de la base de donnée, purge de la base de donnée"""
 import os
 import re
-#from Vue.menu import ClassMainMenu
+# from Vue.menu import ClassMainMenu
 from Modele.Joueurs import ClassJoueurs
 from Vue.affichage import ClassVueAffichage
-from Controleur.fonctions import creat_list,creat_dict
+from Controleur.fonctions import creat_list, creat_dict
 
 import json
 from tinydb import TinyDB, Query, where
+
 Todo = Query()
 db_joueurs = TinyDB('joueurs.json')
 
+
 def creat_new_joueurs():
-        # CREATION DE L'ID DU JOUEUR ************************************
-        from tinydb import TinyDB, Query
-        Todo = Query()
-        db_joueurs = TinyDB('joueurs.json')
-        mode_ouv_fichier_json = "r"
-        with open('joueurs.json', mode_ouv_fichier_json) as fichier_joueur:
-                pass
+    # CREATION DE L'ID DU JOUEUR ************************************
+    from tinydb import TinyDB, Query
+    Todo = Query()
+    db_joueurs = TinyDB('joueurs.json')
+    mode_ouv_fichier_json = "r"
+    with open('joueurs.json', mode_ouv_fichier_json) as fichier_joueur:
+        pass
 
-        # import operator
-        db_joue = TinyDB('joueurs.json')  # A SUPPRIMER
+    # import operator
+    db_joue = TinyDB('joueurs.json')  # A SUPPRIMER
 
-        # Rechercher un id libre dans la base de donnée en incrémentant l'id de test jusqu'à trouver un ID libre
-        joueur_cherche = 1
-        joueur_trouve = 0
-        id_libre = 0
+    # Rechercher un id libre dans la base de donnée en incrémentant l'id de test jusqu'à trouver un ID libre
+    joueur_cherche = 1
+    joueur_trouve = 0
+    id_libre = 0
 
-        # Si l' id_joueur_cherché n'est pas trouvé, on le prend pour le mettre à l'id du nouveau joueur
-        # sinon, on reboucle jusqu'a trouver un id libre. On commence par regarder si l'id 1 existe
+    # Si l' id_joueur_cherché n'est pas trouvé, on le prend pour le mettre à l'id du nouveau joueur
+    # sinon, on reboucle jusqu'a trouver un id libre. On commence par regarder si l'id 1 existe
+    joueur_trouve = db_joueurs.search(Todo.id_joueur == joueur_cherche)
+    joueur_trouv = str(joueur_trouve)
+    # recherche de la position de id_joueur dans la chaine
+    char = 'id_joueur'
+    PositDebNbre = (joueur_trouv.find(char))
+    # recherche de la position de nom dans la chaine
+    char = "nom"
+    PositFinNbre = (joueur_trouv.find(char))
+
+    # Recherche de l'id à partir des positions précédentes et suivantes'
+    id_joueur = joueur_trouv[(PositDebNbre + 12): (PositFinNbre - 3)]
+
+    # tant que l'id cherché existe, on recherche jusqu'à en trouver un libre en l'incrémentant
+    while (id_joueur != ""):
+        joueur_cherche = joueur_cherche + 1
         joueur_trouve = db_joueurs.search(Todo.id_joueur == joueur_cherche)
         joueur_trouv = str(joueur_trouve)
-        # recherche de la position de id_joueur dans la chaine
         char = 'id_joueur'
         PositDebNbre = (joueur_trouv.find(char))
-        # recherche de la position de nom dans la chaine
+
         char = "nom"
         PositFinNbre = (joueur_trouv.find(char))
 
-        # Recherche de l'id à partir des positions précédentes et suivantes'
         id_joueur = joueur_trouv[(PositDebNbre + 12): (PositFinNbre - 3)]
 
-        # tant que l'id cherché existe, on recherche jusqu'à en trouver un libre en l'incrémentant
-        while (id_joueur != ""):
-                joueur_cherche = joueur_cherche + 1
-                joueur_trouve = db_joueurs.search(Todo.id_joueur == joueur_cherche)
-                joueur_trouv = str(joueur_trouve)
-                char = 'id_joueur'
-                PositDebNbre = (joueur_trouv.find(char))
+    else:
+        id_libre = joueur_cherche
+    str_id_libre = str(id_libre)
+    ClassVueAffichage.Affichage(self=True, texte1=str_id_libre, texte2="", texte3="")
+    # print (id_libre)
 
-                char = "nom"
-                PositFinNbre = (joueur_trouv.find(char))
+    # self=""
+    # inst_creat_joueurs = ClassJoueurs.CreatJoueurs(self.__class__)
 
-                id_joueur = joueur_trouv[(PositDebNbre + 12): (PositFinNbre - 3)]
+    wd = os.getcwd()  # récupération du chemin
+    # print (wd)
 
-        else:
-                id_libre = joueur_cherche
-        str_id_libre=str(id_libre)
-        ClassVueAffichage.Affichage(self=True,texte1=str_id_libre ,texte2="",texte3="")
-        #print (id_libre)
+    working_directory = str(wd)
+    working_directory_db = working_directory + "/joueurs.json"
+    mode_ouv_fichier_json = "a+"
+    with open('joueurs.json', mode_ouv_fichier_json) as fichier_joueur:
+        pass
+    # ***************************************************************************************
+    nom = ClassVueAffichage.Input(self=True, texte1="saisie nom :")
+    if nom == "":
+        nom = ("Joueur " + str(id_libre))
+        ClassVueAffichage.Affichage(self=True, texte1="en absence de nom, le nom par défaut est " + nom,
+                                    texte2="", texte3="")
+    if nom == "r":
+        nom = ("Joueur " + str(id_libre))
+        ClassVueAffichage.Affichage(self=True,
+                                    texte1="r est un nom interdit, cela correspond à une commande clavier, le nom par défaut est " + nom,
+                                    texte2="", texte3="")
+    if nom == "E":
+        nom = ("Joueur " + str(id_libre))
+        ClassVueAffichage.Affichage(self=True,
+                                    texte1="E est un nom interdit, cela correspond à une commande clavier, le nom par défaut enregistré est " + nom,
+                                    texte2="", texte3="")
 
-        #self=""
-        #inst_creat_joueurs = ClassJoueurs.CreatJoueurs(self.__class__)
+    prenom = ClassVueAffichage.Input(self=True, texte1="saisie prénom :")
+    if prenom == "":
+        prenom = ("Prenom " + str(id_libre))
+        ClassVueAffichage.Affichage(self=True, texte1="en absence de prenom, le prenom par défaut est " + prenom,
+                                    texte2="", texte3="")
+    if prenom == "r":
+        prenom = ("Prenom " + str(id_libre))
+        ClassVueAffichage.Affichage(self=True,
+                                    texte1="r est un nom interdit, cela correspond à une commande clavier, le prenom par défaut est " + prenom,
+                                    texte2="", texte3="")
+    if prenom == "E":
+        prenom = ("Prenom " + str(id_libre))
+        ClassVueAffichage.Affichage(self=True,
+                                    texte1="E est un nom interdit, cela correspond à une commande clavier, le prenom par défaut enregistré est " + prenom,
+                                    texte2="", texte3="")
 
-        wd = os.getcwd() #récupération du chemin
-        #print (wd)
+    date_naissance = ClassVueAffichage.Input(self=True, texte1="date de naissance (format DD/MM/YYYY):")
+    if date_naissance == "":
+        date_naissance = "01-01-1900"
 
-        working_directory = str(wd)
-        working_directory_db = working_directory + "/joueurs.json"
-        mode_ouv_fichier_json = "a+"
-        with open('joueurs.json', mode_ouv_fichier_json) as fichier_joueur:
-                pass
-        #***************************************************************************************
-        nom = ClassVueAffichage.Input(self=True,texte1="saisie nom :")
-        if nom == "":
-                nom = ("Joueur " + str(id_libre))
-                ClassVueAffichage.Affichage(self=True,texte1="en absence de nom, le nom par défaut est " + nom,texte2="",texte3="")
-        if nom == "r":
-                nom = ("Joueur " + str(id_libre))
-                ClassVueAffichage.Affichage(self=True, texte1="r est un nom interdit, cela correspond à une commande clavier, le nom par défaut est " + nom,
-                                            texte2="", texte3="")
-        if nom == "E":
-                nom = ("Joueur " + str(id_libre))
-                ClassVueAffichage.Affichage(self=True,
-                                            texte1="E est un nom interdit, cela correspond à une commande clavier, le nom par défaut enregistré est " + nom,
-                                            texte2="", texte3="")
+    sexe = ClassVueAffichage.Input(self=True, texte1="saisie sexe h ou f ou nc :")
+    # sexe = input("saisie sexe h ou f ou nc : \n")
+    assertions = ["H", "h", "F", "f"]
+    if sexe == "":
+        sexe = "nc"
+        ClassVueAffichage.Affichage(self=True,
+                                    texte1="en absence d'indication, le sexe est indiqué nc",
+                                    texte2="", texte3="")
+        # print("en absence d'indication, le sexe est indiqué nc")
 
-        prenom = ClassVueAffichage.Input(self=True, texte1="saisie prénom :")
-        if prenom == "":
-                prenom = ("Prenom " + str(id_libre))
-                ClassVueAffichage.Affichage(self=True,texte1="en absence de prenom, le prenom par défaut est " + prenom,texte2="",texte3="")
-        if prenom == "r":
-                prenom = ("Prenom " + str(id_libre))
-                ClassVueAffichage.Affichage(self=True,
-                                            texte1="r est un nom interdit, cela correspond à une commande clavier, le prenom par défaut est " + prenom,
-                                            texte2="", texte3="")
-        if prenom == "E":
-                prenom = ("Prenom " + str(id_libre))
-                ClassVueAffichage.Affichage(self=True,texte1="E est un nom interdit, cela correspond à une commande clavier, le prenom par défaut enregistré est " + prenom,
-                                            texte2="", texte3="")
+    classement = ClassVueAffichage.Input(self=True, texte1="classement :")
+    # classement = input("classement : \n")
+    if classement.isdigit():
+        ClassVueAffichage.Affichage(self=True,
+                                    texte1="classement " + str(classement) + " ok",
+                                    texte2="", texte3="")
+        # print("classement ok")
+    else:
+        # classement = 10000
+        classement = id_libre + 100
+        ClassVueAffichage.Affichage(self=True,
+                                    texte1="En absence de saisie, le classement, par défaut est numéro id + 100, " + str(
+                                        classement),
+                                    texte2="", texte3="")
+        # print("Error saisie classement, par défaut, 10000")
+    id_joueur = id_libre
 
-        date_naissance = ClassVueAffichage.Input(self=True, texte1="date de naissance (format DD/MM/YYYY):")
-        if date_naissance == "":
-                date_naissance = "01-01-1900"
+    # Serialize l'instance joueurs
+    joueur = {"id_joueur": id_joueur, "Nom": nom, "Prenom": prenom, "date de naissance": date_naissance,
+              "sexe": sexe, "Classement": classement}
 
-        sexe = ClassVueAffichage.Input(self=True, texte1="saisie sexe h ou f ou nc :")
-        #sexe = input("saisie sexe h ou f ou nc : \n")
-        assertions = ["H", "h", "F", "f"]
-        if sexe == "":
-                sexe = "nc"
-                ClassVueAffichage.Affichage(self=True,
-                                            texte1="en absence d'indication, le sexe est indiqué nc",
-                                            texte2="", texte3="")
-                #print("en absence d'indication, le sexe est indiqué nc")
+    ClassJoueurs.CreatJoueurs(self=True, joueur=joueur)
+    return (joueur)
+    # TEST
 
-        classement = ClassVueAffichage.Input(self=True, texte1="classement :")
-        #classement = input("classement : \n")
-        if classement.isdigit():
-                ClassVueAffichage.Affichage(self=True,
-                                            texte1="classement "+ str(classement) +" ok",
-                                            texte2="", texte3="")
-                #print("classement ok")
-        else:
-                classement = 10000
-                ClassVueAffichage.Affichage(self=True,
-                                            texte1="Error saisie classement, par défaut, "+ str(classement),
-                                            texte2="", texte3="")
-                #print("Error saisie classement, par défaut, 10000")
-        id_joueur = id_libre
 
-        # Serialize l'instance joueurs
-        joueur = {"id_joueur": id_joueur, "Nom": nom, "Prenom": prenom, "date de naissance": date_naissance,
-                  "sexe": sexe, "Classement": classement}
+def lect_joueurs():  # Afficher la liste des joueurs
+    # import json
 
-        ClassJoueurs.CreatJoueurs(self=True,joueur=joueur)
-        return(joueur)
-        #TEST
-def lect_joueurs():# Afficher la liste des joueurs
-        #import json
+    with open('joueurs.json') as mon_fichier:
+        dico = json.load(mon_fichier)
 
-        with open('joueurs.json') as mon_fichier:
-                dico = json.load(mon_fichier)
+    index = 0
+    # faire une fonction qui supprime les {, [, et qui remplace chaque { par un \n
+    serialised_joueurs = db_joueurs.all()
+    str_joueurs = str(serialised_joueurs)
 
-        index = 0
-        #faire une fonction qui supprime les {, [, et qui remplace chaque { par un \n
-        serialised_joueurs = db_joueurs.all()
-        str_joueurs = str(serialised_joueurs)
+    print_liste_joueurs = ""
+    char = "{"
+    for x in range(len(char)):
+        print_liste_joueurs = str_joueurs.replace(char, "\n")
+        print_liste_joueurs = print_liste_joueurs.replace("}", "")
+        print_liste_joueurs = print_liste_joueurs.replace(",", "         ")
+        print_liste_joueurs = print_liste_joueurs.replace("'", " ")
+        # print_liste_joueurs = print_liste_joueurs.replace(":", " ")
 
-        print_liste_joueurs=""
-        char = "{"
-        for x in range(len(char)):
-                print_liste_joueurs = str_joueurs.replace(char,"\n")
-                print_liste_joueurs = print_liste_joueurs.replace("}", "")
-                print_liste_joueurs = print_liste_joueurs.replace(",", "         ")
-                print_liste_joueurs = print_liste_joueurs.replace("'", " ")
-                #print_liste_joueurs = print_liste_joueurs.replace(":", " ")
+    print_liste_joueurs = print_liste_joueurs.replace("[", "")
+    print_liste_joueurs = print_liste_joueurs.replace("]", "    ")
 
-        print_liste_joueurs = print_liste_joueurs.replace("[", "")
-        print_liste_joueurs = print_liste_joueurs.replace("]", "    ")
+    # Appel de la méthode vue du modèle VMC pour affichage de la résultante de la base de données
+    ClassVueAffichage.Affichage(self=True, texte1="",
+                                texte2="Ci-dessous, la liste des joueurs issus de la base de données :",
+                                texte3=print_liste_joueurs + "\n")
+    return ()
 
-        # Appel de la méthode vue du modèle VMC pour affichage de la résultante de la base de données
-        ClassVueAffichage.Affichage(self=True,texte1="",texte2="Ci-dessous, la liste des joueurs issus de la base de données :",texte3=print_liste_joueurs + "\n")
-        return ()
 
-#supprimer un joueur de la liste pour éventuellement le ressaisir
+# supprimer un joueur de la liste pour éventuellement le ressaisir
 def sup_joueurs(menu_niv_2):
-        with open('joueurs.json') as mon_fichier:
-                dico = json.load(mon_fichier)
-        #db_joueurs.remove(Todo.Nom == menu_niv_2)
-        menu_niv_2=int(menu_niv_2)
-        db_joueurs.remove(Todo.id_joueur == menu_niv_2)
+    with open('joueurs.json') as mon_fichier:
+        dico = json.load(mon_fichier)
+    # db_joueurs.remove(Todo.Nom == menu_niv_2)
+    menu_niv_2 = int(menu_niv_2)
+    db_joueurs.remove(Todo.id_joueur == menu_niv_2)
 
-#purge de la base de donnée
+
+# purge de la base de donnée
 def purge_joueurs():
-        db_joueurs.truncate()
+    db_joueurs.truncate()
 
 
-def lecture_joueurs_alpha():
-        # Récupération des informations du fichier JSON du tournoi pour créer les rounds
-        from tinydb import TinyDB, Query, where
-        Todo = Query()
-        db_joueurs = TinyDB('joueurs.json')
+def lecture_joueurs_class_nom():
+    # Récupération des informations du fichier JSON du tournoi pour créer les rounds
+    from tinydb import TinyDB, Query, where
+    Todo = Query()
+    db_joueurs = TinyDB('joueurs.json')
+
+    with open('joueurs.json') as mon_fichier:
+        dico = json.load(mon_fichier)
+
+    serialised_joueurs = db_joueurs.all()
+
+    index = 0
+    liste_joueurs = []
+
+    for i in serialised_joueurs:
+        liste1 = ["ID joueur n°:", int(serialised_joueurs[index]['id_joueur']), "nom,",
+                  (serialised_joueurs[index]['Nom']), "prénom ,", (serialised_joueurs[index]['Prenom']), "class:",
+                  int(serialised_joueurs[index]['Classement'])]
+        liste_joueurs.append(liste1)
+        index = index + 1
+
+        # liste_joueurs.append(((",   nom,"+ str(serialised_joueurs[index]['Nom']))+(",   prénom, "+ str(serialised_joueurs[index]['Prenom']))+(", date de naissance "+ str(serialised_joueurs[index]['date de naissance']))+(", de sexe "+ str(serialised_joueurs[index]['sexe']))+(", classé "+ str(serialised_joueurs[index]['Classement']))+"\n")
+
+    from operator import itemgetter
+    # print("LISTE CLASSEMENT JOUEUR ALPHABETIQUE PAR IDENTIFIANT" % (sorted(liste_joueurs, key=itemgetter(1), reverse=True)))
+    joueur_id_decroissant = (sorted(liste_joueurs, key=itemgetter(3), reverse=False))
+
+    print("Affichage des joueurs par ordre alphabétique de leurs noms :")
+    index = 0
+    for i in joueur_id_decroissant:
+        print(joueur_id_decroissant[index])
+        index = index + 1
 
 
-        with open('joueurs.json') as mon_fichier:
-                dico = json.load(mon_fichier)
+def lecture_joueurs_class_id():
+    # Récupération des informations du fichier JSON du tournoi pour créer les rounds
+    from tinydb import TinyDB, Query, where
+    Todo = Query()
+    db_joueurs = TinyDB('joueurs.json')
 
-        serialised_joueurs = db_joueurs.all()
-        print()
-        index=0
-        liste_joueurs=[]
-        for i in serialised_joueurs:
-                #print(("ID joueur n°" + str(serialised_joueurs[index]['id_joueur']))+(",   nom,"+ str(serialised_joueurs[index]['Nom']))+(",   prénom, "+ str(serialised_joueurs[index]['Prenom']))+(", date de naissance "+ str(serialised_joueurs[index]['date de naissance']))+(", de sexe "+ str(serialised_joueurs[index]['sexe']))+(", classé "+ str(serialised_joueurs[index]['Classement'])))
-                liste_joueurs.append(("ID joueur n°" + str(serialised_joueurs[index]['id_joueur']))+(",   nom,"+ str(serialised_joueurs[index]['Nom']))+(",   prénom, "+ str(serialised_joueurs[index]['Prenom']))+(", date de naissance "+ str(serialised_joueurs[index]['date de naissance']))+(", de sexe "+ str(serialised_joueurs[index]['sexe']))+(", classé "+ str(serialised_joueurs[index]['Classement']))+"\n")
+    with open('joueurs.json') as mon_fichier:
+        dico = json.load(mon_fichier)
 
-                print(liste_joueurs)
-                print()
-                index=index+1
+    serialised_joueurs = db_joueurs.all()
 
-                from operator import itemgetter
+    index = 0
+    liste_joueurs = []
 
-        print("LISTE CLASSEMENT JOUEUR ALPHABETIQUE PAR IDENTIFIANT" % (sorted(liste_joueurs, key=itemgetter(1), reverse=True)))
-        joueur_class_decroissant = (sorted(liste_joueurs, key=itemgetter(0), reverse=True))
-        print(joueur_class_decroissant)
+    for i in serialised_joueurs:
+        liste1 = ["ID joueur n°:", int(serialised_joueurs[index]['id_joueur']), "nom,",
+                  (serialised_joueurs[index]['Nom']), "prénom ,", (serialised_joueurs[index]['Prenom']), "class:",
+                  int(serialised_joueurs[index]['Classement'])]
+        liste_joueurs.append(liste1)
+        index = index + 1
+
+        # liste_joueurs.append(((",   nom,"+ str(serialised_joueurs[index]['Nom']))+(",   prénom, "+ str(serialised_joueurs[index]['Prenom']))+(", date de naissance "+ str(serialised_joueurs[index]['date de naissance']))+(", de sexe "+ str(serialised_joueurs[index]['sexe']))+(", classé "+ str(serialised_joueurs[index]['Classement']))+"\n")
+
+    from operator import itemgetter
+    # print("LISTE CLASSEMENT JOUEUR ALPHABETIQUE PAR IDENTIFIANT" % (sorted(liste_joueurs, key=itemgetter(1), reverse=True)))
+    joueur_id_decroissant = (sorted(liste_joueurs, key=itemgetter(1), reverse=False))
+
+    print("Affichage des joueurs par ordre alphabétique de leurs identifiant :")
+    index = 0
+    for i in joueur_id_decroissant:
+        print(joueur_id_decroissant[index])
+        index = index + 1
+
 
 def lecture_joueurs_classement():
-        # Récupération des informations du fichier JSON du tournoi pour créer les rounds
-        from tinydb import TinyDB, Query, where
-        Todo = Query()
-        db_joueurs = TinyDB('joueurs.json')
+    # Récupération des informations du fichier JSON du tournoi pour créer les rounds
+    from tinydb import TinyDB, Query, where
+    Todo = Query()
+    db_joueurs = TinyDB('joueurs.json')
+
+    with open('joueurs.json') as mon_fichier:
+        dico = json.load(mon_fichier)
+
+    serialised_joueurs = db_joueurs.all()
+
+    index = 0
+    liste_joueurs = []
+    for i in serialised_joueurs:
+        # liste1 = ["ID joueur n°:",int(serialised_joueurs[index]['id_joueur']),"class:",int(serialised_joueurs[index]['Classement'])]
+        liste1 = ["ID joueur n°:", int(serialised_joueurs[index]['id_joueur']), "nom,",
+                  (serialised_joueurs[index]['Nom']), "prénom ,", (serialised_joueurs[index]['Prenom']),
+                  "class:",
+                  int(serialised_joueurs[index]['Classement'])]
+        liste_joueurs.append(liste1)
+        index = index + 1
+
+    from operator import itemgetter
+    # print("LISTE JOUEUR DANS L'ORDRE DE LEUR CLASSEMENT" % (sorted(liste_joueurs, key=itemgetter(2), reverse=True)))
+    joueur_class_decr = (sorted(liste_joueurs, key=itemgetter(7), reverse=False))
+
+    print("Affichage des joueurs dans l'ordre de leurs classements :")
+    index = 0
+    for i in joueur_class_decr:
+        print(joueur_class_decr[index])
+        index = index + 1
 
 
-        with open('joueurs.json') as mon_fichier:
-                dico = json.load(mon_fichier)
+# ***********************************************************************************************************************
+def creat_new_class_joueurs():
+    # CREATION DE L'ID DU JOUEUR ************************************
+    # Récupération des informations du fichier JSON du tournoi pour créer les rounds
+    from tinydb import TinyDB, Query, where
+    Todo = Query()
+    db_joueurs = TinyDB('joueurs.json')
 
-        serialised_joueurs = db_joueurs.all()
-        print(serialised_joueurs)
-        print("&é"''''''''"(('&é'é'²é'")
+    mode_ouv_fichier_json = "r"
+    with open('joueurs.json', mode_ouv_fichier_json) as fichier_joueur:
+        pass
+    serialised_joueurs = db_joueurs.all()
+
+    index = 0
+    liste_joueurs = []
+    for i in serialised_joueurs:
+        # récupération des champs des joueurs un par un pour les trier dans l'ordre
+        liste1 = ["ID joueur n°:", int(serialised_joueurs[index]['id_joueur']), "nom,",
+                  (serialised_joueurs[index]['Nom']), "prénom ,", (serialised_joueurs[index]['Prenom']),
+                  "class:",
+                  int(serialised_joueurs[index]['Classement'])]
+        liste_joueurs.append(liste1)
+        index = index + 1
+
+    from operator import itemgetter
+    # print("LISTE JOUEUR DANS L'ORDRE DE LEUR CLASSEMENT" % (sorted(liste_joueurs, key=itemgetter(2), reverse=True)))
+    joueur_class_decr = (sorted(liste_joueurs, key=itemgetter(7), reverse=False))
+
+    print()
+
+    # affichage un par un des joueurs dans l'ordre de leurs classment
+    print("Affichage des joueurs dans l'ordre de leurs classements :")
+    index = 0
+    for i in joueur_class_decr:
+        print(joueur_class_decr[index])
+        index = index + 1
+    index = 0
+    liste_joueurs = []
+
+    for i in serialised_joueurs:
+        # récupération des champs des joueurs un par un
+        liste1 = ["ID joueur n°:", int(serialised_joueurs[index]['id_joueur']), "nom,",
+                  (serialised_joueurs[index]['Nom']), "prénom ,", (serialised_joueurs[index]['Prenom']),
+                  "class:", int(serialised_joueurs[index]['Classement'])]
+
+        liste_joueurs.append(liste1)
+
+        saisie_new_cl = ClassVueAffichage.Input(self=True, texte1="Entrez le nouveau classement du joueur n°" + str(
+            serialised_joueurs[index]['id_joueur']))
         print()
-        index=0
-        liste_joueurs=[]
 
-        liste_liste_joueurs=[]
-        for i in serialised_joueurs:
-                #print(("ID joueur n°" + str(serialised_joueurs[index]['id_joueur']))+(",   nom,"+ str(serialised_joueurs[index]['Nom']))+(",   prénom, "+ str(serialised_joueurs[index]['Prenom']))+(", date de naissance "+ str(serialised_joueurs[index]['date de naissance']))+(", de sexe "+ str(serialised_joueurs[index]['sexe']))+(", classé "+ str(serialised_joueurs[index]['Classement'])))
-#                liste_joueurs.append(("ID joueur n°" + str(serialised_joueurs[index]['id_joueur']))+(",   nom,"+ str(serialised_joueurs[index]['Nom']))+(",   prénom, "+ str(serialised_joueurs[index]['Prenom']))+(", date de naissance "+ str(serialised_joueurs[index]['date de naissance']))+(", de sexe "+ str(serialised_joueurs[index]['sexe']))+(", classé "+ str(serialised_joueurs[index]['Classement']))+"\n")
+        # print(joueur_class_decr[index])
+        # saisie_new_cl = ClassVueAffichage.Input(self=True,texte1="Entrez le nouveau classement du joueur n°" + str(joueur_class_decr[index]))
 
-                #print(("ID joueur n°" + str(serialised_joueurs[index]['id_joueur']))+(",   nom,"+ str(serialised_joueurs[index]['Nom']))+(",   prénom, "+ str(serialised_joueurs[index]['Prenom']))+(", date de naissance "+ str(serialised_joueurs[index]['date de naissance']))+(", de sexe "+ str(serialised_joueurs[index]['sexe']))+(", classé "+ str(serialised_joueurs[index]['Classement'])))
-                liste1 = ["ID joueur n°:",int(serialised_joueurs[index]['id_joueur']),"class:",int(serialised_joueurs[index]['Classement'])]
-                #liste1.append("ID joueur n°:")
-                #liste1.append(str(serialised_joueurs[index]['id_joueur']))
-                #liste1.append("class:")
-                #liste1.append(str(serialised_joueurs[index]['Classement']))
-                liste_joueurs.append(liste1)
+        if saisie_new_cl == "E":
+            break
+            os._exit(0)
 
-                #liste_joueurs.append(("ID joueur n°" + str(serialised_joueurs[index]['id_joueur']))+(", classé "+ str(serialised_joueurs[index]['Classement'])))
-                #liste_joueurs.append(liste)
-                #liste_liste_joueurs.append(liste_joueurs)
-                #print(liste_joueurs)
-                index=index+1
-        #print("liste_joueurs")
-        #print(liste_joueurs)
+        if saisie_new_cl.isdigit():
+            new_classement = saisie_new_cl
+            db_joueurs.update({"Classement": new_classement},
+                              Todo.id_joueur == int(serialised_joueurs[index]['id_joueur']))
+        else:
+            print("pas de modification de classement pour ce joueur")
 
-        from operator import itemgetter
-        print("LISTE JOUEUR DANS L'ORDRE DE LEUR CLASSEMENT" % (sorted(liste_joueurs, key=itemgetter(2), reverse=True)))
-        joueur_class_decr = (sorted(liste_joueurs, key=itemgetter(3), reverse=False))
-
-
+        index = index + 1

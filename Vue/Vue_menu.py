@@ -2,7 +2,7 @@ import os
 
 class ClassVueMenu():
     def Action_menu(self):
-        from Controleur.Ctrl_Joueurs import lect_joueurs, sup_joueurs, purge_joueurs,creat_new_joueurs,lecture_joueurs_alpha,lecture_joueurs_classement
+        from Controleur.Ctrl_Joueurs import lect_joueurs, sup_joueurs, purge_joueurs,creat_new_joueurs,lecture_joueurs_classement,lecture_joueurs_class_id,lecture_joueurs_class_nom,creat_new_class_joueurs
         from Controleur.Ctrl_Tournoi import lect_tournois, sup_tournois, purge_tournois,charge_joueurs_tournoi,creat_new_tournois,lecture_match_tournoi,lecture_round_tournoi,lecture_joueur_tournoi,lecturetournoi
         from Controleur.Ctrl_Round import creat_round_1,creat_round_2,creat_round
         from Controleur.Ctrl_Match import creat_match
@@ -30,6 +30,9 @@ class ClassVueMenu():
 
             if (menu_niv_0 == "J" and menu_niv_1 == "purge"):
                 purge_joueurs()
+
+            if (menu_niv_0 == "J" and menu_niv_1 == "class"):
+                creat_new_class_joueurs()
 
             if (menu_niv_0 == "T" and menu_niv_1 == "w" and saisie_clavier == "w"):
                 creat_new_tournois()
@@ -61,11 +64,14 @@ class ClassVueMenu():
             if (menu_niv_0 == "M" and menu_niv_1 == "w"):
                 creat_match()
 
-            if (menu_niv_0 == "JA"):
-                lecture_joueurs_alpha()
+            if (menu_niv_0 == "JCN"):
+                lecture_joueurs_class_nom()
 
-            if (menu_niv_0 == "JC"):
+            if (menu_niv_0 == "JCC"):
                 lecture_joueurs_classement()
+
+            if (menu_niv_0 == "JCI"):
+                lecture_joueurs_class_id()
 
             if (menu_niv_0 == "TJ"):
                 lecture_joueur_tournoi()
@@ -152,7 +158,7 @@ class ClassMainMenu():
                 if (clavier == "J"):
                     menu_niv0 = clavier;menu_niv1 = "";menu_niv2 = ""
                     print("JOUEURS : ")
-                    print (" Vous avez entré : " + clavier + " JOUEURS TOURNOIS EN COURS: r pour lecture, w pour création de joueurs, c pour charger")
+                    print ("Vous avez entré " + clavier + " pour JOUEURS: r pour lecture, w pour création de joueurs, c pour charger dans un tournoi, class pour modifier le classement")
 
                 #création de la liste des joueurs
                 if (menu_niv0 == "J" and clavier == "w"):
@@ -177,6 +183,15 @@ class ClassMainMenu():
 
                 if (menu_niv0 == "J" and menu_niv1 == "sup" and clavier!="sup"):
                     menu_niv2 = clavier
+
+                # Modification du classment des joueurs
+                if (menu_niv0 == "J" and clavier == "class"):
+                    menu_niv1 = clavier
+                    print("vous voulez modifier le classment de joueur, dans la liste des joueurs, en 1er lieu, visualisation du classement")
+
+                #if (menu_niv0 == "J" and menu_niv1 == "class" and clavier != ""):
+                #    menu_niv2 = clavier
+
 
                 #************************************** MENU ROUND **************************
                 if (clavier == "R"):
@@ -220,11 +235,15 @@ class ClassMainMenu():
                     print (" Vous avez entré :"+ clavier + " REQUETE CLASSEMENT : r pour lecture, w pour écriture du classement des joueurs en dehors du tournoi ")
                 '''
 
-                if (clavier == "JA"):
+                if (clavier == "JCN"):
                     menu_niv0 = clavier
                     print(" Vous avez entré :" + clavier + " REQUETE AFFICHAGE DE TOUS LES ACTEURS PAR ORDRE ALPHABETIQUE")
 
-                if (clavier == "JC"):
+                if (clavier == "JCC"):
+                    menu_niv0 = clavier
+                    print(" Vous avez entré :" + clavier + " REQUETE  AFFICHAGE DE TOUS LES ACTEURS PAR ORDRE DE CLASSEMENT")
+
+                if (clavier == "JCI"):
                     menu_niv0 = clavier
                     print(" Vous avez entré :" + clavier + " REQUETE  AFFICHAGE DE TOUS LES ACTEURS PAR ORDRE DE CLASSEMENT")
 
@@ -243,6 +262,7 @@ class ClassMainMenu():
                 if (clavier == "TT"):
                     menu_niv0 = clavier
                     print(" Vous avez entré :" + clavier + " REQUETE AFFICHAGE DE LA LISTE DES TOURNOIS")
+
                 '''
                 if (clavier == "R6"):
                     menu_niv0 = clavier

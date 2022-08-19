@@ -552,9 +552,6 @@ def creat_round_2(tournoi_select):
         list_jy.append(joueur_7)
         list_jy.append(joueur_8)
 
-        print("list_jy yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy")
-        print(list_jy)
-
         #faire une boucle sur tous les rounds joués
         #donc enlever 1 au tournoi en cours temp
         #Rechercher les scores de chaque joueur dont l'emplacment est différent selon le round
@@ -566,7 +563,7 @@ def creat_round_2(tournoi_select):
 
         print(joueur_class_score_croissant[0])
 
-        print("debut test recherche joueurs déjà affrontésxxxxxxxxxxxxxxxxxxxxx ROUND 2 ET PLUS xxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+        # Recherche joueurs déjà affrontés ROUND 2 ET PLUS
         list_j_opp=[[joueur_class_score_croissant[0][0]],[joueur_class_score_croissant[1][0]],[joueur_class_score_croissant[2][0]],[joueur_class_score_croissant[3][0]],[joueur_class_score_croissant[4][0]],[joueur_class_score_croissant[5][0]],[joueur_class_score_croissant[6][0]],[joueur_class_score_croissant[7][0]]]
 
         print("list_j_opp - joueurs triés en fonction de leur score en priorité et de leur classement")
@@ -784,7 +781,6 @@ def creat_round_2(tournoi_select):
         print("numéro de tournoi")
         print(int_tournoi_select)
 
-        #FAIRE UNE METHODE DANS MODELE ET L'APPELER ICI POUR RESPECT MVC
         #La sélection du round 1 est sauvegardée dans la base de données du tournoi, il faudra écraser l'instance avec le résultat en plus des matchs
         #Si round_1+match n'existe pas dans la nase de donnée, il est créé
 
