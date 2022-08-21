@@ -502,7 +502,7 @@ def creat_round_2(tournoi_select):
 
                 #Pour les 8 joueurs,
                 while index<8:
-                        joueur_score_class_id_new[index][0]= joueur_score_class_id_temp[index][0]
+                        #joueur_score_class_id_new[index][0]= joueur_score_class_id_temp[index][0]
                         joueur_score_class_id_new[index].insert(0,joueur_score_class_id_temp[index][0])
                         id_en_cours = joueur_score_class_id_temp[index][0]
 
