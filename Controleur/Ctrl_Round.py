@@ -494,16 +494,13 @@ def creat_round_2(tournoi_select):
                 # pour que les résultats qu'on additionne soit cohérent
                 joueur_score_class_id_temp = (sorted(score_matchRx_temp, key=itemgetter(0), reverse=True))
                 joueur_score_class_id.append(joueur_score_class_id_temp)
-                #print("mise en ordre alphabetique par id du score")
-                #print(joueur_score_class_id_temp)
-
                 index=0
                 score_matchRx_temp_new=[]
 
                 #Pour les 8 joueurs,
                 while index<8:
-                        #joueur_score_class_id_new[index][0]= joueur_score_class_id_temp[index][0]
-                        joueur_score_class_id_new[index].insert(0,joueur_score_class_id_temp[index][0])
+                        joueur_score_class_id_new[index][0]= joueur_score_class_id_temp[index][0]
+
                         id_en_cours = joueur_score_class_id_temp[index][0]
 
                         score_en_cours =float(joueur_score_class_id_temp[index][1])
