@@ -503,27 +503,21 @@ def creat_round_2(tournoi_select):
                 #Pour les 8 joueurs,
                 while index<8:
                         joueur_score_class_id_new[index][0]= joueur_score_class_id_temp[index][0]
-
+                        joueur_score_class_id_new[index].insert(0,joueur_score_class_id_temp[index][0])
                         id_en_cours = joueur_score_class_id_temp[index][0]
 
                         score_en_cours =float(joueur_score_class_id_temp[index][1])
 
                         score_enreg= float(joueur_score_class_id_new[index][1])
 
-                        #print(score_enreg)
                         score_total=score_en_cours + score_enreg
-                        #joueur_score_class_id_new[index][1] = score_en_cours + score_enreg
-                        #joueur_score_class_id_new[index][1] = score_total
                         joueur_score_class_id_new[index].insert(1,str(score_total))
                         index=index+1
 
                 Tournoi_round_en_cours_temp = Tournoi_round_en_cours_temp - 1
 
-        #print("Affichage joueur par classement d'id")
-        list_jx_class_id = (sorted(list_jx, key=itemgetter(0), reverse=True))
-        #print(joueur_score_class_id)
-        #print(list_jx_class_id)
 
+        list_jx_class_id = (sorted(list_jx, key=itemgetter(0), reverse=True))
         index_0=0
         index_1=1
         index_2=2
