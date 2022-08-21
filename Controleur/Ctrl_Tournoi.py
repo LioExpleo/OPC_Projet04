@@ -407,8 +407,6 @@ def lecture_match_tournoi():
 
         # charger le tournoi selectionné à partir de la base de données dans tournoi
         tournoi = (db_tournois.search(where('id_tournoi') == int_tournoi_select))
-        #print(tournoi)
-        #print()
 
         try:
                 score_round1 = (tournoi[0]['ScoreMatchRound1'])
