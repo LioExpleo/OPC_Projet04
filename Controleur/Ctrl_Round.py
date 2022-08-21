@@ -511,7 +511,10 @@ def creat_round_2(tournoi_select):
                         score_enreg= float(joueur_score_class_id_new[index][1])
 
                         #print(score_enreg)
+                        score_total=score_en_cours + score_enreg
                         #joueur_score_class_id_new[index][1] = score_en_cours + score_enreg
+                        #joueur_score_class_id_new[index][1] = score_total
+                        joueur_score_class_id_new[index].insert(1,str(score_total))
                         index=index+1
 
                 Tournoi_round_en_cours_temp = Tournoi_round_en_cours_temp - 1
@@ -530,10 +533,6 @@ def creat_round_2(tournoi_select):
                 index_0=index_0 + 1
                 index_1=index_1+2
                 index_2 = index_2 + 3
-        #print(list_jx_class_id)
-
-
-        #print(list_jx)
         import time
 
 
